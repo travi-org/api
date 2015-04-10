@@ -1,0 +1,16 @@
+{
+  "name": "travi-api",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cucumber": "^0.3.0",
+    "load-grunt-config": "^0.16.0"
+  },
+  "dependencies": {
+    "hapi": "^8.4.0"
+  }
+}
