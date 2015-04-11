@@ -5,3 +5,10 @@ app:
     unparam: true
   options:
     errorsOnly: true
+
+test:
+  src: test/**/*.js
+  directives:
+    node: true
+  options:
+    errorsOnly: true
