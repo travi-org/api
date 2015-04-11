@@ -1,3 +1,7 @@
+lint: jslint
+
 test: cucumberjs
 
-default: test
+default:
+  - lint
+  - test

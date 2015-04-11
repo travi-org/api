@@ -1,3 +1,5 @@
+'use strict';
+
 var hapi = require("hapi");
 
 var api = new hapi.Server();

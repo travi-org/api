@@ -1,0 +1,7 @@
+app:
+  src: index.js
+  directives:
+    node: true
+    unparam: true
+  options:
+    errorsOnly: true
