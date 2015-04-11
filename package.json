@@ -7,9 +7,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "start": "node index.js"
   },
   "devDependencies": {
+    "formatio": "^1.1.2",
     "grunt": "^0.4.5",
     "grunt-cucumber": "^0.3.0",
     "grunt-jslint": "^1.1.14",

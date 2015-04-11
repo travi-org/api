@@ -13,4 +13,10 @@ api.route({
     }
 });
 
+if (!module.parent) {
+    api.start(function() {
+        api.log("Server started", api.info.uri);
+    });
+}
+
 module.exports = api;
