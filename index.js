@@ -1,6 +1,6 @@
 'use strict';
 
-var hapi = require("hapi");
+var hapi = require('hapi');
 
 var api = new hapi.Server();
 api.connection({ port: 3000 });
@@ -15,7 +15,7 @@ api.route({
 
 if (!module.parent) {
     api.start(function () {
-        api.log("Server started", api.info.uri);
+        api.log('Server started', api.info.uri);
     });
 }
 

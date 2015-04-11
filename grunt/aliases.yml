@@ -1,4 +1,6 @@
-lint: jslint
+lint:
+  - jscs
+  - jslint
 
 test: cucumberjs
 
