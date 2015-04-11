@@ -1,6 +1,7 @@
 'use strict';
 
-var api = require(process.cwd() + '/index.js');
+var api = require(process.cwd() + '/index.js'),
+    assert = require('referee').assert;
 
 module.exports = function () {
     var apiResponse;
@@ -23,10 +24,7 @@ module.exports = function () {
     });
 
     this.Then(/^the list of links should be empty$/, function (callback) {
-        if (200 === apiResponse.statusCode) {
-            callback();
-        } else {
-            callback.fail();
-        }
+        assert.equals(200, apiResponse.statusCode);
+        callback();
     });
 };
