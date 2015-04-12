@@ -14,7 +14,8 @@ api.route({
 });
 
 if (!module.parent) {
-    api.start(function () {
+    api.start(function (err) {
+        if (err) return console.log(err);
         api.log('Server started', api.info.uri);
     });
 }
