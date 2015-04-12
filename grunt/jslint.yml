@@ -10,5 +10,6 @@ test:
   src: test/**/*.js
   directives:
     node: true
+    regexp: true
   options:
     errorsOnly: true

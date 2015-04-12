@@ -13,6 +13,14 @@ api.route({
     }
 });
 
+api.route({
+    method: 'GET',
+    path: '/hello',
+    handler: function (request, response) {
+        response('Hello World');
+    }
+});
+
 if (!module.parent) {
     api.start(function (err) {
         if (err) {
