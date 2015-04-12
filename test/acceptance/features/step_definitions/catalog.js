@@ -13,7 +13,7 @@ module.exports = function () {
     this.When(/^the catalog is requested$/, function (callback) {
         var options = {
             method: 'GET',
-            url: '/api/'
+            url: '/'
         };
 
         api.inject(options, function (response) {
@@ -28,7 +28,7 @@ module.exports = function () {
         assert.equals(
             JSON.parse(apiResponse.payload)._links,
             {
-                self: { href: '/api/' },
+                self: { href: '/' },
                 hello: { href: '/hello' }
             }
         );

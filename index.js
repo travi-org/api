@@ -5,7 +5,12 @@ var hapi = require('hapi'),
 
 var api = new hapi.Server();
 api.connection({ port: 3000 });
-api.register(halacious, function (err) {
+api.register({
+    register: halacious,
+    options: {
+        apiPath: ''
+    }
+}, function (err) {
     if (err) {
         console.log(err);
     }
