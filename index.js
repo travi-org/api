@@ -5,6 +5,7 @@ var hapi = require('hapi'),
 
 var api = new hapi.Server();
 api.connection({ port: 3000 });
+
 api.register({
     register: halacious,
     options: {
@@ -13,6 +14,16 @@ api.register({
 }, function (err) {
     if (err) {
         console.log(err);
+    }
+});
+
+api.register({
+    register: require('hapi-swagger')
+}, function (err) {
+    if (err) {
+        api.log(['error'], 'hapi-swagger load error: ' + err);
+    } else {
+        api.log(['start'], 'hapi-swagger interface loaded');
     }
 });
 

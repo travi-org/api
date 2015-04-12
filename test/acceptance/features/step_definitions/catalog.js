@@ -11,12 +11,10 @@ module.exports = function () {
     });
 
     this.When(/^the catalog is requested$/, function (callback) {
-        var options = {
+        api.inject({
             method: 'GET',
             url: '/'
-        };
-
-        api.inject(options, function (response) {
+        }, function (response) {
             apiResponse = response;
 
             callback();

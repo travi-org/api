@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "halacious": "^3.1.1",
-    "hapi": "^8.4.0"
+    "hapi": "^8.4.0",
+    "hapi-swagger": "^0.7.3"
   }
 }
