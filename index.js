@@ -15,7 +15,10 @@ api.route({
 
 if (!module.parent) {
     api.start(function (err) {
-        if (err) return console.log(err);
+        if (err) {
+            return console.error(err);
+        }
+
         api.log('Server started', api.info.uri);
     });
 }
