@@ -1,8 +1,7 @@
 'use strict';
 
 var api = require(process.cwd() + '/index.js'),
-    assert = require('referee').assert,
-    formatio = require('formatio');
+    assert = require('referee').assert;
 
 module.exports = function () {
     var apiResponse;
@@ -18,7 +17,8 @@ module.exports = function () {
     });
 
     this.Then(/^"([^"]*)" is returned as the response$/, function (message, callback) {
-        assert.equals(message, apiResponse.payload);
+        assert.equals(JSON.parse(apiResponse.payload).message, message);
+
         callback();
     });
 };

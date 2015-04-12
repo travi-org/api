@@ -1,8 +1,7 @@
 'use strict';
 
 var api = require(process.cwd() + '/index.js'),
-    assert = require('referee').assert,
-    formatio = require('formatio');
+    assert = require('referee').assert;
 
 module.exports = function () {
     var apiResponse;
@@ -14,7 +13,7 @@ module.exports = function () {
     this.When(/^the catalog is requested$/, function (callback) {
         var options = {
             method: 'GET',
-            url: '/'
+            url: '/api/'
         };
 
         api.inject(options, function (response) {
@@ -24,9 +23,16 @@ module.exports = function () {
         });
     });
 
-    this.Then(/^the list of links should be empty$/, function (callback) {
+    this.Then(/^the catalog should include top level links$/, function (callback) {
         assert.equals(200, apiResponse.statusCode);
-        console.log(formatio.ascii(apiResponse.headers));
+        assert.equals(
+            JSON.parse(apiResponse.payload)._links,
+            {
+                self: { href: '/api/' },
+                hello: { href: '/hello' }
+            }
+        );
+
         callback();
     });
 };

@@ -11,5 +11,6 @@ test:
   directives:
     node: true
     regexp: true
+    nomen: true
   options:
     errorsOnly: true
