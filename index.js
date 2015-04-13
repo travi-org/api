@@ -9,7 +9,8 @@ api.connection({ port: 3000 });
 api.register({
     register: halacious,
     options: {
-        apiPath: ''
+        apiPath: '',
+        absolute: true
     }
 }, function (err) {
     if (err) {

@@ -4,7 +4,8 @@ var api = require(process.cwd() + '/index.js'),
     assert = require('referee').assert;
 
 module.exports = function () {
-    var apiResponse;
+    var apiResponse,
+        baseUrl = 'http://' + api.info.host;
 
     this.Given(/^the api contains no resources$/, function (callback) {
         callback();
@@ -26,7 +27,7 @@ module.exports = function () {
         assert.equals(
             JSON.parse(apiResponse.payload)._links,
             {
-                self: { href: '/' },
+                self: { href: baseUrl + '/' },
                 hello: { href: '/hello' }
             }
         );
