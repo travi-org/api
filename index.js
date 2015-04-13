@@ -34,6 +34,7 @@ api.route({
         handler: function (request, response) {
             response({message: 'Hello World'});
         },
+        tags: ['api'],
         plugins: {
             hal: {
                 api: 'hello'
