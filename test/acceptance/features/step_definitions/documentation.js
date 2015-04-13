@@ -38,9 +38,10 @@ module.exports = function () {
     });
 
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {
-        var collection = JSON.parse(apiResponse.payload).apis;
-        console.log(require('formatio').ascii(collection));
-        assert.containsMatch(collection, { path: 'hello' });
+        assert.containsMatch(
+            JSON.parse(apiResponse.payload).apis,
+            { path: 'hello' }
+        );
 
         callback();
     });
