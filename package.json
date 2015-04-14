@@ -16,12 +16,12 @@
     "grunt-cucumber": "^0.3.0",
     "grunt-jscs": "^1.6.0",
     "grunt-jslint": "^1.1.14",
-    "load-grunt-config": "^0.16.0",
+    "load-grunt-config": "^0.17.0",
     "referee": "^1.1.1",
     "referee-more-assertions": "^0.2.0"
   },
   "dependencies": {
-    "halacious": "^3.1.1",
+    "halacious": "^3.1.2",
     "hapi": "^8.4.0",
     "hapi-swagger": "^0.7.3"
   }

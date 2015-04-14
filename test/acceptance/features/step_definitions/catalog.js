@@ -1,11 +1,13 @@
 'use strict';
 
 var api = require(process.cwd() + '/index.js'),
-    assert = require('referee').assert;
+    referee = require('referee'),
+    assert = referee.assert;
+referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 
 module.exports = function () {
     var apiResponse,
-        baseUrl = 'http://' + api.info.host;
+        baseUrl = 'http://' + api.info.host + ':' + api.info.port;
 
     this.Given(/^the api contains no resources$/, function (callback) {
         callback();
@@ -28,7 +30,7 @@ module.exports = function () {
             JSON.parse(apiResponse.payload)._links,
             {
                 self: { href: baseUrl + '/' },
-                hello: { href: '/hello' }
+                hello: { href: baseUrl + '/hello' }
             }
         );
 
