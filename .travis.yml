@@ -1,15 +1,23 @@
-
 language: node_js
-
 node_js:
-  - "0.10"
-  - "0.12"
-  - "iojs"
+- '0.10'
+- '0.12'
+- iojs
 
 before_install:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 
 install:
-  - npm install
+- npm install
 
 sudo: false
+
+deploy:
+  provider: openshift
+  user: openshift@travi.org
+  password:
+    secure: RMGr2d0CnoWDv1stpKPv0gLWY+ZIWQmm+Dco4o8Q6+97MiIqkClVPPRSOFlQQz3To1lqiX2OWaK6O3XQlqthm4xzU1hmhzjgu247yjU9pV+q1kndaaDq7GT6YnSl7uIvWqYj1WpIOF2asst+1EWSDybOMrdU9c4YFc/rKxAmBi4=
+  app: api
+  domain: travi
+  on:
+    repo: travi/travi-api
