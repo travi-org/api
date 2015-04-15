@@ -1,10 +1,16 @@
 'use strict';
 
 var hapi = require('hapi'),
-    halacious = require('halacious');
+    halacious = require('halacious'),
 
-var api = new hapi.Server();
-api.connection({ port: 3000 });
+    api = new hapi.Server(),
+    port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
+    address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+
+api.connection({
+    port: port,
+    address: address
+});
 
 api.register({
     register: halacious,
