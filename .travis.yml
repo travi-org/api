@@ -21,3 +21,4 @@ deploy:
   domain: travi
   on:
     repo: travi/travi-api
+    node: 0.10
