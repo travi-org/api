@@ -16,7 +16,8 @@ api.register({
     register: halacious,
     options: {
         apiPath: '',
-        absolute: true
+        absolute: true,
+        strict: true
     }
 }, function (err) {
     if (err) {
