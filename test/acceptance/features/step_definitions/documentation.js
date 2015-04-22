@@ -42,6 +42,10 @@ module.exports = function () {
             JSON.parse(apiResponse.payload).apis,
             { path: 'hello' }
         );
+        assert.containsMatch(
+            JSON.parse(apiResponse.payload).apis,
+            { path: 'rides' }
+        );
 
         callback();
     });

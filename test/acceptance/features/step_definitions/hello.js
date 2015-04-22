@@ -4,20 +4,22 @@ var api = require(process.cwd() + '/index.js'),
     assert = require('referee').assert;
 
 module.exports = function () {
-    var apiResponse;
+    this.World = require('../support/world.js').World;
 
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
+        var world = this;
+
         api.inject({
             method: 'GET',
             url: path
         }, function (response) {
-            apiResponse = response;
+            world.apiResponse = response;
             callback();
         });
     });
 
     this.Then(/^"([^"]*)" is returned as the response$/, function (message, callback) {
-        assert.equals(JSON.parse(apiResponse.payload).message, message);
+        assert.equals(JSON.parse(this.apiResponse.payload).message, message);
 
         callback();
     });

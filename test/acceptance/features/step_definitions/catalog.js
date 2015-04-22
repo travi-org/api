@@ -6,31 +6,35 @@ var api = require(process.cwd() + '/index.js'),
 referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 
 module.exports = function () {
-    var apiResponse,
-        baseUrl = 'http://' + api.info.host + ':' + api.info.port;
+    this.World = require('../support/world.js').World;
+
+    var baseUrl = 'http://' + api.info.host + ':' + api.info.port;
 
     this.Given(/^the api contains no resources$/, function (callback) {
         callback();
     });
 
     this.When(/^the catalog is requested$/, function (callback) {
+        var world = this;
+
         api.inject({
             method: 'GET',
             url: '/'
         }, function (response) {
-            apiResponse = response;
+            world.apiResponse = response;
 
             callback();
         });
     });
 
     this.Then(/^the catalog should include top level links$/, function (callback) {
-        assert.equals(200, apiResponse.statusCode);
+        assert.equals(this.apiResponse.statusCode, 200);
         assert.equals(
-            JSON.parse(apiResponse.payload)._links,
+            JSON.parse(this.apiResponse.payload)._links,
             {
                 self: { href: baseUrl + '/' },
-                hello: { href: baseUrl + '/hello' }
+                hello: { href: baseUrl + '/hello' },
+                rides: { href: baseUrl + '/rides' }
             }
         );
 

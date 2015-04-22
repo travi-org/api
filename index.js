@@ -51,6 +51,22 @@ api.route({
     }
 });
 
+api.route({
+    method: 'GET',
+    path: '/rides',
+    config: {
+        handler: function (request, response) {
+            response({ rides: [] });
+        },
+        tags: ['api'],
+        plugins: {
+            hal: {
+                api: 'rides'
+            }
+        }
+    }
+});
+
 if (!module.parent) {
     api.start(function (err) {
         if (err) {
