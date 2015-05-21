@@ -1,11 +1,13 @@
 {
   "name": "travi-api",
+  "main": "index.js",
   "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/travi/travi-api"
   },
-  "main": "index.js",
   "scripts": {
     "test": "grunt",
     "start": "node index.js"
