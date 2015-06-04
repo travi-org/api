@@ -2,7 +2,9 @@ lint:
   - jscs
   - jslint
 
-test: cucumberjs
+integration: cucumberjs
+
+test: integration
 
 default:
   - lint
