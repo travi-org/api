@@ -20,7 +20,10 @@
     "grunt-jslint": "^1.1.14",
     "load-grunt-config": "^0.17.0",
     "referee": "^1.1.1",
-    "referee-more-assertions": "^0.2.0"
+    "referee-more-assertions": "^0.2.0",
+    "referee-sinon": "^1.0.2",
+    "setup-referee-sinon": "^0.2.0",
+    "sinon": "^1.14.1"
   },
   "dependencies": {
     "halacious": "^3.1.2",

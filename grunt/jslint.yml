@@ -12,5 +12,8 @@ test:
     node: true
     regexp: true
     nomen: true
+    predef:
+      - sinon
+      - assert
   options:
     errorsOnly: true

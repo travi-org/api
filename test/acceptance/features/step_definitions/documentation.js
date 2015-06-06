@@ -1,6 +1,6 @@
 'use strict';
 
-var api = require(process.cwd() + '/index.js'),
+var api = require('../../../../index.js'),
     referee = require('referee'),
     assert = referee.assert;
 require('referee-more-assertions')(referee);
@@ -38,10 +38,6 @@ module.exports = function () {
     });
 
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {
-        assert.containsMatch(
-            JSON.parse(apiResponse.payload).apis,
-            { path: 'hello' }
-        );
         assert.containsMatch(
             JSON.parse(apiResponse.payload).apis,
             { path: 'rides' }

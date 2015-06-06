@@ -2,6 +2,7 @@
 
 var hapi = require('hapi'),
     halacious = require('halacious'),
+    fs = require('fs'),
 
     api = new hapi.Server(),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
@@ -37,26 +38,14 @@ api.register({
 
 api.route({
     method: 'GET',
-    path: '/hello',
-    config: {
-        handler: function (request, response) {
-            response({message: 'Hello World'});
-        },
-        tags: ['api'],
-        plugins: {
-            hal: {
-                api: 'hello'
-            }
-        }
-    }
-});
-
-api.route({
-    method: 'GET',
     path: '/rides',
     config: {
         handler: function (request, response) {
-            response({ rides: [] });
+            fs.readFile('data/rides.json', 'utf8', function (err, content) {
+                response({
+                    rides: JSON.parse(content)
+                });
+            });
         },
         tags: ['api'],
         plugins: {

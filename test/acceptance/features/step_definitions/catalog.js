@@ -1,6 +1,6 @@
 'use strict';
 
-var api = require(process.cwd() + '/index.js'),
+var api = require('../../../../index.js'),
     referee = require('referee'),
     assert = referee.assert;
 referee.format = require('formatio').configure({quoteStrings: false}).ascii;
@@ -33,7 +33,6 @@ module.exports = function () {
             JSON.parse(this.apiResponse.payload)._links,
             {
                 self: { href: baseUrl + '/' },
-                hello: { href: baseUrl + '/hello' },
                 rides: { href: baseUrl + '/rides' }
             }
         );
