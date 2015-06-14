@@ -46,8 +46,8 @@ module.exports = function () {
         callback();
     });
 
-    this.Given(/^the real list of "([^"]*)" is not empty$/, function (arg1, callback) {
-        callback();
+    this.Given(/^the real list of "([^"]*)" is not empty$/, function (resourceType, callback) {
+        callback(resourceType);
     });
 
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {

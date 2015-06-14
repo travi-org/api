@@ -15,5 +15,6 @@ test:
     predef:
       - sinon
       - assert
+      - refute
   options:
     errorsOnly: true
