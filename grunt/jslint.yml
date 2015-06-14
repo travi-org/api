@@ -3,6 +3,7 @@ app:
   directives:
     node: true
     unparam: true
+    nomen: true
   options:
     errorsOnly: true
 
