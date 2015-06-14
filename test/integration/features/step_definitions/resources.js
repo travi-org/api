@@ -1,7 +1,8 @@
 'use strict';
 
 var api = require('../../../../index.js'),
-    fs = require('fs');
+    fs = require('fs'),
+    _ = require('lodash');
 require('setup-referee-sinon/globals');
 
 module.exports = function () {
@@ -41,6 +42,14 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^request is anonymous$/, function (callback) {
+        callback();
+    });
+
+    this.Given(/^the real list of "([^"]*)" is not empty$/, function (arg1, callback) {
+        callback();
+    });
+
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
         var world = this;
 
@@ -69,6 +78,22 @@ module.exports = function () {
             JSON.parse(this.apiResponse.payload).rides,
             []
         );
+
+        callback();
+    });
+
+    this.Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
+        _.each(JSON.parse(this.apiResponse.payload)[resourceType], function (type) {
+            refute.defined(type[property]);
+        });
+
+        callback();
+    });
+
+    this.Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
+        _.each(JSON.parse(this.apiResponse.payload)[resourceType], function (type) {
+            assert.defined(type[property]);
+        });
 
         callback();
     });

@@ -33,7 +33,8 @@ module.exports = function () {
             JSON.parse(this.apiResponse.payload)._links,
             {
                 self: { href: baseUrl + '/' },
-                rides: { href: baseUrl + '/rides' }
+                rides: { href: baseUrl + '/rides' },
+                users: { href: baseUrl + '/users' }
             }
         );
 
