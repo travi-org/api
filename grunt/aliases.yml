@@ -2,7 +2,8 @@ lint:
   - jscs
   - jslint
 
-integration: cucumberjs
+integration: cucumberjs:integration
+wip: cucumberjs:wip
 
 test: integration
 
