@@ -26,6 +26,7 @@
     "sinon": "^1.14.1"
   },
   "dependencies": {
+    "MD5": "^1.2.2",
     "halacious": "^3.1.2",
     "hapi": "^8.4.0",
     "hapi-swagger": "^0.7.3",

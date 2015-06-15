@@ -4,6 +4,7 @@ var hapi = require('hapi'),
     halacious = require('halacious'),
     fs = require('fs'),
     _ = require('lodash'),
+    md5 = require('MD5'),
 
     api = new hapi.Server(),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
@@ -60,6 +61,8 @@ api.route({
         handler: function (request, response) {
             fs.readFile('./data/users.json', 'utf8', function (err, content) {
                 response({ users: _.map(JSON.parse(content), function (user) {
+                    user.avatar = 'https://www.gravatar.com/avatar/' + md5(user.email);
+
                     return _.omit(user, 'email');
                 })});
             });
