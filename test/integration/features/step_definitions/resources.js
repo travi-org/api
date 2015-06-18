@@ -14,7 +14,12 @@ module.exports = function () {
         resourceLists[resourceType] = resourceList;
 
         sinon.stub(fs, 'readFile')
-            .withArgs('data/' + resourceType + '.json', 'utf8')
+            .withArgs(sinon.match(
+                function (value) {
+                    return value.indexOf('data/' + resourceType + '.json') > -1;
+                },
+                'utf8'
+            ))
             .callsArgWithAsync(2, null, JSON.stringify(resourceList));
     }
 

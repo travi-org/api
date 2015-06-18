@@ -4,6 +4,7 @@ var hapi = require('hapi'),
     halacious = require('halacious'),
     fs = require('fs'),
     _ = require('lodash'),
+    path = require('path'),
     md5 = require('MD5'),
 
     api = new hapi.Server(),
@@ -43,7 +44,7 @@ api.route({
     path: '/rides',
     config: {
         handler: function (request, response) {
-            fs.readFile('data/rides.json', 'utf8', function (err, content) {
+            fs.readFile(path.join(__dirname, 'data/rides.json'), 'utf8', function (err, content) {
                 response({ rides: JSON.parse(content)});
             });
         },
@@ -59,7 +60,7 @@ api.route({
     path: '/users',
     config: {
         handler: function (request, response) {
-            fs.readFile('./data/users.json', 'utf8', function (err, content) {
+            fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
                 response({ users: _.map(JSON.parse(content), function (user) {
                     user.avatar = 'https://www.gravatar.com/avatar/' + md5(user.email);
 
