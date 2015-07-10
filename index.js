@@ -13,7 +13,8 @@ var hapi = require('hapi'),
 
 api.connection({
     port: port,
-    address: address
+    address: address,
+    labels: ['api']
 });
 
 api.register({
@@ -30,7 +31,13 @@ api.register({
 });
 
 api.register({
-    register: require('hapi-swagger')
+    register: require('hapi-swaggered'),
+    options: {
+        info: {
+            title: 'Travi API',
+            version: '1.0'
+        }
+    }
 }, function (err) {
     if (err) {
         api.log(['error'], 'hapi-swagger load error: ' + err);
@@ -38,6 +45,21 @@ api.register({
         api.log(['start'], 'hapi-swagger interface loaded');
     }
 });
+
+api.register(
+    { register: require('hapi-swaggered-ui') },
+    {
+        select: 'api',
+        routes: {
+            prefix: '/documentation'
+        }
+    },
+    function (err) {
+        if (err) {
+            throw err;
+        }
+    }
+);
 
 api.route({
     method: 'GET',

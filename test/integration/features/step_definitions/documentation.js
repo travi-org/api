@@ -29,7 +29,7 @@ module.exports = function () {
     this.When(/^the docs are requested$/, function (callback) {
         api.inject({
             method: 'GET',
-            url: '/docs'
+            url: '/swagger'
         }, function (response) {
             apiResponse = response;
 
@@ -38,10 +38,9 @@ module.exports = function () {
     });
 
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {
-        assert.containsMatch(
-            JSON.parse(apiResponse.payload).apis,
-            { path: 'rides' }
-        );
+        var paths = JSON.parse(apiResponse.payload).paths;
+        assert.defined(paths['/rides']);
+        assert.defined(paths['/users']);
 
         callback();
     });
