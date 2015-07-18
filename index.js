@@ -6,6 +6,7 @@ var hapi = require('hapi'),
     _ = require('lodash'),
     path = require('path'),
     md5 = require('MD5'),
+    Joi = require('joi'),
 
     api = new hapi.Server(),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
@@ -93,6 +94,24 @@ api.route({
         tags: ['api'],
         plugins: {
             hal: { api: 'users'}
+        }
+    }
+});
+
+api.route({
+    method: 'GET',
+    path: '/users/{id}',
+    config: {
+        handler: function (request, response) {
+            fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
+                response(_.find(JSON.parse(content), _.matchesProperty('id', request.params.id)));
+            });
+        },
+        tags: ['api'],
+        validate: {
+            params: {
+                id: Joi.string().required()
+            }
         }
     }
 });

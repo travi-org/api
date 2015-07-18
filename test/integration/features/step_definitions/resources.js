@@ -2,6 +2,7 @@
 
 var api = require('../../../../index.js'),
     fs = require('fs'),
+    path = require('path'),
     _ = require('lodash');
 require('setup-referee-sinon/globals');
 
@@ -51,8 +52,29 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^request is authenticated$/, function (callback) {
+        callback();
+    });
+
     this.Given(/^the real list is not empty$/, function (callback) {
         callback();
+    });
+
+    this.Given(/^user "([^"]*)" exists$/, function (user, callback) {
+        callback();
+    });
+
+    this.When(/^user "([^"]*)" is requested by id$/, function (user, callback) {
+        var world = this;
+        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', function (err, content) {
+            api.inject({
+                method: 'GET',
+                url: '/users/' + _.result(_.find(JSON.parse(content), _.matchesProperty('first-name', user)), 'id')
+            }, function (response) {
+                world.apiResponse = response;
+                callback();
+            });
+        });
     });
 
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
@@ -99,6 +121,12 @@ module.exports = function () {
         _.each(JSON.parse(this.apiResponse.payload)[resourceType], function (type) {
             assert.defined(type[property]);
         });
+
+        callback();
+    });
+
+    this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
+        assert.equals(JSON.parse(this.apiResponse.payload)['first-name'], user);
 
         callback();
     });

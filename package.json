@@ -31,6 +31,7 @@
     "hapi": "^8.8.0",
     "hapi-swaggered": "^2.2.1",
     "hapi-swaggered-ui": "^1.6.0",
+    "joi": "^6.5.0",
     "lodash": "^3.10.0",
     "path": "^0.11.14"
   }
