@@ -12,6 +12,8 @@ install:
 
 sudo: false
 
+after_script: grunt mochacov:coverage
+
 deploy:
   provider: openshift
   user: openshift@travi.org
