@@ -39,7 +39,7 @@ module.exports = function () {
     function assertPropertyIn(property, response, resourceType, check) {
         if (_.isArray(response[resourceType])) {
             _.each(response[resourceType], function (item) {
-                check(item, property)
+                check(item, property);
             });
         } else {
             check(response, property);

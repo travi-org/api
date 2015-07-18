@@ -90,7 +90,9 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                response({ users: _.map(JSON.parse(content), mapUserToView)});
+                var users = JSON.parse(content);
+
+                response({ users: _.map(users, mapUserToView)});
             });
         },
         tags: ['api'],
