@@ -28,6 +28,24 @@ module.exports = function () {
         return resourceLists[resourceType];
     }
 
+    function assertPropertyIsPopulatedInResource(type, property) {
+        assert.defined(type[property]);
+    }
+
+    function assertPropertyIsNotPopulatedInResource(type, property) {
+        refute.defined(type[property]);
+    }
+
+    function assertPropertyIn(property, response, resourceType, check) {
+        if (_.isArray(response[resourceType])) {
+            _.each(response[resourceType], function (item) {
+                check(item, property)
+            });
+        } else {
+            check(response, property);
+        }
+    }
+
     this.After(function (callback) {
         if (fs.readFile.restore) {
             fs.readFile.restore();
@@ -117,17 +135,23 @@ module.exports = function () {
     });
 
     this.Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
-        _.each(JSON.parse(this.apiResponse.payload)[resourceType], function (type) {
-            refute.defined(type[property]);
-        });
+        assertPropertyIn(
+            property,
+            JSON.parse(this.apiResponse.payload),
+            resourceType,
+            assertPropertyIsNotPopulatedInResource
+        );
 
         callback();
     });
 
     this.Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
-        _.each(JSON.parse(this.apiResponse.payload)[resourceType], function (type) {
-            assert.defined(type[property]);
-        });
+        assertPropertyIn(
+            property,
+            JSON.parse(this.apiResponse.payload),
+            resourceType,
+            assertPropertyIsPopulatedInResource
+        );
 
         callback();
     });

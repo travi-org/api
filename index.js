@@ -12,6 +12,12 @@ var hapi = require('hapi'),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
     address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
+function mapUserToView(user) {
+    user.avatar = 'https://www.gravatar.com/avatar/' + md5(user.email);
+
+    return _.omit(user, 'email');
+}
+
 api.connection({
     port: port,
     address: address,
@@ -84,11 +90,7 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                response({ users: _.map(JSON.parse(content), function (user) {
-                    user.avatar = 'https://www.gravatar.com/avatar/' + md5(user.email);
-
-                    return _.omit(user, 'email');
-                })});
+                response({ users: _.map(JSON.parse(content), mapUserToView)});
             });
         },
         tags: ['api'],
@@ -109,7 +111,7 @@ api.route({
                 if (_.isEmpty(user)) {
                     response().code(404);
                 } else {
-                    response(user);
+                    response(mapUserToView(user));
                 }
             });
         },
