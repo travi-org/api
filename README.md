@@ -2,6 +2,8 @@ travi-api
 =========
 
 [![Build Status](http://img.shields.io/travis/travi/travi-api.svg?style=flat)](https://travis-ci.org/travi/travi-api)
+[![Coverage Status](http://img.shields.io/coveralls/travi/travi-api.svg?style=flat)](https://coveralls.io/r/travi/travi-api?branch=master)
+[![Code Climate](http://img.shields.io/codeclimate/github/travi/travi-api.svg?style=flat)](https://codeclimate.com/github/travi/travi-api)
 [![Dependency Status](http://img.shields.io/gemnasium/travi/travi-api.svg?style=flat)](https://gemnasium.com/travi/travi-api)
 
 ## Project Goals
