@@ -1,0 +1,12 @@
+options:
+  ui: tdd
+  files: test/unit/**/*-test.js*
+
+unit:
+  options:
+    reporters: spec
+
+coverage:
+  options:
+    coveralls: true
+

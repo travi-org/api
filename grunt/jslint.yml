@@ -15,8 +15,12 @@ test:
     nomen: true
     unparam: true
     predef:
-      - sinon
+      - suite
+      - setup
+      - teardown
+      - test
       - assert
       - refute
+      - sinon
   options:
     errorsOnly: true

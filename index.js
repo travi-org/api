@@ -5,18 +5,13 @@ var hapi = require('hapi'),
     fs = require('fs'),
     _ = require('lodash'),
     path = require('path'),
-    md5 = require('MD5'),
     Joi = require('joi'),
+
+    userMapper = require(path.join(__dirname, 'lib/mappers/user-mapper')),
 
     api = new hapi.Server(),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
     address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
-
-function mapUserToView(user) {
-    user.avatar = 'https://www.gravatar.com/avatar/' + md5(user.email);
-
-    return _.omit(user, 'email');
-}
 
 api.connection({
     port: port,
@@ -92,7 +87,7 @@ api.route({
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
                 var users = JSON.parse(content);
 
-                response({ users: _.map(users, mapUserToView)});
+                response({ users: _.map(users, userMapper.mapToView)});
             });
         },
         tags: ['api'],
@@ -113,7 +108,7 @@ api.route({
                 if (_.isEmpty(user)) {
                     response().code(404);
                 } else {
-                    response(mapUserToView(user));
+                    response(userMapper.mapToView(user));
                 }
             });
         },
