@@ -64,12 +64,19 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^user "([^"]*)" does not exist$/, function (user, callback) {
+        callback();
+    });
+
     this.When(/^user "([^"]*)" is requested by id$/, function (user, callback) {
         var world = this;
         fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', function (err, content) {
+            var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
+                id = !_.isEmpty(match) ? _.result(match, 'id') : user;
+
             api.inject({
                 method: 'GET',
-                url: '/users/' + _.result(_.find(JSON.parse(content), _.matchesProperty('first-name', user)), 'id')
+                url: '/users/' + id
             }, function (response) {
                 world.apiResponse = response;
                 callback();
@@ -127,6 +134,16 @@ module.exports = function () {
 
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
         assert.equals(JSON.parse(this.apiResponse.payload)['first-name'], user);
+
+        callback();
+    });
+
+    this.Then(/^the response will be "([^"]*)"$/, function (status, callback) {
+        var statuses = {
+            'Not Found': 404
+        };
+
+        assert.equals(this.apiResponse.statusCode, statuses[status]);
 
         callback();
     });

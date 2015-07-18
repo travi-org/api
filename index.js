@@ -104,7 +104,13 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                response(_.find(JSON.parse(content), _.matchesProperty('id', request.params.id)));
+                var user = _.find(JSON.parse(content), _.matchesProperty('id', request.params.id));
+
+                if (_.isEmpty(user)) {
+                    response().code(404);
+                } else {
+                    response(user);
+                }
             });
         },
         tags: ['api'],

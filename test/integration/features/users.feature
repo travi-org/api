@@ -24,6 +24,11 @@ Feature: Users
         And "email" is not included in "Matt"
         But "avatar" is populated in "Matt"
 
+    Scenario: Request for non-existent user
+        Given user "Bob" does not exist
+        When user "Bob" is requested by id
+        Then the response will be "Not Found"
+
     @wip
     Scenario: Authenticated request for user by id
         Given request is anonymous
