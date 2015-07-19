@@ -105,10 +105,10 @@ api.route({
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
                 var user = _.find(JSON.parse(content), _.matchesProperty('id', request.params.id));
 
-                if (_.isEmpty(user)) {
-                    response().code(404);
-                } else {
+                if (user) {
                     response(userMapper.mapToView(user));
+                } else {
+                    response().code(404);
                 }
             });
         },
