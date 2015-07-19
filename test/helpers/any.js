@@ -34,7 +34,7 @@ function protocol() {
 }
 
 function domain() {
-    return string(20) + '.' + string(3)
+    return string(20) + '.' + string(3);
 }
 
 function host() {
