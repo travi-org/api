@@ -85,9 +85,7 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                var users = JSON.parse(content);
-
-                response({ users: _.map(users, userMapper.mapToView)});
+                response({ users: userMapper.mapListToView(JSON.parse(content))});
             });
         },
         tags: ['api'],
