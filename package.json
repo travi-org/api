@@ -14,7 +14,7 @@
   },
   "config": {
     "blanket": {
-      "pattern": "/[\\w-]+\\.js$/",
+      "pattern": "///[\\w-]+\\.js$/",
       "data-cover-never": [
         "node_modules",
         "public",
