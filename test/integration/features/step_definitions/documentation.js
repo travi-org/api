@@ -44,4 +44,13 @@ module.exports = function () {
 
         callback();
     });
+
+    this.Then(/^the GET by id endpoints should be included$/, function (callback) {
+        var paths = JSON.parse(apiResponse.payload).paths;
+
+        assert.defined(paths['/rides/{id}']);
+        assert.defined(paths['/users/{id}']);
+
+        callback();
+    });
 };

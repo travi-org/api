@@ -3,13 +3,28 @@
 var api = require('../../../../index.js'),
     fs = require('fs'),
     path = require('path'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    any = require(path.join(__dirname, '../../../helpers/any-for-api'));
 require('setup-referee-sinon/globals');
 
 module.exports = function () {
     this.World = require('../support/world.js').World;
 
-    var resourceLists = {};
+    var resourceLists = {},
+        resourceComparators = {
+            rides: function (actualItem, expectItem) {
+                assert.equals(actualItem, expectItem);
+            },
+            users: function (actualItem, expectedItem) {
+                assert.equals(actualItem.id, expectedItem.id);
+                assert.equals(actualItem['first-name'], expectedItem['first-name']);
+                assert.equals(actualItem['last-name'], expectedItem['last-name']);
+            }
+        };
+
+    function makeSingular(resourceType) {
+        return resourceType.substring(0, resourceType.length - 1);
+    }
 
     function defineListForType(resourceType, resourceList) {
         resourceLists[resourceType] = resourceList;
@@ -61,7 +76,7 @@ module.exports = function () {
     });
 
     this.Given(/^the list of "([^"]*)" is not empty$/, function (resourceType, callback) {
-        defineListForType(resourceType, ['foo', 'bar']);
+        defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)]));
 
         callback();
     });
@@ -71,10 +86,6 @@ module.exports = function () {
     });
 
     this.Given(/^request is authenticated$/, function (callback) {
-        callback();
-    });
-
-    this.Given(/^the real list is not empty$/, function (callback) {
         callback();
     });
 
@@ -115,11 +126,15 @@ module.exports = function () {
     });
 
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
+        var actualList = JSON.parse(this.apiResponse.payload)[resourceType],
+            expectedList = getListForType(resourceType);
+
         assert.equals(this.apiResponse.statusCode, 200);
-        assert.equals(
-            JSON.parse(this.apiResponse.payload).rides,
-            getListForType(resourceType)
-        );
+        assert.equals(actualList.length, expectedList.length);
+        _.forEach(actualList, function (actualItem, index) {
+            var expectedItem = expectedList[index];
+            resourceComparators[resourceType](actualItem, expectedItem);
+        });
 
         callback();
     });

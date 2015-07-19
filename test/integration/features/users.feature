@@ -2,7 +2,7 @@ Feature: Users
 
     Scenario: Unauthenticated request for list
         Given request is anonymous
-        And the real list is not empty
+        And the list of "users" is not empty
         When "/users" is requested
         Then a list of "users" is returned
         And "email" is not included in "users"
@@ -11,7 +11,7 @@ Feature: Users
     @wip
     Scenario: Authenticated request for list
         Given request is authenticated
-        And the real list is not empty
+        And the list of "users" is not empty
         When "/users" is requested
         Then a list of "users" is returned
         And "email" is populated in "users"
