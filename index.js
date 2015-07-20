@@ -81,6 +81,22 @@ api.route({
 
 api.route({
     method: 'GET',
+    path: '/rides/{id}',
+    config: {
+        handler: function (request, response) {
+            response({ride: request.params.id});
+        },
+        tags: ['api'],
+        validate: {
+            params: {
+                id: Joi.string().required()
+            }
+        }
+    }
+});
+
+api.route({
+    method: 'GET',
     path: '/users',
     config: {
         handler: function (request, response) {

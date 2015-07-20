@@ -93,12 +93,29 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^ride "([^"]*)" exists$/, function (ride, callback) {
+        callback();
+    });
+
     this.Given(/^user "([^"]*)" does not exist$/, function (user, callback) {
         callback();
     });
 
+    this.When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
+        var world = this;
+
+        api.inject({
+            method: 'GET',
+            url: '/rides/' + ride
+        }, function (response) {
+            world.apiResponse = response;
+            callback();
+        });
+    });
+
     this.When(/^user "([^"]*)" is requested by id$/, function (user, callback) {
         var world = this;
+
         fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', function (err, content) {
             var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : user;
@@ -173,6 +190,12 @@ module.exports = function () {
 
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
         assert.equals(JSON.parse(this.apiResponse.payload)['first-name'], user);
+
+        callback();
+    });
+
+    this.Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
+        assert.equals(JSON.parse(this.apiResponse.payload).ride, ride);
 
         callback();
     });

@@ -8,7 +8,6 @@ Feature: api docs
         When the docs are requested
         Then the top-level endpoints should be included
 
-    @wip
     Scenario: GET by id present for the top-level lists
         When the docs are requested
         Then the GET by id endpoints should be included

@@ -9,3 +9,9 @@ Feature: Rides
         Given the list of "rides" is not empty
         When "/rides" is requested
         Then a list of "rides" is returned
+
+    Scenario: Unauthenticated request for ride by id
+        Given request is anonymous
+        And ride "truck" exists
+        When ride "truck" is requested by id
+        Then ride "truck" is returned
