@@ -101,6 +101,10 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^ride "([^"]*)" does not exist$/, function (ride, callback) {
+        callback();
+    });
+
     this.When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
         var world = this;
 

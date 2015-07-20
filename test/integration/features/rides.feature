@@ -15,3 +15,8 @@ Feature: Rides
         And ride "truck" exists
         When ride "truck" is requested by id
         Then ride "truck" is returned
+
+    Scenario: Request for non-existent ride
+        Given ride "Mustang" does not exist
+        When ride "Mustang" is requested by id
+        Then the response will be "Not Found"

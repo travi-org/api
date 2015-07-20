@@ -84,7 +84,15 @@ api.route({
     path: '/rides/{id}',
     config: {
         handler: function (request, response) {
-            response({ride: request.params.id});
+            fs.readFile(path.join(__dirname, 'data/rides.json'), 'utf8', function (err, content) {
+                var rideId = request.params.id;
+
+                if (_.contains(JSON.parse(content), rideId)) {
+                    response({ride: rideId});
+                } else {
+                    response().code(404);
+                }
+            });
         },
         tags: ['api'],
         validate: {
