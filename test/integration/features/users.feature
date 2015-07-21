@@ -5,6 +5,7 @@ Feature: Users
         And the list of "users" is not empty
         When "/users" is requested
         Then a list of "users" is returned
+        And list of "users" has self links populated
         And "email" is not included in "users"
         But "avatar" is populated in "users"
 

@@ -213,4 +213,17 @@ module.exports = function () {
 
         callback();
     });
+
+    this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
+        var response = JSON.parse(this.apiResponse.payload),
+            items = response[resourceType];
+
+        assert.defined(response._links.self);
+        assert.greater(items.length, 0);
+        _.forEach(items, function (item) {
+            assert.defined(item._links.self);
+        });
+
+        callback();
+    });
 };

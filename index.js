@@ -114,7 +114,16 @@ api.route({
         },
         tags: ['api'],
         plugins: {
-            hal: { api: 'users'}
+            hal: {
+                api: 'users',
+                prepare: function (rep, next) {
+                    rep.entity.users.forEach(function (user, index) {
+                        rep.entity.users[index] = rep.factory.create(user, '/users/' + user.id);
+                    });
+
+                    next();
+                }
+            }
         }
     }
 });
