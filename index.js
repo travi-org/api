@@ -74,7 +74,18 @@ api.route({
         },
         tags: ['api'],
         plugins: {
-            hal: { api: 'rides'}
+            hal: {
+                api: 'rides',
+                prepare: function (rep, next) {
+                    rep.entity.rides.forEach(function (ride) {
+                        rep.embed('rides', './' + ride, ride);
+                    });
+
+                    rep.ignore('rides');
+
+                    next();
+                }
+            }
         }
     }
 });
@@ -117,9 +128,11 @@ api.route({
             hal: {
                 api: 'users',
                 prepare: function (rep, next) {
-                    rep.entity.users.forEach(function (user, index) {
-                        rep.entity.users[index] = rep.factory.create(user, '/users/' + user.id);
+                    rep.entity.users.forEach(function (user) {
+                        rep.embed('users', './' + user.id, user);
                     });
+
+                    rep.ignore('users');
 
                     next();
                 }

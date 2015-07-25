@@ -4,7 +4,8 @@ var api = require('../../../../index.js'),
     fs = require('fs'),
     path = require('path'),
     _ = require('lodash'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api'));
+    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
+    formatio = require('formatio');
 require('setup-referee-sinon/globals');
 
 module.exports = function () {
@@ -13,7 +14,10 @@ module.exports = function () {
     var resourceLists = {},
         resourceComparators = {
             rides: function (actualItem, expectItem) {
-                assert.equals(actualItem, expectItem);
+                var selfLink = actualItem._links.self.href,
+                    path = '/rides/' + expectItem;
+
+                refute.equals(-1, selfLink.indexOf(path, selfLink.length - path.length));
             },
             users: function (actualItem, expectedItem) {
                 assert.equals(actualItem.id, expectedItem.id);
@@ -52,7 +56,7 @@ module.exports = function () {
     }
 
     function assertPropertyIn(property, response, resourceType, check) {
-        if (_.isArray(response[resourceType])) {
+        if (response._embedded && _.isArray(response._embedded[resourceType])) {
             _.each(response[resourceType], function (item) {
                 check(item, property);
             });
@@ -147,7 +151,7 @@ module.exports = function () {
     });
 
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
-        var actualList = JSON.parse(this.apiResponse.payload)[resourceType],
+        var actualList = JSON.parse(this.apiResponse.payload)._embedded[resourceType],
             expectedList = getListForType(resourceType);
 
         assert.equals(this.apiResponse.statusCode, 200);
@@ -162,10 +166,7 @@ module.exports = function () {
 
     this.Then(/^an empty list is returned$/, function (callback) {
         assert.equals(this.apiResponse.statusCode, 200);
-        assert.equals(
-            JSON.parse(this.apiResponse.payload).rides,
-            []
-        );
+        refute.defined(JSON.parse(this.apiResponse.payload)._embedded);
 
         callback();
     });
@@ -216,7 +217,7 @@ module.exports = function () {
 
     this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
         var response = JSON.parse(this.apiResponse.payload),
-            items = response[resourceType];
+            items = response._embedded[resourceType];
 
         assert.defined(response._links.self);
         assert.greater(items.length, 0);
