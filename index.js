@@ -78,7 +78,7 @@ api.route({
                 api: 'rides',
                 prepare: function (rep, next) {
                     rep.entity.rides.forEach(function (ride) {
-                        rep.embed('rides', './' + ride, ride);
+                        rep.embed('rides', './' + ride.id, ride);
                     });
 
                     rep.ignore('rides');
@@ -96,10 +96,10 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/rides.json'), 'utf8', function (err, content) {
-                var rideId = request.params.id;
+                var ride = _.findWhere(JSON.parse(content), {id: parseInt(request.params.id, 10)});
 
-                if (_.contains(JSON.parse(content), rideId)) {
-                    response({ride: rideId});
+                if (ride) {
+                    response(ride);
                 } else {
                     response().code(404);
                 }

@@ -62,6 +62,7 @@ function listOf(constructor) {
 }
 
 module.exports = {
+    int: int,
     string: string,
     url: url,
     email: email,

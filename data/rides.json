@@ -1,5 +1,14 @@
 [
-    "truck",
-    "camaro",
-    "corvette"
+    {
+        "id": 1,
+        "nickname": "corvette"
+    },
+    {
+        "id": 2,
+        "nickname": "truck"
+    },
+    {
+        "id": 3,
+        "nickname": "camaro"
+    }
 ]

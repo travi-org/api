@@ -13,13 +13,19 @@ module.exports = function () {
 
     var resourceLists = {},
         resourceComparators = {
-            rides: function (actualItem, expectItem) {
+            rides: function (actualItem, expectedItem) {
                 var selfLink = actualItem._links.self.href,
-                    path = '/rides/' + expectItem;
+                    path = '/rides/' + expectedItem.id;
 
                 refute.equals(-1, selfLink.indexOf(path, selfLink.length - path.length));
+                assert.equals(actualItem.id, expectedItem.id);
+                assert.equals(actualItem.nickname, expectedItem.nickname);
             },
             users: function (actualItem, expectedItem) {
+                var selfLink = actualItem._links.self.href,
+                    path = '/users/' + expectedItem.id;
+
+                refute.equals(-1, selfLink.indexOf(path, selfLink.length - path.length));
                 assert.equals(actualItem.id, expectedItem.id);
                 assert.equals(actualItem['first-name'], expectedItem['first-name']);
                 assert.equals(actualItem['last-name'], expectedItem['last-name']);
@@ -112,12 +118,17 @@ module.exports = function () {
     this.When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
         var world = this;
 
-        api.inject({
-            method: 'GET',
-            url: '/rides/' + ride
-        }, function (response) {
-            world.apiResponse = response;
-            callback();
+        fs.readFile(path.join(__dirname, '../../../../data/rides.json'), 'utf8', function (err, content) {
+            var match = _.find(JSON.parse(content), _.matchesProperty('nickname', ride)),
+                id = !_.isEmpty(match) ? _.result(match, 'id') : ride;
+
+            api.inject({
+                method: 'GET',
+                url: '/rides/' + id
+            }, function (response) {
+                world.apiResponse = response;
+                callback();
+            });
         });
     });
 
@@ -194,13 +205,15 @@ module.exports = function () {
     });
 
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
+        assert.equals(this.apiResponse.statusCode, 200);
         assert.equals(JSON.parse(this.apiResponse.payload)['first-name'], user);
 
         callback();
     });
 
     this.Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
-        assert.equals(JSON.parse(this.apiResponse.payload).ride, ride);
+        assert.equals(this.apiResponse.statusCode, 200);
+        assert.equals(JSON.parse(this.apiResponse.payload).nickname, ride);
 
         callback();
     });
