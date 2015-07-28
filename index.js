@@ -120,7 +120,7 @@ api.route({
     config: {
         handler: function (request, response) {
             fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                response({ users: userMapper.mapListToView(JSON.parse(content))});
+                response({ users: userMapper.mapListToView(JSON.parse(content), 32)});
             });
         },
         tags: ['api'],
@@ -150,7 +150,7 @@ api.route({
                 var user = _.find(JSON.parse(content), _.matchesProperty('id', request.params.id));
 
                 if (user) {
-                    response(userMapper.mapToView(user));
+                    response(userMapper.mapToView(user, 320));
                 } else {
                     response().code(404);
                 }

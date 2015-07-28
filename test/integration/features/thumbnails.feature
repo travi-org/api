@@ -10,4 +10,4 @@ Feature: Thumbnails
         Given user "Matt" exists
         When user "Matt" is requested by id
         Then "avatar" is populated in "Matt"
-        And the "avatar" is sized at "32"px in "users"
+        And the "avatar" is sized at "320"px in "users"
