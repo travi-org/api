@@ -45,6 +45,7 @@
     "hapi-swaggered-ui": "^1.6.1",
     "joi": "^6.6.0",
     "lodash": "^3.10.0",
-    "path": "^0.11.14"
+    "path": "^0.11.14",
+    "query-string": "^2.4.0"
   }
 }

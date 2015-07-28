@@ -3,6 +3,7 @@
 var api = require('../../../../index.js'),
     fs = require('fs'),
     path = require('path'),
+    queryString = require('query-string'),
     _ = require('lodash'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     formatio = require('formatio');
@@ -63,7 +64,24 @@ module.exports = function () {
 
     function assertPropertyIn(property, response, resourceType, check) {
         if (response._embedded && _.isArray(response._embedded[resourceType])) {
-            _.each(response[resourceType], function (item) {
+            _.each(response._embedded[resourceType], function (item) {
+                check(item, property);
+            });
+        } else {
+            check(response, property);
+        }
+    }
+
+    function assertThumbnailSizedAt(property, size, response, resourceType) {
+        var check = function (item, property) {
+            assert.equals(
+                queryString.parse(queryString.extract(item[property])).size,
+                size
+            );
+        };
+
+        if (response._embedded && _.isArray(response._embedded[resourceType])) {
+            _.each(response._embedded[resourceType], function (item) {
                 check(item, property);
             });
         } else {
@@ -237,6 +255,17 @@ module.exports = function () {
         _.forEach(items, function (item) {
             assert.defined(item._links.self);
         });
+
+        callback();
+    });
+
+    this.Then(/^the "([^"]*)" is sized at "([^"]*)"px in "([^"]*)"$/, function (
+        property,
+        size,
+        resourceType,
+        callback
+    ) {
+        assertThumbnailSizedAt(property, size, JSON.parse(this.apiResponse.payload), resourceType);
 
         callback();
     });
