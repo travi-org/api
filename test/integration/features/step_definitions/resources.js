@@ -74,10 +74,13 @@ module.exports = function () {
 
     function assertThumbnailSizedAt(property, size, response, resourceType) {
         var check = function (item, property) {
+            var thumbnail = item[property];
+
             assert.equals(
-                queryString.parse(queryString.extract(item[property])).size,
+                queryString.parse(queryString.extract(thumbnail.src)).size,
                 size
             );
+            assert.equals(thumbnail.size, parseInt(size, 10));
         };
 
         if (response._embedded && _.isArray(response._embedded[resourceType])) {

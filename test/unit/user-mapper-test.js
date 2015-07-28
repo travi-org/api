@@ -13,7 +13,10 @@ function assertUserMappedToViewProperly(userView, user, size) {
         id: user.id,
         'first-name': user['first-name'],
         'last-name': user['last-name'],
-        avatar: 'https://www.gravatar.com/avatar/' + md5(user.email) + '?size=' + size
+        avatar: {
+            src: 'https://www.gravatar.com/avatar/' + md5(user.email) + '?size=' + size,
+            size: size
+        }
     });
 }
 suite('user mapper', function () {
