@@ -15,7 +15,7 @@ suite('ride repository', function () {
         fs.readFile.restore();
     });
 
-    test('that data is loaded from a file', function () {
+    test('that list is loaded from a file', function () {
         var callback = sinon.spy(),
             data = {};
         fs.readFile.withArgs(path.join(__dirname, '../../../data/rides.json'), 'utf8').yields(null, data);

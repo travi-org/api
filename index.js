@@ -119,8 +119,8 @@ api.route({
     path: '/users',
     config: {
         handler: function (request, response) {
-            require('./lib/users/repository').getList(function (err, content) {
-                response({ users: userMapper.mapListToView(JSON.parse(content), 32)});
+            require('./lib/users/repository').getList(function (err, list) {
+                response({ users: userMapper.mapListToView(list, 32)});
             });
         },
         tags: ['api'],
@@ -146,9 +146,7 @@ api.route({
     path: '/users/{id}',
     config: {
         handler: function (request, response) {
-            fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
-                var user = _.find(JSON.parse(content), _.matchesProperty('id', request.params.id));
-
+            require('./lib/users/repository').getUser(request.params.id, function (err, user) {
                 if (user) {
                     response(userMapper.mapToView(user, 320));
                 } else {
