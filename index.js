@@ -68,8 +68,8 @@ api.route({
     path: '/rides',
     config: {
         handler: function (request, response) {
-            require('./lib/rides/repository').getList(function (err, content) {
-                response({ rides: JSON.parse(content)});
+            require('./lib/rides/repository').getList(function (err, list) {
+                response({ rides: list});
             });
         },
         tags: ['api'],
@@ -95,9 +95,7 @@ api.route({
     path: '/rides/{id}',
     config: {
         handler: function (request, response) {
-            fs.readFile(path.join(__dirname, 'data/rides.json'), 'utf8', function (err, content) {
-                var ride = _.findWhere(JSON.parse(content), {id: parseInt(request.params.id, 10)});
-
+            require('./lib/rides/repository').getRide(parseInt(request.params.id, 10), function (err, ride) {
                 if (ride) {
                     response(ride);
                 } else {
