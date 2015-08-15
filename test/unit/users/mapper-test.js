@@ -5,8 +5,8 @@ var path = require('path'),
     md5 = require('MD5'),
     _ = require('lodash'),
 
-    mapper = require(path.join(__dirname, '../../lib/mappers/user-mapper')),
-    any = require(path.join(__dirname, '../helpers/any-for-api'));
+    mapper = require(path.join(__dirname, '../../../lib/users/mapper')),
+    any = require(path.join(__dirname, '../../helpers/any-for-api'));
 
 function assertUserMappedToViewProperly(userView, user, size) {
     assert.deepEqual(userView, {

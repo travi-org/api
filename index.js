@@ -7,7 +7,7 @@ var hapi = require('hapi'),
     path = require('path'),
     Joi = require('joi'),
 
-    userMapper = require(path.join(__dirname, 'lib/mappers/user-mapper')),
+    userMapper = require(path.join(__dirname, 'lib/users/mapper')),
 
     api = new hapi.Server(),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
