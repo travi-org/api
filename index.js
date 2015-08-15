@@ -68,7 +68,7 @@ api.route({
     path: '/rides',
     config: {
         handler: function (request, response) {
-            fs.readFile(path.join(__dirname, 'data/rides.json'), 'utf8', function (err, content) {
+            require('./lib/rides/repository').getList(function (err, content) {
                 response({ rides: JSON.parse(content)});
             });
         },
