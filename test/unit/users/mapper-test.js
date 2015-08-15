@@ -19,6 +19,7 @@ function assertUserMappedToViewProperly(userView, user, size) {
         }
     });
 }
+
 suite('user mapper', function () {
     test('that a user is mapped to the view representation', function () {
         var user = any.resources.user(),

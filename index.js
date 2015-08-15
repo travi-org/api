@@ -119,7 +119,7 @@ api.route({
     path: '/users',
     config: {
         handler: function (request, response) {
-            fs.readFile(path.join(__dirname, 'data/users.json'), 'utf8', function (err, content) {
+            require('./lib/users/repository').getList(function (err, content) {
                 response({ users: userMapper.mapListToView(JSON.parse(content), 32)});
             });
         },
