@@ -10,6 +10,7 @@ var hapi = require('hapi'),
     userMapper = require(path.join(__dirname, 'lib/users/mapper')),
 
     api = new hapi.Server(),
+    router = require('./lib/router'),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
     address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
@@ -114,33 +115,6 @@ api.route({
 
 api.route({
     method: 'GET',
-    path: '/users',
-    config: {
-        handler: function (request, response) {
-            require('./lib/users/repository').getList(function (err, list) {
-                response({ users: userMapper.mapListToView(list, 32)});
-            });
-        },
-        tags: ['api'],
-        plugins: {
-            hal: {
-                api: 'users',
-                prepare: function (rep, next) {
-                    rep.entity.users.forEach(function (user) {
-                        rep.embed('users', './' + user.id, user);
-                    });
-
-                    rep.ignore('users');
-
-                    next();
-                }
-            }
-        }
-    }
-});
-
-api.route({
-    method: 'GET',
     path: '/users/{id}',
     config: {
         handler: function (request, response) {
@@ -160,6 +134,8 @@ api.route({
         }
     }
 });
+
+router.addRoutesTo(api);
 
 if (!module.parent) {
     api.start(function (err) {
