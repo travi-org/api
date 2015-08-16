@@ -66,33 +66,6 @@ api.register(
 
 api.route({
     method: 'GET',
-    path: '/rides',
-    config: {
-        handler: function (request, response) {
-            require('./lib/rides/repository').getList(function (err, list) {
-                response({ rides: list});
-            });
-        },
-        tags: ['api'],
-        plugins: {
-            hal: {
-                api: 'rides',
-                prepare: function (rep, next) {
-                    rep.entity.rides.forEach(function (ride) {
-                        rep.embed('rides', './' + ride.id, ride);
-                    });
-
-                    rep.ignore('rides');
-
-                    next();
-                }
-            }
-        }
-    }
-});
-
-api.route({
-    method: 'GET',
     path: '/rides/{id}',
     config: {
         handler: function (request, response) {

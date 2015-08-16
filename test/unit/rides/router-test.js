@@ -4,9 +4,9 @@ var path = require('path'),
     any = require(path.join(__dirname, '../../helpers/any-for-api')),
     _ = require('lodash'),
     router = require(path.join(__dirname, '../../../lib/router')),
-    controller = require(path.join(__dirname, '../../../lib/users/controller'));
+    controller = require(path.join(__dirname, '../../../lib/rides/controller'));
 
-suite('user router', function () {
+suite('ride router', function () {
     var handler,
         prepare,
         server = {route: function () {
@@ -15,7 +15,7 @@ suite('user router', function () {
 
     setup(function () {
         sinon.stub(server, 'route', function (definition) {
-            if (definition.path === '/users') {
+            if (definition.path === '/rides') {
                 handler = definition.handler;
                 prepare = definition.config.plugins.hal.prepare;
             }
@@ -33,12 +33,12 @@ suite('user router', function () {
 
         assert.calledWith(server.route, sinon.match({
             method: 'GET',
-            path: '/users',
+            path: '/rides',
             config: {
                 tags: ['api'],
                 plugins: {
                     hal: {
-                        api: 'users'
+                        api: 'rides'
                     }
                 }
             }
@@ -60,7 +60,7 @@ suite('user router', function () {
         var next = sinon.spy(),
             rep = {
                 entity: {
-                    users: [
+                    rides: [
                         {id: any.int()},
                         {id: any.int()},
                         {id: any.int()}
@@ -72,11 +72,11 @@ suite('user router', function () {
 
         prepare(rep, next);
 
-        sinon.assert.callCount(rep.embed, rep.entity.users.length);
-        _.each(rep.entity.users, function (user) {
-            assert.calledWith(rep.embed, 'users', './' + user.id, user);
+        sinon.assert.callCount(rep.embed, rep.entity.rides.length);
+        _.each(rep.entity.rides, function (ride) {
+            assert.calledWith(rep.embed, 'rides', './' + ride.id, ride);
         });
-        assert.calledWith(rep.ignore, 'users');
+        assert.calledWith(rep.ignore, 'rides');
         assert.calledOnce(next);
     });
 });
