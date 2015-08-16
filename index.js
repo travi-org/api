@@ -89,10 +89,10 @@ api.route({
     path: '/users/{id}',
     config: {
         handler: function (request, response) {
-            require('./lib/users/repository').getUser(request.params.id, function (err, user) {
+            require('./lib/users/controller').getUser(request.params.id, function (err, user) {
                 if (user) {
-                    response(userMapper.mapToView(user, 320));
-                } else {
+                    response(user);
+                } else if (err.notFound) {
                     response().code(404);
                 }
             });
