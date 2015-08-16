@@ -2,15 +2,13 @@
 
 var hapi = require('hapi'),
     halacious = require('halacious'),
-    fs = require('fs'),
-    _ = require('lodash'),
     path = require('path'),
     Joi = require('joi'),
 
     userMapper = require(path.join(__dirname, 'lib/users/mapper')),
+    router = require('./lib/router'),
 
     api = new hapi.Server(),
-    router = require('./lib/router'),
     port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
     address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
