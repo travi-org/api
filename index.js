@@ -3,7 +3,6 @@
 var hapi = require('hapi'),
     halacious = require('halacious'),
     path = require('path'),
-    Joi = require('joi'),
 
     router = require('./lib/router'),
 
@@ -60,28 +59,6 @@ api.register(
         }
     }
 );
-
-api.route({
-    method: 'GET',
-    path: '/rides/{id}',
-    config: {
-        handler: function (request, response) {
-            require('./lib/rides/repository').getRide(parseInt(request.params.id, 10), function (err, ride) {
-                if (ride) {
-                    response(ride);
-                } else {
-                    response().code(404);
-                }
-            });
-        },
-        tags: ['api'],
-        validate: {
-            params: {
-                id: Joi.string().required()
-            }
-        }
-    }
-});
 
 router.addRoutesTo(api);
 

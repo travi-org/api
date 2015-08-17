@@ -2,6 +2,7 @@
 
 var path = require('path'),
     any = require(path.join(__dirname, '../../helpers/any-for-api')),
+
     controller = require(path.join(__dirname, '../../../lib/users/controller')),
     mapper = require(path.join(__dirname, '../../../lib/users/mapper')),
     repo = require(path.join(__dirname, '../../../lib/users/repository')),
