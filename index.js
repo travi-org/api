@@ -5,7 +5,6 @@ var hapi = require('hapi'),
     path = require('path'),
     Joi = require('joi'),
 
-    userMapper = require(path.join(__dirname, 'lib/users/mapper')),
     router = require('./lib/router'),
 
     api = new hapi.Server(),
@@ -71,28 +70,6 @@ api.route({
                 if (ride) {
                     response(ride);
                 } else {
-                    response().code(404);
-                }
-            });
-        },
-        tags: ['api'],
-        validate: {
-            params: {
-                id: Joi.string().required()
-            }
-        }
-    }
-});
-
-api.route({
-    method: 'GET',
-    path: '/users/{id}',
-    config: {
-        handler: function (request, response) {
-            require('./lib/users/controller').getUser(request.params.id, function (err, user) {
-                if (user) {
-                    response(user);
-                } else if (err.notFound) {
                     response().code(404);
                 }
             });
