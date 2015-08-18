@@ -134,15 +134,27 @@ suite('user router', function () {
 
         test('that 404 returned when user does not exist', function () {
             var id = any.int(),
-                setResponseCode = sinon.spy(),
+                setContentType = sinon.spy(),
+                setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode});
             controller.getUser.withArgs(id).yields({notFound: true}, null);
             router.addRoutesTo(server);
 
             handlers.user({params: {id: id}}, reply);
 
-            assert.calledOnce(reply);
+            assert.calledWith(reply, {
+                _links: {
+                    profile: {
+                        href: 'http://nocarrier.co.uk/profiles/vnd.error/'
+                    }
+                },
+                message: "Not Found"
+            });
             assert.calledWith(setResponseCode, 404);
+            assert.calledWith(
+                setContentType,
+                'application/hal+json; profile="http://nocarrier.co.uk/profiles/vnd.error/"'
+            );
         });
     });
 });
