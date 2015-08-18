@@ -148,7 +148,7 @@ suite('ride router', function () {
                         href: 'http://nocarrier.co.uk/profiles/vnd.error/'
                     }
                 },
-                message: "Not Found"
+                message: 'Not Found'
             });
             assert.calledWith(setResponseCode, 404);
             assert.calledWith(
