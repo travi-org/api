@@ -5,7 +5,8 @@ var path = require('path'),
     _ = require('lodash'),
     Joi = require('joi'),
     router = require(path.join(__dirname, '../../../lib/router')),
-    controller = require(path.join(__dirname, '../../../lib/users/controller'));
+    controller = require(path.join(__dirname, '../../../lib/users/controller')),
+    errorMapper = require(path.join(__dirname, '../../../lib/error-response-mapper'));
 
 suite('user router', function () {
     var handlers = {},
@@ -97,10 +98,12 @@ suite('user router', function () {
     suite('user route', function () {
         setup(function () {
             sinon.stub(controller, 'getUser');
+            sinon.stub(errorMapper, 'mapToResponse');
         });
 
         teardown(function () {
             controller.getUser.restore();
+            errorMapper.mapToResponse.restore();
         });
 
         test('that individual route defined correctly', function () {
@@ -136,25 +139,14 @@ suite('user router', function () {
             var id = any.int(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
-                reply = sinon.stub().withArgs().returns({code: setResponseCode});
-            controller.getUser.withArgs(id).yields({notFound: true}, null);
+                reply = sinon.stub().withArgs().returns({code: setResponseCode}),
+                err = {notFound: true};
+            controller.getUser.withArgs(id).yields(err, null);
             router.addRoutesTo(server);
 
             handlers.user({params: {id: id}}, reply);
 
-            assert.calledWith(reply, {
-                _links: {
-                    profile: {
-                        href: 'http://nocarrier.co.uk/profiles/vnd.error/'
-                    }
-                },
-                message: 'Not Found'
-            });
-            assert.calledWith(setResponseCode, 404);
-            assert.calledWith(
-                setContentType,
-                'application/hal+json; profile="http://nocarrier.co.uk/profiles/vnd.error/"'
-            );
+            assert.calledWith(errorMapper.mapToResponse, err, reply);
         });
     });
 });
