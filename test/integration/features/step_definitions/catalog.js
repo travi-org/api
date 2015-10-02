@@ -8,7 +8,7 @@ referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 module.exports = function () {
     this.World = require('../support/world.js').World;
 
-    var baseUrl = 'http://' + api.info.host + ':' + api.info.port;
+    var baseUrl = 'https://' + api.info.host + ':' + api.info.port;
 
     this.Given(/^the api contains no resources$/, function (callback) {
         callback();
