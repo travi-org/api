@@ -20,6 +20,7 @@ api.register({
     register: halacious,
     options: {
         apiPath: '',
+        protocol: 'https',
         absolute: true,
         strict: true
     }
