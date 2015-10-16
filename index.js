@@ -1,76 +1,26 @@
 'use strict';
 
-var hapi = require('hapi'),
-    halacious = require('halacious'),
-    path = require('path'),
+var Glue = require('glue'),
+    manifest = require('./manifest');
 
-    router = require('./lib/router'),
-
-    api = new hapi.Server(),
-    port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
-    address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
-
-api.connection({
-    port: port,
-    address: address,
-    labels: ['api']
-});
-
-api.register({
-    register: halacious,
-    options: {
-        apiPath: '',
-        protocol: 'https',
-        absolute: true,
-        strict: true
-    }
-}, function (err) {
-    if (err) {
-        console.log(err);
-    }
-});
-
-api.register({
-    register: require('hapi-swaggered'),
-    options: {
-        info: {
-            title: 'Travi API',
-            version: '1.0'
-        }
-    }
-}, function (err) {
-    if (err) {
-        api.log(['error'], 'hapi-swagger load error: ' + err);
-    } else {
-        api.log(['start'], 'hapi-swagger interface loaded');
-    }
-});
-
-api.register(
-    { register: require('hapi-swaggered-ui') },
-    {
-        select: 'api',
-        routes: {
-            prefix: '/documentation'
-        }
-    },
-    function (err) {
-        if (err) {
-            throw err;
-        }
-    }
-);
-
-router.addRoutesTo(api);
-
-if (!module.parent) {
-    api.start(function (err) {
-        if (err) {
-            return console.error(err);
-        }
-
-        api.log('Server started', api.info.uri);
-    });
+if (!Promise) {
+    Promise = require('promise/lib/es6-extensions');
 }
 
-module.exports = api;
+var composeOptions = {
+    relativeTo: __dirname + '/lib'
+};
+
+module.exports = new Promise(function (resolve, reject) {
+    Glue.compose(manifest, composeOptions, function (err, server) {
+        if (err) {
+            reject(err);
+            throw err;
+        }
+
+        server.start(function () {
+            console.log('Server started at http://' + server.info.address + ':' + server.info.port);
+            resolve(server);
+        });
+    });
+});

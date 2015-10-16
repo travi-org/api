@@ -42,7 +42,8 @@ suite('ride router', function () {
         });
 
         test('that list route defined correctly', function () {
-            router.addRoutesTo(server);
+            var next = sinon.spy();
+            router.register(server, null, next);
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
@@ -56,13 +57,14 @@ suite('ride router', function () {
                     }
                 }
             }));
+            assert.calledOnce(next);
         });
 
         test('that the list route gets gets data from controller', function () {
             var reply = sinon.spy(),
                 data = {foo: 'bar'};
             controller.getList.yields(null, data);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.list(null, reply);
 
@@ -82,7 +84,7 @@ suite('ride router', function () {
                     embed: sinon.spy(),
                     ignore: sinon.spy()
                 };
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             prepare(rep, next);
 
@@ -107,7 +109,7 @@ suite('ride router', function () {
         });
 
         test('that individual route defined correctly', function () {
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
@@ -128,7 +130,7 @@ suite('ride router', function () {
                 reply = sinon.spy(),
                 ride = {id: id};
             controller.getRide.withArgs(id).yields(null, ride);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.ride({params: {id: id}}, reply);
 
@@ -142,7 +144,7 @@ suite('ride router', function () {
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
                 err = {notFound: true};
             controller.getRide.withArgs(id).yields(err, null);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.ride({params: {id: id}}, reply);
 

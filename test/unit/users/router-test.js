@@ -42,7 +42,7 @@ suite('user router', function () {
         });
 
         test('that list route defined correctly', function () {
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
@@ -62,7 +62,7 @@ suite('user router', function () {
             var reply = sinon.spy(),
                 data = {foo: 'bar'};
             controller.getList.yields(null, data);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.list(null, reply);
 
@@ -82,7 +82,7 @@ suite('user router', function () {
                     embed: sinon.spy(),
                     ignore: sinon.spy()
                 };
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             prepare(rep, next);
 
@@ -107,7 +107,7 @@ suite('user router', function () {
         });
 
         test('that individual route defined correctly', function () {
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
@@ -128,7 +128,7 @@ suite('user router', function () {
                 reply = sinon.spy(),
                 user = {id: id};
             controller.getUser.withArgs(id).yields(null, user);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.user({params: {id: id}}, reply);
 
@@ -142,7 +142,7 @@ suite('user router', function () {
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
                 err = {notFound: true};
             controller.getUser.withArgs(id).yields(err, null);
-            router.addRoutesTo(server);
+            router.register(server, null, sinon.spy());
 
             handlers.user({params: {id: id}}, reply);
 

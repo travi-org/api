@@ -1,12 +1,11 @@
 'use strict';
 
-var api = require('../../../../index.js'),
+var loadApi = require('../../../../index.js'),
     fs = require('fs'),
     path = require('path'),
     queryString = require('query-string'),
     _ = require('lodash'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
-    formatio = require('formatio');
+    any = require(path.join(__dirname, '../../../helpers/any-for-api'));
 require('setup-referee-sinon/globals');
 
 module.exports = function () {
@@ -143,12 +142,14 @@ module.exports = function () {
             var match = _.find(JSON.parse(content), _.matchesProperty('nickname', ride)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : ride;
 
-            api.inject({
-                method: 'GET',
-                url: '/rides/' + id
-            }, function (response) {
-                world.apiResponse = response;
-                callback();
+            loadApi.then(function (server) {
+                server.inject({
+                    method: 'GET',
+                    url: '/rides/' + id
+                }, function (response) {
+                    world.apiResponse = response;
+                    callback();
+                });
             });
         });
     });
@@ -160,12 +161,14 @@ module.exports = function () {
             var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : user;
 
-            api.inject({
-                method: 'GET',
-                url: '/users/' + id
-            }, function (response) {
-                world.apiResponse = response;
-                callback();
+            loadApi.then(function (server) {
+                server.inject({
+                    method: 'GET',
+                    url: '/users/' + id
+                }, function (response) {
+                    world.apiResponse = response;
+                    callback();
+                });
             });
         });
     });
@@ -173,12 +176,14 @@ module.exports = function () {
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
         var world = this;
 
-        api.inject({
-            method: 'GET',
-            url: path
-        }, function (response) {
-            world.apiResponse = response;
-            callback();
+        loadApi.then(function (server) {
+            server.inject({
+                method: 'GET',
+                url: path
+            }, function (response) {
+                world.apiResponse = response;
+                callback();
+            });
         });
     });
 

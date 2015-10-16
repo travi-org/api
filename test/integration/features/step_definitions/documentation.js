@@ -1,6 +1,6 @@
 'use strict';
 
-var api = require('../../../../index.js'),
+var loadApi = require('../../../../index.js'),
     referee = require('referee'),
     assert = referee.assert;
 require('referee-more-assertions')(referee);
@@ -9,13 +9,15 @@ module.exports = function () {
     var apiResponse;
 
     this.When(/^the documentation is requested in the browser$/, function (callback) {
-        api.inject({
-            method: 'GET',
-            url: '/documentation'
-        }, function (response) {
-            apiResponse = response;
+        loadApi.then(function (server) {
+            server.inject({
+                method: 'GET',
+                url: '/documentation'
+            }, function (response) {
+                apiResponse = response;
 
-            callback();
+                callback();
+            });
         });
     });
 
@@ -27,13 +29,15 @@ module.exports = function () {
     });
 
     this.When(/^the docs are requested$/, function (callback) {
-        api.inject({
-            method: 'GET',
-            url: '/swagger'
-        }, function (response) {
-            apiResponse = response;
+        loadApi.then(function (server) {
+            server.inject({
+                method: 'GET',
+                url: '/swagger'
+            }, function (response) {
+                apiResponse = response;
 
-            callback();
+                callback();
+            });
         });
     });
 
