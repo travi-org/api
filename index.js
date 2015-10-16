@@ -1,11 +1,8 @@
 'use strict';
 
 var Glue = require('glue'),
-    manifest = require('./manifest');
-
-if (!Promise) {
+    manifest = require('./manifest'),
     Promise = require('promise/lib/es6-extensions');
-}
 
 var composeOptions = {
     relativeTo: __dirname + '/lib'

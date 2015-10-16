@@ -28,12 +28,14 @@ module.exports = function () {
     });
 
     this.Then(/^the catalog should include top level links$/, function (callback) {
+        var world = this;
+
         loadApi.then(function (server) {
             var baseUrl = 'https://' + server.info.host + ':' + server.info.port;
 
-            assert.equals(this.apiResponse.statusCode, 200);
+            assert.equals(world.apiResponse.statusCode, 200);
             assert.equals(
-                JSON.parse(this.apiResponse.payload)._links,
+                JSON.parse(world.apiResponse.payload)._links,
                 {
                     self: { href: baseUrl + '/' },
                     rides: { href: baseUrl + '/rides' },
