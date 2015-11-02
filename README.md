@@ -9,4 +9,4 @@ travi-api
 ## Project Goals
 
 I'm using this as an opportunity to learn how to apply a number of core concepts of api development to node. I plan to build
-a HATEOAS/Hal compatible RESTful API that uses OAuth for authorization. I also plan to use swagger to build documentation.
+a HATEOAS/Hal compatible RESTful API that uses OAuth (or maybe [Oz](https://github.com/hueniverse/oz)) for authorization. I also plan to use swagger to build documentation.
