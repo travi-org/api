@@ -16,12 +16,6 @@ sudo: false
 after_script: grunt mochacov:coverage
 
 deploy:
-  provider: openshift
-  user: openshift@travi.org
-  password:
-    secure: RMGr2d0CnoWDv1stpKPv0gLWY+ZIWQmm+Dco4o8Q6+97MiIqkClVPPRSOFlQQz3To1lqiX2OWaK6O3XQlqthm4xzU1hmhzjgu247yjU9pV+q1kndaaDq7GT6YnSl7uIvWqYj1WpIOF2asst+1EWSDybOMrdU9c4YFc/rKxAmBi4=
-  app: api
-  domain: travi
-  on:
-    repo: travi/travi-api
-    node: '0.10'
+  provider: heroku
+  api_key:
+    secure: ejE97ISrl0D/NeX7mjY+HYaRgEPNtvv6GHWxCXqHiBf+/qTlv9vlOXIUz1ERIqWVC2OZOqDhXYBxFHADWrqXI6VzbX8R23UkosJgMTCpQCN362B5ytpuQynNzAY5TFgt3QNWLJAr9R2/Dzi3IfC89MmUEISJrYzWaiBzr8K1/JU=
