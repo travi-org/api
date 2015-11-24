@@ -1,11 +1,9 @@
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000,
-    address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+var port = process.env.PORT || 3000;
 
 module.exports = {
     "connections": [
         {
             port: port,
-            address: address,
             labels: ['api']
         }
     ],
