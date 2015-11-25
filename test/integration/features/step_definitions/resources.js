@@ -106,7 +106,7 @@ module.exports = function () {
     });
 
     this.Given(/^the list of "([^"]*)" is not empty$/, function (resourceType, callback) {
-        defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)]));
+        defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)], {min: 1}));
 
         callback();
     });
