@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var Glue = require('glue'),
     manifest = require('./manifest'),
     Promise = require('promise/lib/es6-extensions');
