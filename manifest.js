@@ -1,13 +1,25 @@
 var port = process.env.PORT || 3000;
 
 module.exports = {
-    "connections": [
-        {
-            port: port,
-            labels: ['api']
-        }
-    ],
+    "connections": [{
+        port: port,
+        labels: ['api']
+    }],
     "plugins": {
+        'inert': {},
+        'vision': {},
+        'good': {
+            'reporters': [
+                {
+                    'reporter': require('good-console'),
+                    'events': {
+                        log: '*',
+                        response: '*',
+                        error: '*'
+                    }
+                }
+            ]
+        },
         "halacious": {
             apiPath: '',
             protocol: 'https',
@@ -20,14 +32,9 @@ module.exports = {
                 version: '1.0'
             }
         },
-        "hapi-swaggered-ui": [
-            {
-                select: 'api',
-                routes: {
-                    prefix: '/documentation'
-                }
-            }
-        ],
+        "hapi-swaggered-ui": {
+            path: '/documentation'
+        },
         "./router": {}
     }
 };

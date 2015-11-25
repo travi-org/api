@@ -22,7 +22,7 @@ module.exports = function () {
     });
 
     this.Then(/^the documentation should be viewable in the browser$/, function (callback) {
-        assert.equals(200, apiResponse.statusCode);
+        assert.equals(apiResponse.statusCode, 200);
         assert.equals('text/html', apiResponse.headers['content-type']);
 
         callback();
