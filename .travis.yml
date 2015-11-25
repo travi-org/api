@@ -1,10 +1,7 @@
 language: node_js
 node_js:
-- '0.10'
-- '0.12'
 - 4.0
 - 5.0
-- iojs
 
 before_install:
 - npm install -g grunt-cli
@@ -21,4 +18,4 @@ deploy:
   api_key:
     secure: ejE97ISrl0D/NeX7mjY+HYaRgEPNtvv6GHWxCXqHiBf+/qTlv9vlOXIUz1ERIqWVC2OZOqDhXYBxFHADWrqXI6VzbX8R23UkosJgMTCpQCN362B5ytpuQynNzAY5TFgt3QNWLJAr9R2/Dzi3IfC89MmUEISJrYzWaiBzr8K1/JU=
   on:
-    node: '0.10'
+    node: 5.0
