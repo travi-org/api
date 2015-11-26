@@ -55,7 +55,7 @@
     "hapi-swaggered": "2.4.1",
     "hapi-swaggered-ui": "2.1.1",
     "inert": "3.2.0",
-    "joi": "7.0.0",
+    "joi": "7.0.1",
     "lodash": "3.10.1",
     "newrelic": "1.24.0",
     "path": "0.12.7",
