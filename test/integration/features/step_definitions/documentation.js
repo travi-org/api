@@ -1,6 +1,6 @@
 'use strict';
 
-var loadApi = require('../../../../index.js'),
+var loadApi = require('../../../../lib/app.js'),
     referee = require('referee'),
     assert = referee.assert;
 require('referee-more-assertions')(referee);

@@ -1,6 +1,6 @@
 'use strict';
 
-var loadApi = require('../../../../index.js'),
+var loadApi = require('../../../../lib/app.js'),
     fs = require('fs'),
     path = require('path'),
     queryString = require('query-string'),

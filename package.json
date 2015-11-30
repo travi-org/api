@@ -1,7 +1,6 @@
 {
   "name": "travi-api",
   "main": "index.js",
-  "version": "0.1.0",
   "license": "MIT",
   "private": true,
   "repository": {
@@ -10,8 +9,8 @@
   },
   "scripts": {
     "test": "grunt",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node lib/app.js",
+    "dev": "nodemon lib/app.js"
   },
   "engines": {
     "node": "5.0.x",
