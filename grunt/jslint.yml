@@ -1,7 +1,7 @@
 app:
   src:
     - lib/**/*.js
-    - "!index.js"
+    - "!lib/app.js"
   directives:
     node: true
     unparam: true
