@@ -1,10 +1,10 @@
 'use strict';
 
 var path = require('path'),
-    any = require(path.join(__dirname, '../../helpers/any-for-api')),
+    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
 
-    controller = require(path.join(__dirname, '../../../lib/rides/controller')),
-    repo = require(path.join(__dirname, '../../../lib/rides/repository')),
+    controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
+    repo = require(path.join(__dirname, '../../../../lib/api/rides/repository')),
 
     list = ['foo', 'bar'];
 

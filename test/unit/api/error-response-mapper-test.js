@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path'),
-    errorMapper = require(path.join(__dirname, '../../lib/error-response-mapper'));
+    errorMapper = require(path.join(__dirname, '../../../lib/api/error-response-mapper'));
 
 require('setup-referee-sinon/globals');
 

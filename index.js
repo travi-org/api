@@ -3,8 +3,7 @@
 require('newrelic');
 
 var Glue = require('glue'),
-    manifest = require('./manifest'),
-    Promise = require('promise/lib/es6-extensions');
+    manifest = require('./manifest');
 
 var composeOptions = {
     relativeTo: __dirname + '/lib'
@@ -17,8 +16,14 @@ module.exports = new Promise(function (resolve, reject) {
             throw err;
         }
 
-        server.start(function () {
-            console.log('Server started at http://' + server.info.address + ':' + server.info.port);
+        server.start(function (err) {
+            if (err) {
+                reject(err);
+                throw err;
+            }
+
+            console.log(`Server started at http://${server.info.address}:${server.info.port}`);
+
             resolve(server);
         });
     });

@@ -2,13 +2,16 @@
 
 var path = require('path'),
     fs = require('fs'),
-    any = require(path.join(__dirname, '../../helpers/any-for-api')),
-    repo = require(path.join(__dirname, '../../../lib/users/repository'));
+    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
+    repo = require(path.join(__dirname, '../../../../lib/api/users/repository'));
 
 require('setup-referee-sinon/globals');
 
 function setUpDataFile(data) {
-    fs.readFile.withArgs(path.join(__dirname, '../../../data/users.json'), 'utf8').yields(null, JSON.stringify(data));
+    fs.readFile.withArgs(
+        path.join(__dirname, '../../../../data/users.json'),
+        'utf8'
+    ).yields(null, JSON.stringify(data));
 }
 
 suite('user repository', function () {

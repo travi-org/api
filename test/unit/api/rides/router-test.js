@@ -1,14 +1,14 @@
 'use strict';
 
 var path = require('path'),
-    any = require(path.join(__dirname, '../../helpers/any-for-api')),
-    _ = require('lodash'),
+    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     Joi = require('joi'),
-    router = require(path.join(__dirname, '../../../lib/router')),
-    controller = require(path.join(__dirname, '../../../lib/users/controller')),
-    errorMapper = require(path.join(__dirname, '../../../lib/error-response-mapper'));
+    _ = require('lodash'),
+    router = require(path.join(__dirname, '../../../../lib/api/router')),
+    controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
+    errorMapper = require(path.join(__dirname, '../../../../lib/api/error-response-mapper'));
 
-suite('user router', function () {
+suite('ride router', function () {
     var handlers = {},
         prepare,
         server = {route: function () {
@@ -17,19 +17,19 @@ suite('user router', function () {
 
     setup(function () {
         sinon.stub(server, 'route', function (definition) {
-            if (definition.path === '/users') {
+            if (definition.path === '/rides') {
                 handlers.list = definition.handler;
                 prepare = definition.config.plugins.hal.prepare;
-            } else if (definition.path === '/users/{id}') {
-                handlers.user = definition.handler;
+            } else if (definition.path === '/rides/{id}') {
+                handlers.ride = definition.handler;
             }
         });
     });
 
     teardown(function () {
         server.route.restore();
-        prepare = null;
         handlers = {};
+        prepare = null;
     });
 
     suite('list route', function () {
@@ -42,20 +42,22 @@ suite('user router', function () {
         });
 
         test('that list route defined correctly', function () {
-            router.register(server, null, sinon.spy());
+            var next = sinon.spy();
+            router.register(server, null, next);
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
-                path: '/users',
+                path: '/rides',
                 config: {
                     tags: ['api'],
                     plugins: {
                         hal: {
-                            api: 'users'
+                            api: 'rides'
                         }
                     }
                 }
             }));
+            assert.calledOnce(next);
         });
 
         test('that the list route gets gets data from controller', function () {
@@ -73,7 +75,7 @@ suite('user router', function () {
             var next = sinon.spy(),
                 rep = {
                     entity: {
-                        users: [
+                        rides: [
                             {id: any.int()},
                             {id: any.int()},
                             {id: any.int()}
@@ -86,23 +88,23 @@ suite('user router', function () {
 
             prepare(rep, next);
 
-            sinon.assert.callCount(rep.embed, rep.entity.users.length);
-            _.each(rep.entity.users, function (user) {
-                assert.calledWith(rep.embed, 'users', './' + user.id, user);
+            sinon.assert.callCount(rep.embed, rep.entity.rides.length);
+            _.each(rep.entity.rides, function (ride) {
+                assert.calledWith(rep.embed, 'rides', './' + ride.id, ride);
             });
-            assert.calledWith(rep.ignore, 'users');
+            assert.calledWith(rep.ignore, 'rides');
             assert.calledOnce(next);
         });
     });
 
-    suite('user route', function () {
+    suite('ride route', function () {
         setup(function () {
-            sinon.stub(controller, 'getUser');
+            sinon.stub(controller, 'getRide');
             sinon.stub(errorMapper, 'mapToResponse');
         });
 
         teardown(function () {
-            controller.getUser.restore();
+            controller.getRide.restore();
             errorMapper.mapToResponse.restore();
         });
 
@@ -111,7 +113,7 @@ suite('user router', function () {
 
             assert.calledWith(server.route, sinon.match({
                 method: 'GET',
-                path: '/users/{id}',
+                path: '/rides/{id}',
                 config: {
                     tags: ['api'],
                     validate: {
@@ -123,28 +125,28 @@ suite('user router', function () {
             }));
         });
 
-        test('that user returned from controller', function () {
+        test('that ride returned from controller', function () {
             var id = any.int(),
                 reply = sinon.spy(),
-                user = {id: id};
-            controller.getUser.withArgs(id).yields(null, user);
+                ride = {id: id};
+            controller.getRide.withArgs(id).yields(null, ride);
             router.register(server, null, sinon.spy());
 
-            handlers.user({params: {id: id}}, reply);
+            handlers.ride({params: {id: id}}, reply);
 
-            assert.calledWith(reply, user);
+            assert.calledWith(reply, ride);
         });
 
-        test('that 404 returned when user does not exist', function () {
+        test('that 404 returned when ride does not exist', function () {
             var id = any.int(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
                 err = {notFound: true};
-            controller.getUser.withArgs(id).yields(err, null);
+            controller.getRide.withArgs(id).yields(err, null);
             router.register(server, null, sinon.spy());
 
-            handlers.user({params: {id: id}}, reply);
+            handlers.ride({params: {id: id}}, reply);
 
             assert.calledWith(errorMapper.mapToResponse, err, reply);
         });

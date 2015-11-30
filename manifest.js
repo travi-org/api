@@ -32,13 +32,10 @@ module.exports = {
                 version: '1.0'
             }
         },
-        "hapi-swaggered-ui": [{
-            select: ["api"],
-            options: {
-                path: '/documentation'
-            }
-        }],
+        "hapi-swaggered-ui": {
+            path: '/documentation'
+        },
         "scarecrow": {},
-        "./router": {}
+        "./api/router": {}
     }
 };
