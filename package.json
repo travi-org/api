@@ -35,7 +35,7 @@
     "grunt-jscs": "2.3.0",
     "grunt-jslint": "1.1.14",
     "grunt-mocha-cov": "0.4.0",
-    "load-grunt-config": "0.19.0",
+    "load-grunt-config": "0.19.1",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
     "referee-sinon": "1.0.3",
