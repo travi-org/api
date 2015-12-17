@@ -2,7 +2,7 @@
 
 var path = require('path'),
     assert = require('chai').assert,
-    md5 = require('MD5'),
+    md5 = require('md5'),
     _ = require('lodash'),
 
     mapper = require(path.join(__dirname, '../../../../lib/api/users/mapper')),
