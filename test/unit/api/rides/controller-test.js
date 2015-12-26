@@ -4,11 +4,11 @@ var path = require('path'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
 
     controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
-    repo = require(path.join(__dirname, '../../../../lib/api/rides/repository')),
-
-    list = ['foo', 'bar'];
+    repo = require(path.join(__dirname, '../../../../lib/api/rides/repository'));
 
 suite('rides controller', function () {
+    var list = ['foo', 'bar'];
+
     setup(function () {
         sinon.stub(repo, 'getList').yields(null, list);
         sinon.stub(repo, 'getRide').yields(null, list);

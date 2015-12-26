@@ -5,11 +5,11 @@ var path = require('path'),
 
     controller = require(path.join(__dirname, '../../../../lib/api/users/controller')),
     mapper = require(path.join(__dirname, '../../../../lib/api/users/mapper')),
-    repo = require(path.join(__dirname, '../../../../lib/api/users/repository')),
-
-    viewList = ['view-foo', 'view-bar'];
+    repo = require(path.join(__dirname, '../../../../lib/api/users/repository'));
 
 suite('users controller', function () {
+    var viewList = ['view-foo', 'view-bar'];
+
     setup(function () {
         var list = ['foo', 'bar'];
 
