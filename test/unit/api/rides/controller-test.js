@@ -7,11 +7,12 @@ var path = require('path'),
     repo = require(path.join(__dirname, '../../../../lib/api/rides/repository'));
 
 suite('rides controller', function () {
-    var list = ['foo', 'bar'];
+    var list = ['foo', 'bar'],
+        error = any.string();
 
     setup(function () {
-        sinon.stub(repo, 'getList').yields(null, list);
-        sinon.stub(repo, 'getRide').yields(null, list);
+        sinon.stub(repo, 'getList');
+        sinon.stub(repo, 'getRide');
     });
 
     teardown(function () {
@@ -21,10 +22,20 @@ suite('rides controller', function () {
 
     test('that list is returned from repository', function () {
         var callback = sinon.spy();
+        repo.getList.yields(null, list);
 
         controller.getList(callback);
 
         assert.calledWith(callback, null, { rides: list });
+    });
+
+    test('that error bubbles for list request', function () {
+        var callback = sinon.spy();
+        repo.getList.yields(error);
+
+        controller.getList(callback);
+
+        assert.calledWith(callback, error);
     });
 
     test('that not-found error returned for non-existent ride', function () {
@@ -46,5 +57,15 @@ suite('rides controller', function () {
         controller.getRide(id, callback);
 
         assert.calledWith(callback, null, ride);
+    });
+
+    test('that error bubbles for ride request', function () {
+        var id = any.int(),
+            callback = sinon.spy();
+        repo.getRide.yields(error);
+
+        controller.getRide(id, callback);
+
+        assert.calledWith(callback, error);
     });
 });
