@@ -35,7 +35,7 @@ suite('rides controller', function () {
 
         controller.getList(callback);
 
-        assert.calledWith(callback, error);
+        assert.calledOnceWith(callback, error);
     });
 
     test('that not-found error returned for non-existent ride', function () {
