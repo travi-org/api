@@ -15,6 +15,8 @@ function setUpDataFile(data) {
 }
 
 suite('user repository', function () {
+    var error = any.string();
+
     setup(function () {
         sinon.stub(fs, 'readFile');
     });
@@ -33,6 +35,15 @@ suite('user repository', function () {
         assert.calledWith(callback, null, data);
     });
 
+    test('that error bubbles for failure to read the file for list', function () {
+        var callback = sinon.spy();
+        fs.readFile.yields(error);
+
+        repo.getList(callback);
+
+        assert.calledWith(callback, error);
+    });
+
     test('that user is loaded from file', function () {
         var id = any.int(),
             callback = sinon.spy(),
@@ -43,5 +54,15 @@ suite('user repository', function () {
         repo.getUser(id, callback);
 
         assert.calledWith(callback, null, user);
+    });
+
+    test('that error bubbles for failure to read the file for user', function () {
+        var id = any.int(),
+            callback = sinon.spy();
+        fs.readFile.yields(error);
+
+        repo.getUser(id, callback);
+
+        assert.calledWith(callback, error);
     });
 });

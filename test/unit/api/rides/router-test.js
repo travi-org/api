@@ -24,9 +24,11 @@ suite('ride router', function () {
                 handlers.ride = definition.handler;
             }
         });
+        sinon.stub(errorMapper, 'mapToResponse');
     });
 
     teardown(function () {
+        errorMapper.mapToResponse.restore();
         server.route.restore();
         handlers = {};
         prepare = null;
@@ -95,17 +97,27 @@ suite('ride router', function () {
             assert.calledWith(rep.ignore, 'rides');
             assert.calledOnce(next);
         });
+
+        test('that error mapped when list request results in error', function () {
+            var reply = sinon.spy(),
+                err = {};
+            router.register(server, null, sinon.spy());
+            controller.getList.yields(err);
+
+            handlers.list(null, reply);
+
+            assert.calledWith(errorMapper.mapToResponse, err, reply);
+            refute.called(reply);
+        });
     });
 
     suite('ride route', function () {
         setup(function () {
             sinon.stub(controller, 'getRide');
-            sinon.stub(errorMapper, 'mapToResponse');
         });
 
         teardown(function () {
             controller.getRide.restore();
-            errorMapper.mapToResponse.restore();
         });
 
         test('that individual route defined correctly', function () {
@@ -137,7 +149,7 @@ suite('ride router', function () {
             assert.calledWith(reply, ride);
         });
 
-        test('that 404 returned when ride does not exist', function () {
+        test('that error mapped when ride request results in error', function () {
             var id = any.int(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),

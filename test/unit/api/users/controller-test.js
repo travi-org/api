@@ -5,11 +5,12 @@ var path = require('path'),
 
     controller = require(path.join(__dirname, '../../../../lib/api/users/controller')),
     mapper = require(path.join(__dirname, '../../../../lib/api/users/mapper')),
-    repo = require(path.join(__dirname, '../../../../lib/api/users/repository')),
-
-    viewList = ['view-foo', 'view-bar'];
+    repo = require(path.join(__dirname, '../../../../lib/api/users/repository'));
 
 suite('users controller', function () {
+    var viewList = ['view-foo', 'view-bar'],
+        error = any.string();
+
     setup(function () {
         var list = ['foo', 'bar'];
 
@@ -36,6 +37,15 @@ suite('users controller', function () {
         assert.calledWith(callback, null, { users: viewList });
     });
 
+    test('that error bubbles for list request', function () {
+        var callback = sinon.spy();
+        repo.getList.yields(error);
+
+        controller.getList(callback);
+
+        assert.calledOnceWith(callback, error);
+    });
+
     test('that not-found error returned for non-existent user', function () {
         var id = any.int(),
             callback = sinon.spy();
@@ -57,5 +67,15 @@ suite('users controller', function () {
         controller.getUser(id, callback);
 
         assert.calledWith(callback, null, userView);
+    });
+
+    test('that error bubbles for user request', function () {
+        var id = any.int(),
+            callback = sinon.spy();
+        repo.getUser.yields(error);
+
+        controller.getUser(id, callback);
+
+        assert.calledWith(callback, error);
     });
 });
