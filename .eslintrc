@@ -13,8 +13,9 @@
   extends:
     - eslint:recommended
 #    - defaults/configurations/walmart/es6
-#
-#  rules:
+
+  rules:
+    handle-callback-err: 2
 #    camelcase: 2
 #    prefer-arrow-callback: 2
 #    prefer-template: 2

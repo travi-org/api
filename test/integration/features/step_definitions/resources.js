@@ -3,6 +3,7 @@
 var loadApi = require('../../../../lib/app.js'),
     fs = require('fs'),
     path = require('path'),
+    hoek = require('hoek'),
     queryString = require('query-string'),
     _ = require('lodash'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api'));
@@ -139,6 +140,8 @@ module.exports = function () {
         var world = this;
 
         fs.readFile(path.join(__dirname, '../../../../data/rides.json'), 'utf8', function (err, content) {
+            hoek.assert(!err, err);
+
             var match = _.find(JSON.parse(content), _.matchesProperty('nickname', ride)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : ride;
 
@@ -158,6 +161,8 @@ module.exports = function () {
         var world = this;
 
         fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', function (err, content) {
+            hoek.assert(!err, err);
+
             var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : user;
 
