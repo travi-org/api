@@ -24,9 +24,11 @@ suite('user router', function () {
                 handlers.user = definition.handler;
             }
         });
+        sinon.stub(errorMapper, 'mapToResponse');
     });
 
     teardown(function () {
+        errorMapper.mapToResponse.restore();
         server.route.restore();
         prepare = null;
         handlers = {};
@@ -93,17 +95,27 @@ suite('user router', function () {
             assert.calledWith(rep.ignore, 'users');
             assert.calledOnce(next);
         });
+
+        test('that error mapped when list request results in error', function () {
+            var reply = sinon.spy(),
+                err = {};
+            router.register(server, null, sinon.spy());
+            controller.getList.yields(err);
+
+            handlers.list(null, reply);
+
+            assert.calledWith(errorMapper.mapToResponse, err, reply);
+            refute.called(reply);
+        });
     });
 
     suite('user route', function () {
         setup(function () {
             sinon.stub(controller, 'getUser');
-            sinon.stub(errorMapper, 'mapToResponse');
         });
 
         teardown(function () {
             controller.getUser.restore();
-            errorMapper.mapToResponse.restore();
         });
 
         test('that individual route defined correctly', function () {
