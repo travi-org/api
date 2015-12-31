@@ -58,7 +58,7 @@
     "joi": "7.1.0",
     "lodash": "3.10.1",
     "md5": "2.0.0",
-    "newrelic": "1.24.0",
+    "newrelic": "1.24.1",
     "path": "0.12.7",
     "promise": "7.1.1",
     "query-string": "3.0.0",
