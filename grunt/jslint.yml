@@ -10,7 +10,9 @@ app:
     errorsOnly: true
 
 test:
-  src: test/**/*.js
+  src:
+    - test/**/*.js
+    - "!test/integration/**"
   directives:
     node: true
     regexp: true

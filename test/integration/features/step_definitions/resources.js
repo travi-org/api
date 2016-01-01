@@ -1,6 +1,6 @@
 'use strict';
 
-var loadApi = require('../../../../lib/app.js'),
+const
     fs = require('fs'),
     path = require('path'),
     hoek = require('hoek'),
@@ -92,12 +92,10 @@ module.exports = function () {
         }
     }
 
-    this.After(function (callback) {
+    this.After(function () {
         if (fs.readFile.restore) {
             fs.readFile.restore();
         }
-
-        callback();
     });
 
     this.Given(/^the list of "([^"]*)" is empty$/, function (resourceType, callback) {
@@ -137,66 +135,36 @@ module.exports = function () {
     });
 
     this.When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
-        var world = this;
-
-        fs.readFile(path.join(__dirname, '../../../../data/rides.json'), 'utf8', function (err, content) {
+        fs.readFile(path.join(__dirname, '../../../../data/rides.json'), 'utf8', (err, content) => {
             hoek.assert(!err, err);
 
             var match = _.find(JSON.parse(content), _.matchesProperty('nickname', ride)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : ride;
 
-            loadApi.then(function (server) {
-                server.inject({
-                    method: 'GET',
-                    url: '/rides/' + id
-                }, function (response) {
-                    world.apiResponse = response;
-                    callback();
-                });
-            });
+            this.makeRequestTo('/rides/' + id, callback);
         });
     });
 
     this.When(/^user "([^"]*)" is requested by id$/, function (user, callback) {
-        var world = this;
-
-        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', function (err, content) {
+        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', (err, content) => {
             hoek.assert(!err, err);
 
             var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : user;
 
-            loadApi.then(function (server) {
-                server.inject({
-                    method: 'GET',
-                    url: '/users/' + id
-                }, function (response) {
-                    world.apiResponse = response;
-                    callback();
-                });
-            });
+            this.makeRequestTo('/users/' + id, callback);
         });
     });
 
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
-        var world = this;
-
-        loadApi.then(function (server) {
-            server.inject({
-                method: 'GET',
-                url: path
-            }, function (response) {
-                world.apiResponse = response;
-                callback();
-            });
-        });
+        this.makeRequestTo(path, callback);
     });
 
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
-        var actualList = JSON.parse(this.apiResponse.payload)._embedded[resourceType],
+        var actualList = JSON.parse(this.getResponseBody())._embedded[resourceType],
             expectedList = getListForType(resourceType);
 
-        assert.equals(this.apiResponse.statusCode, 200);
+        assert.equals(this.getResponseStatus(), 200);
         assert.equals(actualList.length, expectedList.length);
         _.forEach(actualList, function (actualItem, index) {
             var expectedItem = expectedList[index];
@@ -207,8 +175,8 @@ module.exports = function () {
     });
 
     this.Then(/^an empty list is returned$/, function (callback) {
-        assert.equals(this.apiResponse.statusCode, 200);
-        refute.defined(JSON.parse(this.apiResponse.payload)._embedded);
+        assert.equals(this.getResponseStatus(), 200);
+        refute.defined(JSON.parse(this.getResponseBody())._embedded);
 
         callback();
     });
@@ -216,7 +184,7 @@ module.exports = function () {
     this.Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
         assertPropertyIn(
             property,
-            JSON.parse(this.apiResponse.payload),
+            JSON.parse(this.getResponseBody()),
             resourceType,
             assertPropertyIsNotPopulatedInResource
         );
@@ -227,7 +195,7 @@ module.exports = function () {
     this.Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
         assertPropertyIn(
             property,
-            JSON.parse(this.apiResponse.payload),
+            JSON.parse(this.getResponseBody()),
             resourceType,
             assertPropertyIsPopulatedInResource
         );
@@ -236,15 +204,15 @@ module.exports = function () {
     });
 
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
-        assert.equals(this.apiResponse.statusCode, 200);
-        assert.equals(JSON.parse(this.apiResponse.payload)['first-name'], user);
+        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(JSON.parse(this.getResponseBody())['first-name'], user);
 
         callback();
     });
 
     this.Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
-        assert.equals(this.apiResponse.statusCode, 200);
-        assert.equals(JSON.parse(this.apiResponse.payload).nickname, ride);
+        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(JSON.parse(this.getResponseBody()).nickname, ride);
 
         callback();
     });
@@ -254,13 +222,13 @@ module.exports = function () {
             'Not Found': 404
         };
 
-        assert.equals(this.apiResponse.statusCode, statuses[status]);
+        assert.equals(this.getResponseStatus(), statuses[status]);
 
         callback();
     });
 
     this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
-        var response = JSON.parse(this.apiResponse.payload),
+        var response = JSON.parse(this.getResponseBody()),
             items = response._embedded[resourceType];
 
         assert.defined(response._links.self);
@@ -278,7 +246,7 @@ module.exports = function () {
         resourceType,
         callback
     ) {
-        assertThumbnailSizedAt(property, size, JSON.parse(this.apiResponse.payload), resourceType);
+        assertThumbnailSizedAt(property, size, JSON.parse(this.getResponseBody()), resourceType);
 
         callback();
     });
