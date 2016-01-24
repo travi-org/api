@@ -8,5 +8,12 @@ travi-api
 
 ## Project Goals
 
-I'm using this as an opportunity to learn how to apply a number of core concepts of api development to node. I plan to build
-a HATEOAS/Hal compatible RESTful API that uses OAuth (or maybe [Oz](https://github.com/hueniverse/oz)) for authorization. I also plan to use swagger to build documentation.
+I'm using this as an opportunity to learn how to apply a number of core concepts of api development to node.
+
+[x] <abbr title="Hypertext Application Language">[HAL](http://stateless.co/hal_specification.html)</abbr> compatible Hypermedia/HATEOAS API
+    * [Hapi](http://hapijs.com/)
+    * [Halacious](https://github.com/bleupen/halacious)
+[ ] Access Control
+    * Limited read-only access with no auth context
+    * Privilege elevation for advanced actions
+        * Either OAuth or [Oz](https://github.com/hueniverse/oz) for authorization
