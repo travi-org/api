@@ -50,7 +50,7 @@
   "dependencies": {
     "glue": "3.1.0",
     "good": "6.4.0",
-    "good-console": "5.2.0",
+    "good-console": "5.3.0",
     "halacious": "3.4.0",
     "hapi": "12.1.0",
     "hapi-swaggered": "2.5.0",
