@@ -1,0 +1,17 @@
+{
+    "ignore": [
+        "newrelic.js"
+    ],
+    "dependencies": {
+        "unused-ignores": [
+            "good",
+            "hapi",
+            "vision",
+            "hapi-swaggered-ui",
+            "hapi-swaggered",
+            "scarecrow",
+            "inert",
+            "halacious"
+        ]
+    }
+}
