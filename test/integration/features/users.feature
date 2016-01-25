@@ -9,8 +9,8 @@ Feature: Users
         And "email" is not included in "users"
 
     @wip
-    Scenario: Authenticated request for list
-        Given request is authenticated
+    Scenario: Request for list with elevated privileges
+        Given request includes oz ticket
         And the list of "users" is not empty
         When "/users" is requested
         Then a list of "users" is returned
@@ -29,8 +29,8 @@ Feature: Users
         Then the response will be "Not Found"
 
     @wip
-    Scenario: Authenticated request for user by id
-        Given request is anonymous
+    Scenario: Request for user by id with elevated privileges
+        Given request includes oz ticket
         And user "Matt" exists
         When user "Matt" is requested by id
         Then user "Matt" is returned

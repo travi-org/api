@@ -110,14 +110,6 @@ module.exports = function () {
         callback();
     });
 
-    this.Given(/^request is anonymous$/, function (callback) {
-        callback();
-    });
-
-    this.Given(/^request is authenticated$/, function (callback) {
-        callback();
-    });
-
     this.Given(/^user "([^"]*)" exists$/, function (user, callback) {
         callback();
     });
