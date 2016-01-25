@@ -3,7 +3,8 @@ const auth = require('../../../lib/api/auth');
 suite('api authorization', function () {
     test('that the plugin is defined', () => {
         assert.equals(auth.register.attributes, {
-            name: 'auth-strategy'
+            name: 'auth-strategy',
+            dependencies: 'scarecrow'
         });
     });
 
