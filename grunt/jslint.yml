@@ -2,6 +2,7 @@ app:
   src:
     - lib/**/*.js
     - "!lib/app.js"
+    - "!lib/api/auth.js"
   directives:
     node: true
     unparam: true
@@ -13,6 +14,7 @@ test:
   src:
     - test/**/*.js
     - "!test/integration/**"
+    - "!test/unit/api/auth-test.js"
   directives:
     node: true
     regexp: true
