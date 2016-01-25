@@ -14,7 +14,9 @@ suite('api authorization', function () {
 
         auth.register({auth: {strategy: strategy}}, null, next);
 
-        assert.calledWith(strategy, 'oz', 'oz', 'optional');
+        assert.calledWith(strategy, 'oz', 'oz', 'optional', {oz: {
+            encryptionPassword: 'password'
+        }});
         assert.calledOnce(next);
     });
 });
