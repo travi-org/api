@@ -5,13 +5,13 @@ const
     loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
 
 module.exports.World = function World() {
-    this.makeRequestTo = (url, callback) => {
+    const requestTo = (options, callback) => {
         loadApi.then((server) => {
             this.server = server;
 
             server.inject({
-                method: 'GET',
-                url,
+                method: options.method,
+                url: options.url,
                 headers: {
                     'Accept': this.mime
                 }
@@ -21,6 +21,20 @@ module.exports.World = function World() {
                 callback();
             });
         });
+    };
+
+    this.makeRequestTo = (url, callback) => {
+        requestTo({
+            url,
+            method: 'GET'
+        }, callback);
+    };
+
+    this.postRequestTo = (url, callback) => {
+        requestTo({
+            url,
+            method: 'POST'
+        }, callback);
     };
 
     this.getBaseUrl = () => {
