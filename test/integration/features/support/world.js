@@ -23,7 +23,7 @@ module.exports.World = function World() {
         });
     };
 
-    this.makeRequestTo = (url, callback) => {
+    this.getRequestTo = (url, callback) => {
         requestTo({
             url,
             method: 'GET'

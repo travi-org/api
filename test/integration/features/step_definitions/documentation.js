@@ -7,7 +7,7 @@ require('referee-more-assertions')(referee);
 
 module.exports = function () {
     this.When(/^the documentation is requested in the browser$/, function (callback) {
-        this.makeRequestTo('/documentation', callback);
+        this.getRequestTo('/documentation', callback);
     });
 
     this.Then(/^the documentation should be viewable in the browser$/, function (callback) {
@@ -18,7 +18,7 @@ module.exports = function () {
     });
 
     this.When(/^the docs are requested$/, function (callback) {
-        this.makeRequestTo('/swagger', callback);
+        this.getRequestTo('/swagger', callback);
     });
 
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {

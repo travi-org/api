@@ -13,7 +13,7 @@ module.exports = function () {
     });
 
     this.When(/^the catalog is requested$/, function (callback) {
-        this.makeRequestTo('/', callback);
+        this.getRequestTo('/', callback);
     });
 
     this.Then(/^the catalog should include top level links$/, function (callback) {

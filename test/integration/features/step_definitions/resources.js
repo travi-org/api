@@ -133,7 +133,7 @@ module.exports = function () {
             var match = _.find(JSON.parse(content), _.matchesProperty('nickname', ride)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : ride;
 
-            this.makeRequestTo('/rides/' + id, callback);
+            this.getRequestTo('/rides/' + id, callback);
         });
     });
 
@@ -144,12 +144,12 @@ module.exports = function () {
             var match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
                 id = !_.isEmpty(match) ? _.result(match, 'id') : user;
 
-            this.makeRequestTo('/users/' + id, callback);
+            this.getRequestTo('/users/' + id, callback);
         });
     });
 
     this.When(/^"([^"]*)" is requested$/, function (path, callback) {
-        this.makeRequestTo(path, callback);
+        this.getRequestTo(path, callback);
     });
 
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
