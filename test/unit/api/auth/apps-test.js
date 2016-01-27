@@ -1,3 +1,5 @@
+'use strict';
+
 const
     any = require('../../../helpers/any'),
     proxyquire = require('proxyquire');
