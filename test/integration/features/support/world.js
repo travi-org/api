@@ -5,16 +5,18 @@ const
     loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
 
 module.exports.World = function World() {
-    const requestTo = (options, callback) => {
+    this.requestTo = (options, callback) => {
         loadApi.then((server) => {
             this.server = server;
+
+            var headers = Object.assign({
+                'Accept': this.mime
+            }, options.headers);
 
             server.inject({
                 method: options.method,
                 url: options.url,
-                headers: {
-                    'Accept': this.mime
-                }
+                headers
             }, (response) => {
                 this.serverResponse = response;
 
@@ -24,14 +26,14 @@ module.exports.World = function World() {
     };
 
     this.getRequestTo = (url, callback) => {
-        requestTo({
+        this.requestTo({
             url,
             method: 'GET'
         }, callback);
     };
 
     this.postRequestTo = (url, callback) => {
-        requestTo({
+        this.requestTo({
             url,
             method: 'POST'
         }, callback);

@@ -1,0 +1,8 @@
+{
+    "foo": {
+        "id": "foo",
+        "scope": ["a"],
+        "key": "some-key",
+        "algorithm": "sha256"
+    }
+}

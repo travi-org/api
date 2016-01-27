@@ -49,6 +49,12 @@ function email() {
     return string() + '@' + domain();
 }
 
+function simpleObject() {
+    return {
+        [string()]: string()
+    };
+}
+
 function listOf(constructor, options) {
     var list = [],
         listSize = int(),
@@ -70,5 +76,6 @@ module.exports = {
     string: string,
     url: url,
     email: email,
-    listOf: listOf
+    listOf: listOf,
+    simpleObject: simpleObject
 };

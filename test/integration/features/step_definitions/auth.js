@@ -1,11 +1,29 @@
 'use strict';
 
-function getOzTicket(callback) {
-    this.postRequestTo('http://example.com/oz/app', () => {
-        assert.equals(this.getResponseStatus(), 200);
+const
+    oz = require('oz'),
+    apps = require('../../../../data/auth/apps');
 
-        callback();
-    });
+function getOzTicket(callback) {
+    const
+        url = `http://example.com/oz/app`,
+        method = 'POST',
+        appTicket = apps.foo;
+
+    this.requestTo(
+        {
+            url,
+            method,
+            headers: {
+                authorization: oz.client.header(url, method, appTicket).field
+            }
+        },
+        () => {
+            assert.equals(this.getResponseStatus(), 200);
+
+            callback();
+        }
+    );
 }
 
 module.exports = function () {
