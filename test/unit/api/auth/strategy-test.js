@@ -1,6 +1,6 @@
 const
-    auth = require('../../../lib/api/auth'),
-    apps = require('../../../lib/api/auth/apps');
+    auth = require('../../../../lib/api/auth/strategy'),
+    apps = require('../../../../lib/api/auth/apps');
 
 suite('api authorization', function () {
     test('that the plugin is defined', () => {
