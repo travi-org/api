@@ -1,6 +1,7 @@
 const
     auth = require('../../../../lib/api/auth/strategy'),
-    apps = require('../../../../lib/api/auth/apps');
+    apps = require('../../../../lib/api/auth/apps'),
+    grants = require('../../../../lib/api/auth/grants');
 
 suite('api authorization', function () {
     test('that the plugin is defined', () => {
@@ -19,7 +20,8 @@ suite('api authorization', function () {
 
         assert.calledWith(strategy, 'oz', 'oz', 'optional', {oz: {
             encryptionPassword: 'password',
-            loadAppFunc: apps.getById
+            loadAppFunc: apps.getById,
+            loadGrantFunc: grants.getById
         }});
         assert.calledOnce(next);
     });

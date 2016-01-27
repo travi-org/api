@@ -16,6 +16,7 @@ module.exports.World = function World() {
             server.inject({
                 method: options.method,
                 url: options.url,
+                payload: options.payload,
                 headers
             }, (response) => {
                 this.serverResponse = response;
