@@ -9,13 +9,14 @@ var path = require('path'),
 
 suite('users controller', function () {
     var viewList = ['view-foo', 'view-bar'],
+        scopes = any.listOf(any.string),
         error = any.string();
 
     setup(function () {
         var list = ['foo', 'bar'];
 
         sinon.stub(repo, 'getList').yields(null, list);
-        sinon.stub(mapper, 'mapListToView').withArgs(list, 32).returns(viewList);
+        sinon.stub(mapper, 'mapListToView').withArgs(list, 32, scopes).returns(viewList);
 
         sinon.stub(repo, 'getUser');
         sinon.stub(mapper, 'mapToView');
@@ -32,7 +33,7 @@ suite('users controller', function () {
     test('that list is returned from repository', function () {
         var callback = sinon.spy();
 
-        controller.getList(undefined, callback);
+        controller.getList(scopes, callback);
 
         assert.calledWith(callback, null, { users: viewList });
     });
