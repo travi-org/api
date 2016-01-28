@@ -37,4 +37,21 @@ suite('user mapper', function () {
             assertUserMappedToViewProperly(userViews[index], user, size);
         });
     });
+
+    test('that email is populated when authorized', function () {
+        var user = any.resources.user(),
+            size = any.int();
+
+        assert.equal(mapper.mapToView(user, size, any.listOf(any.string)).email, user.email);
+    });
+
+    test('that email is populated in each item in list when authorized', function () {
+        var users = any.listOf(any.resources.user),
+            size = any.int(),
+            userViews = mapper.mapListToView(users, size, any.listOf(any.string));
+
+        _.forEach(users, function (user, index) {
+            assert.equal(userViews[index].email, user.email);
+        });
+    });
 });

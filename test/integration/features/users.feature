@@ -8,7 +8,6 @@ Feature: Users
         And list of "users" has self links populated
         And "email" is not included in "users"
 
-    @wip
     Scenario: Request for list with elevated privileges
         Given request includes oz ticket
         And the list of "users" is not empty
