@@ -52,7 +52,7 @@ suite('users controller', function () {
             callback = sinon.spy();
         repo.getUser.withArgs(id).yields(null, null);
 
-        controller.getUser(id, callback);
+        controller.getUser(id, undefined, callback);
 
         assert.calledWith(callback, {notFound: true});
     });
@@ -63,9 +63,9 @@ suite('users controller', function () {
             user = {id: id},
             userView = {view: true};
         repo.getUser.withArgs(id).yields(null, user);
-        mapper.mapToView.withArgs(user, 320).returns(userView);
+        mapper.mapToView.withArgs(user, 320, scopes).returns(userView);
 
-        controller.getUser(id, callback);
+        controller.getUser(id, scopes, callback);
 
         assert.calledWith(callback, null, userView);
     });
@@ -75,7 +75,7 @@ suite('users controller', function () {
             callback = sinon.spy();
         repo.getUser.yields(error);
 
-        controller.getUser(id, callback);
+        controller.getUser(id, undefined, callback);
 
         assert.calledWith(callback, error);
     });

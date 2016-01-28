@@ -27,7 +27,6 @@ Feature: Users
         When user "Bob" is requested by id
         Then the response will be "Not Found"
 
-    @wip
     Scenario: Request for user by id with elevated privileges
         Given request includes oz ticket
         And user "Matt" exists

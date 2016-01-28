@@ -73,7 +73,7 @@ suite('user router', function () {
             assert.calledWith(reply, data);
         });
 
-        test('that scopes are passed to controller for request with authorization', function () {
+        test('that scopes are passed to controller for list request with authorization', function () {
             var reply = sinon.spy(),
                 scopes = any.listOf(any.string);
             router.register(server, null, sinon.spy());
@@ -158,9 +158,26 @@ suite('user router', function () {
             controller.getUser.withArgs(id).yields(null, user);
             router.register(server, null, sinon.spy());
 
-            handlers.user({params: {id: id}}, reply);
+            handlers.user({
+                params: {id: id},
+                auth: requestNoAuth.auth
+            }, reply);
 
             assert.calledWith(reply, user);
+        });
+
+        test('that scopes are passed to controller for request with authorization', function () {
+            var id = any.int(),
+                reply = sinon.spy(),
+                scopes = any.listOf(any.string);
+            router.register(server, null, sinon.spy());
+
+            handlers.user({
+                params: {id: id},
+                auth: {credentials: {scope: scopes}}
+            }, reply);
+
+            assert.calledWith(controller.getUser, id, scopes);
         });
 
         test('that 404 returned when user does not exist', function () {
@@ -172,7 +189,10 @@ suite('user router', function () {
             controller.getUser.withArgs(id).yields(err, null);
             router.register(server, null, sinon.spy());
 
-            handlers.user({params: {id: id}}, reply);
+            handlers.user({
+                params: {id: id},
+                auth: requestNoAuth.auth
+            }, reply);
 
             assert.calledWith(errorMapper.mapToResponse, err, reply);
         });
