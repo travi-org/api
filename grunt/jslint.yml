@@ -2,8 +2,8 @@ app:
   src:
     - lib/**/*.js
     - "!lib/app.js"
+    - "!lib/api/router.js"
     - "!lib/api/auth/**/*.js"
-    - "!lib/api/auth.js"
   directives:
     node: true
     unparam: true
@@ -16,8 +16,8 @@ test:
     - test/**/*.js
     - "!test/integration/**"
     - "!test/helpers/**"
+    - "!test/unit/api/**/router-test.js"
     - "!test/unit/api/auth/**/*.js"
-    - "!test/unit/api/auth-test.js"
   directives:
     node: true
     regexp: true

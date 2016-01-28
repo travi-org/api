@@ -32,7 +32,7 @@ suite('users controller', function () {
     test('that list is returned from repository', function () {
         var callback = sinon.spy();
 
-        controller.getList(callback);
+        controller.getList(undefined, callback);
 
         assert.calledWith(callback, null, { users: viewList });
     });
@@ -41,7 +41,7 @@ suite('users controller', function () {
         var callback = sinon.spy();
         repo.getList.yields(error);
 
-        controller.getList(callback);
+        controller.getList(undefined, callback);
 
         assert.calledOnceWith(callback, error);
     });

@@ -24,7 +24,7 @@ suite('rides controller', function () {
         var callback = sinon.spy();
         repo.getList.yields(null, list);
 
-        controller.getList(callback);
+        controller.getList(undefined, callback);
 
         assert.calledWith(callback, null, { rides: list });
     });
@@ -33,7 +33,7 @@ suite('rides controller', function () {
         var callback = sinon.spy();
         repo.getList.yields(error);
 
-        controller.getList(callback);
+        controller.getList(undefined, callback);
 
         assert.calledOnceWith(callback, error);
     });

@@ -4,11 +4,13 @@ var path = require('path'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     _ = require('lodash'),
     Joi = require('joi'),
+    deepFreeze = require('deep-freeze'),
     router = require(path.join(__dirname, '../../../../lib/api/router')),
     controller = require(path.join(__dirname, '../../../../lib/api/users/controller')),
     errorMapper = require(path.join(__dirname, '../../../../lib/api/error-response-mapper'));
 
 suite('user router', function () {
+    const requestNoAuth = deepFreeze({auth: {}});
     var handlers = {},
         prepare,
         server = {route: function () {
@@ -66,9 +68,23 @@ suite('user router', function () {
             controller.getList.yields(null, data);
             router.register(server, null, sinon.spy());
 
-            handlers.list(null, reply);
+            handlers.list(requestNoAuth, reply);
 
             assert.calledWith(reply, data);
+        });
+
+        test('that scopes are passed to controller for request with authorization', function () {
+            var reply = sinon.spy(),
+                scopes = any.listOf(any.string);
+            router.register(server, null, sinon.spy());
+
+            handlers.list({
+                auth: {
+                    credentials: {scope: scopes}
+                }
+            }, reply);
+
+            assert.calledWith(controller.getList, scopes);
         });
 
         test('that list is formatted to meet hal spec', function () {
@@ -102,7 +118,7 @@ suite('user router', function () {
             router.register(server, null, sinon.spy());
             controller.getList.yields(err);
 
-            handlers.list(null, reply);
+            handlers.list(requestNoAuth, reply);
 
             assert.calledWith(errorMapper.mapToResponse, err, reply);
             refute.called(reply);
