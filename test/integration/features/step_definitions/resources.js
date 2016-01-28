@@ -153,10 +153,11 @@ module.exports = function () {
     });
 
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
+        assert.equals(this.getResponseStatus(), 200, this.getResponseBody());
+
         var actualList = JSON.parse(this.getResponseBody())._embedded[resourceType],
             expectedList = getListForType(resourceType);
 
-        assert.equals(this.getResponseStatus(), 200);
         assert.equals(actualList.length, expectedList.length);
         _.forEach(actualList, function (actualItem, index) {
             var expectedItem = expectedList[index];
@@ -167,7 +168,8 @@ module.exports = function () {
     });
 
     this.Then(/^an empty list is returned$/, function (callback) {
-        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(this.getResponseStatus(), 200, this.getResponseBody());
+
         refute.defined(JSON.parse(this.getResponseBody())._embedded);
 
         callback();
@@ -196,7 +198,8 @@ module.exports = function () {
     });
 
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
-        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(this.getResponseStatus(), 200, this.getResponseBody());
+
         assert.equals(JSON.parse(this.getResponseBody())['first-name'], user);
 
         callback();

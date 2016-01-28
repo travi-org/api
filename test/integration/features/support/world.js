@@ -31,6 +31,7 @@ module.exports.World = function World() {
 
     this.requestTo = (options, callback) => {
         loadApi.then((server) => {
+            this.serverResponse = null;
             this.server = server;
 
             var headers = Object.assign({
@@ -51,10 +52,19 @@ module.exports.World = function World() {
     };
 
     this.getRequestTo = (url, callback) => {
-        this.requestTo({
-            url,
-            method: 'GET'
-        }, callback);
+        const
+            headers = {},
+            method = 'GET';
+        url = `http://example.com${url}`;
+
+        if (this.ozUserTicket) {
+            headers.authorization = oz.client.header(url, method, this.ozUserTicket).field;
+        }
+
+        this.requestTo(
+            {url, method, headers},
+            callback
+        );
     };
 
     this.postRequestTo = (url, callback) => {

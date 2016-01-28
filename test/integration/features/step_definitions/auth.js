@@ -28,7 +28,13 @@ function getUserTicket(callback) {
         simulateUserGettingRsvpByGrantingScopes.call(this, (err, rsvp) => {
             hoek.assert(!err, err);
 
-            exchangeRsvpForUserTicket.call(this, appTicket, rsvp, callback);
+            exchangeRsvpForUserTicket.call(this, appTicket, rsvp, (err, userTicket) => {
+                hoek.assert(!err, err);
+
+                this.ozUserTicket = userTicket;
+
+                callback()
+            });
         });
     });
 }
