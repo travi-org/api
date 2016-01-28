@@ -55,9 +55,9 @@ module.exports.World = function World() {
         const
             headers = {},
             method = 'GET';
-        url = `http://example.com${url}`;
 
         if (this.ozUserTicket) {
+            url = `http://example.com${url}`;
             headers.authorization = oz.client.header(url, method, this.ozUserTicket).field;
         }
 
