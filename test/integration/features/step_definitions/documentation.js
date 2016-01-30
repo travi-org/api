@@ -6,12 +6,14 @@ const
 require('referee-more-assertions')(referee);
 
 module.exports = function () {
+    const SUCCESS = 200;
+
     this.When(/^the documentation is requested in the browser$/, function (callback) {
         this.getRequestTo('/documentation', callback);
     });
 
     this.Then(/^the documentation should be viewable in the browser$/, function (callback) {
-        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(this.getResponseStatus(), SUCCESS);
         assert.equals('text/html', this.getResponseHeaders()['content-type']);
 
         callback();
@@ -22,7 +24,7 @@ module.exports = function () {
     });
 
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {
-        var paths = JSON.parse(this.getResponseBody()).paths;
+        const paths = JSON.parse(this.getResponseBody()).paths;
         assert.defined(paths['/rides']);
         assert.defined(paths['/users']);
 
@@ -30,7 +32,7 @@ module.exports = function () {
     });
 
     this.Then(/^the GET by id endpoints should be included$/, function (callback) {
-        var paths = JSON.parse(this.getResponseBody()).paths;
+        const paths = JSON.parse(this.getResponseBody()).paths;
 
         assert.defined(paths['/rides/{id}']);
         assert.defined(paths['/users/{id}']);

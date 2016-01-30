@@ -6,9 +6,11 @@ const
 referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 
 module.exports = function () {
+    const SUCCESS = 200;
+
     this.World = require('../support/world.js').World;
 
-    this.Given(/^the api contains no resources$/, function (callback) {
+    this.Given(/^the api contains no resources$/, (callback) => {
         callback();
     });
 
@@ -19,13 +21,13 @@ module.exports = function () {
     this.Then(/^the catalog should include top level links$/, function (callback) {
         const baseUrl = this.getBaseUrl();
 
-        assert.equals(this.getResponseStatus(), 200);
+        assert.equals(this.getResponseStatus(), SUCCESS);
         assert.equals(
             JSON.parse(this.getResponseBody())._links,
             {
-                self: { href: baseUrl + '/' },
-                rides: { href: baseUrl + '/rides' },
-                users: { href: baseUrl + '/users' }
+                self: { href: `${baseUrl}/` },
+                rides: { href: `${baseUrl}/rides` },
+                users: { href: `${baseUrl}/users` }
             }
         );
 

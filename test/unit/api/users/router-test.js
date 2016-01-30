@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path'),
+const
+    path = require('path'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     _ = require('lodash'),
     Joi = require('joi'),
@@ -9,43 +10,45 @@ var path = require('path'),
     controller = require(path.join(__dirname, '../../../../lib/api/users/controller')),
     errorMapper = require(path.join(__dirname, '../../../../lib/api/error-response-mapper'));
 
-suite('user router', function () {
-    const requestNoAuth = deepFreeze({auth: {}});
-    var handlers = {},
-        prepare,
-        server = {route: function () {
-            return;
-        }};
+suite('user router', () => {
+    const requestNoAuth = deepFreeze({auth: {}}),
+        server = {
+            route() {
+                return;
+            }
+        };
+    let prepare,
+        handlers = {};
 
-    setup(function () {
-        sinon.stub(server, 'route', function (definition) {
-            if (definition.path === '/users') {
+    setup(() => {
+        sinon.stub(server, 'route', (definition) => {
+            if ('/users' === definition.path) {
                 handlers.list = definition.handler;
                 prepare = definition.config.plugins.hal.prepare;
-            } else if (definition.path === '/users/{id}') {
+            } else if ('/users/{id}' === definition.path) {
                 handlers.user = definition.handler;
             }
         });
         sinon.stub(errorMapper, 'mapToResponse');
     });
 
-    teardown(function () {
+    teardown(() => {
         errorMapper.mapToResponse.restore();
         server.route.restore();
         prepare = null;
         handlers = {};
     });
 
-    suite('list route', function () {
-        setup(function () {
+    suite('list route', () => {
+        setup(() => {
             sinon.stub(controller, 'getList');
         });
 
-        teardown(function () {
+        teardown(() => {
             controller.getList.restore();
         });
 
-        test('that list route defined correctly', function () {
+        test('that list route defined correctly', () => {
             router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
@@ -62,8 +65,9 @@ suite('user router', function () {
             }));
         });
 
-        test('that the list route gets gets data from controller', function () {
-            var reply = sinon.spy(),
+        test('that the list route gets gets data from controller', () => {
+            const
+                reply = sinon.spy(),
                 data = {foo: 'bar'};
             controller.getList.yields(null, data);
             router.register(server, null, sinon.spy());
@@ -73,8 +77,9 @@ suite('user router', function () {
             assert.calledWith(reply, data);
         });
 
-        test('that scopes are passed to controller for list request with authorization', function () {
-            var reply = sinon.spy(),
+        test('that scopes are passed to controller for list request with authorization', () => {
+            const
+                reply = sinon.spy(),
                 scopes = any.listOf(any.string);
             router.register(server, null, sinon.spy());
 
@@ -87,8 +92,9 @@ suite('user router', function () {
             assert.calledWith(controller.getList, scopes);
         });
 
-        test('that list is formatted to meet hal spec', function () {
-            var next = sinon.spy(),
+        test('that list is formatted to meet hal spec', () => {
+            const
+                next = sinon.spy(),
                 rep = {
                     entity: {
                         users: [
@@ -105,15 +111,16 @@ suite('user router', function () {
             prepare(rep, next);
 
             sinon.assert.callCount(rep.embed, rep.entity.users.length);
-            _.each(rep.entity.users, function (user) {
-                assert.calledWith(rep.embed, 'users', './' + user.id, user);
+            _.each(rep.entity.users, (user) => {
+                assert.calledWith(rep.embed, 'users', `./${user.id}`, user);
             });
             assert.calledWith(rep.ignore, 'users');
             assert.calledOnce(next);
         });
 
-        test('that error mapped when list request results in error', function () {
-            var reply = sinon.spy(),
+        test('that error mapped when list request results in error', () => {
+            const
+                reply = sinon.spy(),
                 err = {};
             router.register(server, null, sinon.spy());
             controller.getList.yields(err);
@@ -125,16 +132,16 @@ suite('user router', function () {
         });
     });
 
-    suite('user route', function () {
-        setup(function () {
+    suite('user route', () => {
+        setup(() => {
             sinon.stub(controller, 'getUser');
         });
 
-        teardown(function () {
+        teardown(() => {
             controller.getUser.restore();
         });
 
-        test('that individual route defined correctly', function () {
+        test('that individual route defined correctly', () => {
             router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
@@ -151,37 +158,40 @@ suite('user router', function () {
             }));
         });
 
-        test('that user returned from controller', function () {
-            var id = any.int(),
+        test('that user returned from controller', () => {
+            const
+                id = any.int(),
                 reply = sinon.spy(),
-                user = {id: id};
+                user = {id};
             controller.getUser.withArgs(id).yields(null, user);
             router.register(server, null, sinon.spy());
 
             handlers.user({
-                params: {id: id},
+                params: {id},
                 auth: requestNoAuth.auth
             }, reply);
 
             assert.calledWith(reply, user);
         });
 
-        test('that scopes are passed to controller for request with authorization', function () {
-            var id = any.int(),
+        test('that scopes are passed to controller for request with authorization', () => {
+            const
+                id = any.int(),
                 reply = sinon.spy(),
                 scopes = any.listOf(any.string);
             router.register(server, null, sinon.spy());
 
             handlers.user({
-                params: {id: id},
+                params: {id},
                 auth: {credentials: {scope: scopes}}
             }, reply);
 
             assert.calledWith(controller.getUser, id, scopes);
         });
 
-        test('that 404 returned when user does not exist', function () {
-            var id = any.int(),
+        test('that 404 returned when user does not exist', () => {
+            const
+                id = any.int(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
@@ -190,7 +200,7 @@ suite('user router', function () {
             router.register(server, null, sinon.spy());
 
             handlers.user({
-                params: {id: id},
+                params: {id},
                 auth: requestNoAuth.auth
             }, reply);
 

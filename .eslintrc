@@ -12,33 +12,33 @@
 
   extends:
     - eslint:recommended
-#    - defaults/configurations/walmart/es6
+    - defaults/configurations/walmart/es6
 
   rules:
     handle-callback-err: 2
-#    camelcase: 2
-#    prefer-arrow-callback: 2
-#    prefer-template: 2
-#    no-multiple-empty-lines: 2
-#    quotes:
-#      - 2
-#      - single
-#    indent:
-#      - 2
-#      - 4
-#    max-len:
-#      - 2
-#      - 120
-#      - 4
-#    one-var:
-#      - 2
-#      - always
-#    func-style:
-#      - 2
-#      - declaration
-#    yoda:
-#      - 2
-#      - always
-#    linebreak-style:
-#      - 2
-#      - unix
+    camelcase: 2
+    prefer-arrow-callback: 2
+    prefer-template: 2
+    no-multiple-empty-lines: 2
+    quotes:
+      - 2
+      - single
+    indent:
+      - 2
+      - 4
+    max-len:
+      - 2
+      - 120
+      - 4
+    one-var:
+      - 2
+      - always
+    func-style:
+      - 2
+      - declaration
+    yoda:
+      - 2
+      - always
+    linebreak-style:
+      - 2
+      - unix

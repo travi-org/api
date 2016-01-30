@@ -1,5 +1,10 @@
 'use strict';
 
+const
+    DEFAULT_STRING_LENGTH = 8,
+    TLD_LENGTH = 3,
+    HOST_LENGTH = 20;
+
 function float(max) {
     if (undefined === max || 0 > max) {
         max = 100;
@@ -13,12 +18,13 @@ function int(max) {
 }
 
 function string(length) {
-    var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    const
+        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let randomNumber,
         randomString = '',
-        randomNumber,
         i;
 
-    length = length || 8;
+    length = length || DEFAULT_STRING_LENGTH;
     for (i = 0; i < length; i += 1) {
         randomNumber = int(chars.length);
         randomString += chars.substring(randomNumber, randomNumber + 1);
@@ -28,25 +34,25 @@ function string(length) {
 }
 
 function protocol() {
-    var protocols = ['http', 'https'];
+    const protocols = ['http', 'https'];
 
-    return protocols[int(protocols.length)] + '://';
+    return `${protocols[int(protocols.length)]}://`;
 }
 
 function domain() {
-    return string(20) + '.' + string(3);
+    return `${string(HOST_LENGTH)}.${string(TLD_LENGTH)}`;
 }
 
 function host() {
-    return string() + '.' + domain();
+    return `${string()}.${domain()}`;
 }
 
 function url() {
-    return protocol() + host() + '/' + string();
+    return `${protocol()}${host()}/${string()}`;
 }
 
 function email() {
-    return string() + '@' + domain();
+    return `${string()}@${domain()}`;
 }
 
 function simpleObject() {
@@ -56,9 +62,9 @@ function simpleObject() {
 }
 
 function listOf(constructor, options) {
-    var list = [],
-        listSize = int(),
-        i;
+    const list = [];
+    let i,
+        listSize = int();
 
     if (options && options.min) {
         listSize += options.min;
@@ -72,10 +78,10 @@ function listOf(constructor, options) {
 }
 
 module.exports = {
-    int: int,
-    string: string,
-    url: url,
-    email: email,
-    listOf: listOf,
-    simpleObject: simpleObject
+    int,
+    string,
+    url,
+    email,
+    listOf,
+    simpleObject
 };

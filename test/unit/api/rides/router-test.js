@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path'),
+const
+    path = require('path'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     Joi = require('joi'),
     deepFreeze = require('deep-freeze'),
@@ -9,44 +10,46 @@ var path = require('path'),
     controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
     errorMapper = require(path.join(__dirname, '../../../../lib/api/error-response-mapper'));
 
-suite('ride router', function () {
-    const requestNoAuth = deepFreeze({auth: {}});
-    var handlers = {},
-        prepare,
-        server = {route: function () {
-            return;
-        }};
+suite('ride router', () => {
+    const requestNoAuth = deepFreeze({auth: {}}),
+        server = {
+            route() {
+                return;
+            }
+        };
+    let prepare,
+        handlers = {};
 
-    setup(function () {
-        sinon.stub(server, 'route', function (definition) {
-            if (definition.path === '/rides') {
+    setup(() => {
+        sinon.stub(server, 'route', (definition) => {
+            if ('/rides' === definition.path) {
                 handlers.list = definition.handler;
                 prepare = definition.config.plugins.hal.prepare;
-            } else if (definition.path === '/rides/{id}') {
+            } else if ('/rides/{id}' === definition.path) {
                 handlers.ride = definition.handler;
             }
         });
         sinon.stub(errorMapper, 'mapToResponse');
     });
 
-    teardown(function () {
+    teardown(() => {
         errorMapper.mapToResponse.restore();
         server.route.restore();
         handlers = {};
         prepare = null;
     });
 
-    suite('list route', function () {
-        setup(function () {
+    suite('list route', () => {
+        setup(() => {
             sinon.stub(controller, 'getList');
         });
 
-        teardown(function () {
+        teardown(() => {
             controller.getList.restore();
         });
 
-        test('that list route defined correctly', function () {
-            var next = sinon.spy();
+        test('that list route defined correctly', () => {
+            const next = sinon.spy();
             router.register(server, null, next);
 
             assert.calledWith(server.route, sinon.match({
@@ -64,8 +67,9 @@ suite('ride router', function () {
             assert.calledOnce(next);
         });
 
-        test('that the list route gets gets data from controller', function () {
-            var reply = sinon.spy(),
+        test('that the list route gets gets data from controller', () => {
+            const
+                reply = sinon.spy(),
                 data = {foo: 'bar'};
             controller.getList.yields(null, data);
             router.register(server, null, sinon.spy());
@@ -75,8 +79,9 @@ suite('ride router', function () {
             assert.calledWith(reply, data);
         });
 
-        test('that scopes are passed to controller for request with authorization', function () {
-            var reply = sinon.spy(),
+        test('that scopes are passed to controller for request with authorization', () => {
+            const
+                reply = sinon.spy(),
                 scopes = any.listOf(any.string);
             router.register(server, null, sinon.spy());
 
@@ -89,8 +94,9 @@ suite('ride router', function () {
             assert.calledWith(controller.getList, scopes);
         });
 
-        test('that list is formatted to meet hal spec', function () {
-            var next = sinon.spy(),
+        test('that list is formatted to meet hal spec', () => {
+            const
+                next = sinon.spy(),
                 rep = {
                     entity: {
                         rides: [
@@ -107,15 +113,16 @@ suite('ride router', function () {
             prepare(rep, next);
 
             sinon.assert.callCount(rep.embed, rep.entity.rides.length);
-            _.each(rep.entity.rides, function (ride) {
-                assert.calledWith(rep.embed, 'rides', './' + ride.id, ride);
+            _.each(rep.entity.rides, (ride) => {
+                assert.calledWith(rep.embed, 'rides', `./${ride.id}`, ride);
             });
             assert.calledWith(rep.ignore, 'rides');
             assert.calledOnce(next);
         });
 
-        test('that error mapped when list request results in error', function () {
-            var reply = sinon.spy(),
+        test('that error mapped when list request results in error', () => {
+            const
+                reply = sinon.spy(),
                 err = {};
             router.register(server, null, sinon.spy());
             controller.getList.yields(err);
@@ -127,16 +134,16 @@ suite('ride router', function () {
         });
     });
 
-    suite('ride route', function () {
-        setup(function () {
+    suite('ride route', () => {
+        setup(() => {
             sinon.stub(controller, 'getRide');
         });
 
-        teardown(function () {
+        teardown(() => {
             controller.getRide.restore();
         });
 
-        test('that individual route defined correctly', function () {
+        test('that individual route defined correctly', () => {
             router.register(server, null, sinon.spy());
 
             assert.calledWith(server.route, sinon.match({
@@ -153,20 +160,22 @@ suite('ride router', function () {
             }));
         });
 
-        test('that ride returned from controller', function () {
-            var id = any.int(),
+        test('that ride returned from controller', () => {
+            const
+                id = any.int(),
                 reply = sinon.spy(),
-                ride = {id: id};
+                ride = {id};
             controller.getRide.withArgs(id).yields(null, ride);
             router.register(server, null, sinon.spy());
 
-            handlers.ride({params: {id: id}}, reply);
+            handlers.ride({params: {id}}, reply);
 
             assert.calledWith(reply, ride);
         });
 
-        test('that error mapped when ride request results in error', function () {
-            var id = any.int(),
+        test('that error mapped when ride request results in error', () => {
+            const
+                id = any.int(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
@@ -174,7 +183,7 @@ suite('ride router', function () {
             controller.getRide.withArgs(id).yields(err, null);
             router.register(server, null, sinon.spy());
 
-            handlers.ride({params: {id: id}}, reply);
+            handlers.ride({params: {id}}, reply);
 
             assert.calledWith(errorMapper.mapToResponse, err, reply);
         });

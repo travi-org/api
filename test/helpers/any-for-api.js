@@ -1,19 +1,19 @@
 'use strict';
 
-var any = require('./any');
+const any = require('./any');
 
 any.resource = function () {
     return {};
 };
 
 any.resources = {
-    ride: function () {
+    ride() {
         return {
             id: any.int(),
             nickname: any.string()
         };
     },
-    user: function () {
+    user() {
         return {
             id: any.string(),
             'first-name': any.string(),

@@ -1,27 +1,28 @@
 'use strict';
 
-var path = require('path'),
+const
+    path = require('path'),
     errorMapper = require(path.join(__dirname, '../../../lib/api/error-response-mapper'));
 
 require('setup-referee-sinon/globals');
 
-suite('error response mapper', function () {
-    var type = sinon.stub(),
+suite('error response mapper', () => {
+    const
+        type = sinon.stub(),
         code = sinon.stub(),
-        responseApi = {
-            code: code,
-            type: type
-        },
-        reply = sinon.stub().returns(responseApi);
+        responseApi = {code, type},
+        reply = sinon.stub().returns(responseApi),
+        NOT_FOUND = 404,
+        SERVER_ERROR = 500;
     code.returns(responseApi);
     type.returns(responseApi);
 
-    teardown(function () {
+    teardown(() => {
         code.reset();
         type.reset();
     });
 
-    test('that vnd.error spec met', function () {
+    test('that vnd.error spec met', () => {
         errorMapper.mapToResponse({}, reply);
 
         assert.calledWith(reply, sinon.match({
@@ -34,22 +35,22 @@ suite('error response mapper', function () {
         assert.calledWith(type, 'application/hal+json; profile="http://nocarrier.co.uk/profiles/vnd.error/"');
     });
 
-    suite('unknown error', function () {
-        test('that status is set to 500', function () {
+    suite('unknown error', () => {
+        test('that status is set to 500', () => {
             errorMapper.mapToResponse({}, reply);
 
-            assert.calledWith(code, 500);
+            assert.calledWith(code, SERVER_ERROR);
             assert.calledWith(reply, sinon.match({message: 'Server Error'}));
         });
     });
 
-    suite('not found error', function () {
-        test('that status is set to 404', function () {
+    suite('not found error', () => {
+        test('that status is set to 404', () => {
             errorMapper.mapToResponse({
                 notFound: true
             }, reply);
 
-            assert.calledWith(code, 404);
+            assert.calledWith(code, NOT_FOUND);
             assert.calledWith(reply, sinon.match({message: 'Not Found'}));
         });
     });

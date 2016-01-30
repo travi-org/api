@@ -4,7 +4,7 @@ const
     any = require('../../../helpers/any'),
     proxyquire = require('proxyquire');
 
-suite('application authorization', function () {
+suite('application authorization', () => {
     const
         appName = any.string(),
         app = any.simpleObject(),
@@ -14,8 +14,8 @@ suite('application authorization', function () {
             }
         });
 
-    test('that app is retrieved by id', function () {
-        var callback = sinon.spy();
+    test('that app is retrieved by id', () => {
+        const callback = sinon.spy();
 
         apps.getById(appName, callback);
 

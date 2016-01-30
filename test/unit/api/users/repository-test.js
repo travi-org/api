@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path'),
+const
+    path = require('path'),
     fs = require('fs'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),
     repo = require(path.join(__dirname, '../../../../lib/api/users/repository'));
@@ -14,19 +15,20 @@ function setUpDataFile(data) {
     ).yields(null, JSON.stringify(data));
 }
 
-suite('user repository', function () {
-    var error = any.string();
+suite('user repository', () => {
+    const error = any.string();
 
-    setup(function () {
+    setup(() => {
         sinon.stub(fs, 'readFile');
     });
 
-    teardown(function () {
+    teardown(() => {
         fs.readFile.restore();
     });
 
-    test('that list is loaded from a file', function () {
-        var callback = sinon.spy(),
+    test('that list is loaded from a file', () => {
+        const
+            callback = sinon.spy(),
             data = {};
         setUpDataFile(data);
 
@@ -35,8 +37,8 @@ suite('user repository', function () {
         assert.calledWith(callback, null, data);
     });
 
-    test('that error bubbles for failure to read the file for list', function () {
-        var callback = sinon.spy();
+    test('that error bubbles for failure to read the file for list', () => {
+        const callback = sinon.spy();
         fs.readFile.yields(error);
 
         repo.getList(callback);
@@ -44,10 +46,11 @@ suite('user repository', function () {
         assert.calledWith(callback, error);
     });
 
-    test('that user is loaded from file', function () {
-        var id = any.int(),
+    test('that user is loaded from file', () => {
+        const
+            id = any.int(),
             callback = sinon.spy(),
-            user = { id: id },
+            user = { id },
             data = [user];
         setUpDataFile(data);
 
@@ -56,8 +59,9 @@ suite('user repository', function () {
         assert.calledWith(callback, null, user);
     });
 
-    test('that error bubbles for failure to read the file for user', function () {
-        var id = any.int(),
+    test('that error bubbles for failure to read the file for user', () => {
+        const
+            id = any.int(),
             callback = sinon.spy();
         fs.readFile.yields(error);
 

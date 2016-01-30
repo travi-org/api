@@ -6,6 +6,8 @@ const
     loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
 
 module.exports.World = function World() {
+    const SUCCESS = 200;
+
     this.makeOzRequest = (requestDetails, appDetails, callback) => {
         const
             method = 'POST',
@@ -22,7 +24,7 @@ module.exports.World = function World() {
             },
             () => {
                 //console.log(this.getResponseBody());
-                assert.equals(this.getResponseStatus(), 200);
+                assert.equals(this.getResponseStatus(), SUCCESS);
 
                 callback(null, this.serverResponse.result.entity);
             }
@@ -34,7 +36,7 @@ module.exports.World = function World() {
             this.serverResponse = null;
             this.server = server;
 
-            var headers = Object.assign({
+            const headers = Object.assign({
                 'Accept': this.mime
             }, options.headers);
 
@@ -75,7 +77,7 @@ module.exports.World = function World() {
     };
 
     this.getBaseUrl = () => {
-        return 'https://' + this.server.info.host + ':' + this.server.info.port;
+        return `https://${this.server.info.host}:${this.server.info.port}`;
     };
 
     this.getResponseBody = () => this.serverResponse.payload;

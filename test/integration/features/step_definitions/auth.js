@@ -33,7 +33,7 @@ function getUserTicket(callback) {
 
                 this.ozUserTicket = userTicket;
 
-                callback()
+                callback();
             });
         });
     });
@@ -42,7 +42,7 @@ function getUserTicket(callback) {
 module.exports = function () {
     this.World = require('../support/world.js').World;
 
-    this.Given(/^request is anonymous$/, function (callback) {
+    this.Given(/^request is anonymous$/, (callback) => {
         callback();
     });
 
