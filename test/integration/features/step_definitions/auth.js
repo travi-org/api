@@ -22,14 +22,14 @@ function exchangeRsvpForUserTicket(appTicket, rsvp, callback) {
 }
 
 function getUserTicket(callback) {
-    requestAppTicket.call(this, apps.foo, (err, appTicket) => {
-        hoek.assert(!err, err);
+    requestAppTicket.call(this, apps.foo, (err1, appTicket) => {
+        hoek.assert(!err1, err1);
 
-        simulateUserGettingRsvpByGrantingScopes.call(this, (err, rsvp) => {
-            hoek.assert(!err, err);
+        simulateUserGettingRsvpByGrantingScopes.call(this, (err2, rsvp) => {
+            hoek.assert(!err2, err2);
 
-            exchangeRsvpForUserTicket.call(this, appTicket, rsvp, (err, userTicket) => {
-                hoek.assert(!err, err);
+            exchangeRsvpForUserTicket.call(this, appTicket, rsvp, (err3, userTicket) => {
+                hoek.assert(!err3, err3);
 
                 this.ozUserTicket = userTicket;
 
