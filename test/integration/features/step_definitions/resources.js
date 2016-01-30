@@ -4,102 +4,57 @@ const
     fs = require('fs'),
     path = require('path'),
     hoek = require('hoek'),
-    queryString = require('query-string'),
     _ = require('lodash'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api'));
+    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
+
+    resourceLists = {},
+    SUCCESS = 200,
+    resourceComparators = {
+        rides(actualItem, expectedItem) {
+            const
+                selfLink = actualItem._links.self.href,
+                ridePath = `/rides/${expectedItem.id}`;
+
+            assert.equals(ridePath, selfLink.substring(selfLink.length - ridePath.length));
+            assert.equals(actualItem.id, expectedItem.id);
+            assert.equals(actualItem.nickname, expectedItem.nickname);
+        },
+        users(actualItem, expectedItem) {
+            const
+                selfLink = actualItem._links.self.href,
+                userPath = `/users/${expectedItem.id}`;
+
+            assert.equals(userPath, selfLink.substring(selfLink.length - userPath.length));
+            assert.equals(actualItem.id, expectedItem.id);
+            assert.equals(actualItem['first-name'], expectedItem['first-name']);
+            assert.equals(actualItem['last-name'], expectedItem['last-name']);
+        }
+    };
 require('setup-referee-sinon/globals');
+
+function makeSingular(resourceType) {
+    return resourceType.substring(0, resourceType.length - 1);
+}
+
+function defineListForType(resourceType, resourceList) {
+    resourceLists[resourceType] = resourceList;
+
+    sinon.stub(fs, 'readFile')
+        .withArgs(sinon.match(
+            (value) => {
+                return _.includes(value, `data/${resourceType}.json`);
+            },
+            'utf8'
+        ))
+        .callsArgWithAsync(2, null, JSON.stringify(resourceList));
+}
+
+function getListForType(resourceType) {
+    return resourceLists[resourceType];
+}
 
 module.exports = function () {
     this.World = require('../support/world.js').World;
-
-    const
-        resourceLists = {},
-        SUCCESS = 200,
-        NOT_FOUND = 404,
-        statuses = {
-            'Not Found': NOT_FOUND,
-            'Success': SUCCESS
-        },
-        resourceComparators = {
-            rides(actualItem, expectedItem) {
-                const
-                    selfLink = actualItem._links.self.href,
-                    path = `/rides/${expectedItem.id}`;
-
-                assert.equals(path, selfLink.substring(selfLink.length - path.length));
-                assert.equals(actualItem.id, expectedItem.id);
-                assert.equals(actualItem.nickname, expectedItem.nickname);
-            },
-            users(actualItem, expectedItem) {
-                const
-                    selfLink = actualItem._links.self.href,
-                    path = `/users/${expectedItem.id}`;
-
-                assert.equals(path, selfLink.substring(selfLink.length - path.length));
-                assert.equals(actualItem.id, expectedItem.id);
-                assert.equals(actualItem['first-name'], expectedItem['first-name']);
-                assert.equals(actualItem['last-name'], expectedItem['last-name']);
-            }
-        };
-
-    function makeSingular(resourceType) {
-        return resourceType.substring(0, resourceType.length - 1);
-    }
-
-    function defineListForType(resourceType, resourceList) {
-        resourceLists[resourceType] = resourceList;
-
-        sinon.stub(fs, 'readFile')
-            .withArgs(sinon.match(
-                (value) => {
-                    return _.includes(value, `data/${resourceType}.json`);
-                },
-                'utf8'
-            ))
-            .callsArgWithAsync(2, null, JSON.stringify(resourceList));
-    }
-
-    function getListForType(resourceType) {
-        return resourceLists[resourceType];
-    }
-
-    function assertPropertyIsPopulatedInResource(type, property) {
-        assert.defined(type[property]);
-    }
-
-    function assertPropertyIsNotPopulatedInResource(type, property) {
-        refute.defined(type[property]);
-    }
-
-    function assertPropertyIn(property, response, resourceType, check) {
-        if (response._embedded && _.isArray(response._embedded[resourceType])) {
-            _.each(response._embedded[resourceType], (item) => {
-                check(item, property);
-            });
-        } else {
-            check(response, property);
-        }
-    }
-
-    function assertThumbnailSizedAt(property, size, response, resourceType) {
-        function check(item, property) {
-            const thumbnail = item[property];
-
-            assert.equals(
-                queryString.parse(queryString.extract(thumbnail.src)).size,
-                size
-            );
-            assert.equals(thumbnail.size, parseInt(size, 10));
-        }
-
-        if (response._embedded && _.isArray(response._embedded[resourceType])) {
-            _.each(response._embedded[resourceType], (item) => {
-                check(item, property);
-            });
-        } else {
-            check(response, property);
-        }
-    }
 
     this.After(() => {
         if (fs.readFile.restore) {
@@ -159,10 +114,6 @@ module.exports = function () {
         });
     });
 
-    this.When(/^"([^"]*)" is requested$/, function (path, callback) {
-        this.getRequestTo(path, callback);
-    });
-
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
@@ -187,28 +138,6 @@ module.exports = function () {
         callback();
     });
 
-    this.Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
-        assertPropertyIn(
-            property,
-            JSON.parse(this.getResponseBody()),
-            resourceType,
-            assertPropertyIsNotPopulatedInResource
-        );
-
-        callback();
-    });
-
-    this.Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
-        assertPropertyIn(
-            property,
-            JSON.parse(this.getResponseBody()),
-            resourceType,
-            assertPropertyIsPopulatedInResource
-        );
-
-        callback();
-    });
-
     this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
@@ -224,12 +153,6 @@ module.exports = function () {
         callback();
     });
 
-    this.Then(/^the response will be "([^"]*)"$/, function (status, callback) {
-        assert.equals(this.getResponseStatus(), statuses[status]);
-
-        callback();
-    });
-
     this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
         const
             response = JSON.parse(this.getResponseBody()),
@@ -240,17 +163,6 @@ module.exports = function () {
         _.forEach(items, (item) => {
             assert.defined(item._links.self);
         });
-
-        callback();
-    });
-
-    this.Then(/^the "([^"]*)" is sized at "([^"]*)"px in "([^"]*)"$/, function (
-        property,
-        size,
-        resourceType,
-        callback
-    ) {
-        assertThumbnailSizedAt(property, size, JSON.parse(this.getResponseBody()), resourceType);
 
         callback();
     });
