@@ -52,7 +52,7 @@
   "dependencies": {
     "deep-freeze": "0.0.1",
     "glue": "3.1.0",
-    "good": "6.5.0",
+    "good": "6.6.0",
     "good-console": "5.3.1",
     "halacious": "3.4.0",
     "hapi": "13.0.0",
