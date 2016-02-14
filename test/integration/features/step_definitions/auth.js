@@ -11,7 +11,7 @@ function requestAppTicket(appDetails, callback) {
 }
 
 function simulateUserGettingRsvpByGrantingScopes(callback) {
-    oz.ticket.rsvp(apps.foo, grants[0], 'password', {}, callback);
+    oz.ticket.rsvp(apps.foo, grants[0], 'reallylongpasswordthatisntverysecureyet', {}, callback);
 }
 
 function exchangeRsvpForUserTicket(appTicket, rsvp, callback) {
