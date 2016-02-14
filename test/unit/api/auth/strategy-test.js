@@ -21,7 +21,7 @@ suite('api authorization', () => {
         auth.register({auth: {strategy}}, null, next);
 
         assert.calledWith(strategy, 'oz', 'oz', 'optional', {oz: {
-            encryptionPassword: 'password',
+            encryptionPassword: 'reallylongpasswordthatisntverysecureyet',
             loadAppFunc: apps.getById,
             loadGrantFunc: grants.getById
         }});
