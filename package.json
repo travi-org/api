@@ -27,7 +27,7 @@
     }
   },
   "devDependencies": {
-    "babel-eslint": "4.1.8",
+    "babel-eslint": "5.0.0",
     "chai": "3.5.0",
     "cucumber": "0.9.4",
     "eslint-config-defaults": "9.0.0",
