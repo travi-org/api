@@ -63,7 +63,7 @@
     "joi": "8.0.1",
     "lodash": "4.5.0",
     "md5": "2.0.0",
-    "newrelic": "1.25.2",
+    "newrelic": "1.25.3",
     "path": "0.12.7",
     "query-string": "3.0.0",
     "scarecrow": "3.0.0",
