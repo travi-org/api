@@ -77,7 +77,7 @@ module.exports.World = function World() {
     };
 
     this.getBaseUrl = () => {
-        return `https://${this.server.info.host}:${this.server.info.port}`;
+        return `http://${this.server.info.host}:${this.server.info.port}`;
     };
 
     this.getResponseBody = () => this.serverResponse.payload;
