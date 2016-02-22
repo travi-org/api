@@ -120,6 +120,7 @@ module.exports = function () {
         const
             actualList = JSON.parse(this.getResponseBody())._embedded[resourceType],
             expectedList = getListForType(resourceType);
+        console.log(actualList);  //eslint-disable-line no-console
 
         assert.equals(actualList.length, expectedList.length);
         _.forEach(actualList, (actualItem, index) => {
