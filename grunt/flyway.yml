@@ -1,0 +1,7 @@
+validate:
+  options:
+    driver: org.postgresql.Driver
+    url: '<%= db.url %>'
+    user: flyway
+    password: '<%= db.password %>'
+  command: validate

@@ -11,6 +11,10 @@ module.exports = function (grunt) {
                 mochacov: 'grunt-mocha-cov',
                 cucumberjs: 'grunt-cucumber'
             }
+        },
+        db: {
+            url: process.env.API_DB_URL,
+            password: process.env.API_DB_PASSWORD
         }
     });
 };
