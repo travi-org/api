@@ -1,6 +1,4 @@
-lint:
-  - jscs
-  - eslint
+lint: eslint
 
 unit: mochacov:unit
 
