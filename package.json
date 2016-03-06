@@ -10,7 +10,7 @@
   "scripts": {
     "test": "grunt",
     "start": "node lib/app.js",
-    "dev": "nodemon lib/app.js"
+    "dev": "env $(cat .env) nodemon lib/app.js"
   },
   "engines": {
     "node": "5.1.x",
