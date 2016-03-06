@@ -3,10 +3,17 @@
 const
     oz = require('oz'),
     path = require('path'),
-    loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
+
+    any = require('../../../helpers/any');
+
+process.env.AUTH0_CLIENT_ID = any.string();
+process.env.AUTH0_CLIENT_SECRET = any.string();
+process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = any.string();
 
 module.exports.World = function World() {
-    const SUCCESS = 200;
+    const
+        SUCCESS = 200,
+        loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
 
     this.makeOzRequest = (requestDetails, appDetails, callback) => {
         const
