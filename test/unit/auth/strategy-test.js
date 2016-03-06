@@ -22,7 +22,7 @@ suite('authentication strategy', () => {
         const
             next = sinon.spy(),
             strategy = sinon.spy(),
-            isLocal = false,
+            secure = true,
             password = any.string(),
             clientId = any.string(),
             clientSecret = any.string();
@@ -30,7 +30,7 @@ suite('authentication strategy', () => {
         process.env.AUTH0_CLIENT_SECRET = clientSecret;
         process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = password;
 
-        auth.register({auth: {strategy}}, {isLocal}, next);
+        auth.register({auth: {strategy}}, {secure}, next);
 
         assert.calledWith(strategy, 'auth0', 'bell', {
             provider: 'auth0',
@@ -40,7 +40,8 @@ suite('authentication strategy', () => {
             config: {
                 domain: 'travi.auth0.com'
             },
-            isSecure: !isLocal
+            forceHttps: secure,
+            isSecure: secure
         });
         assert.calledOnce(next);
     });
