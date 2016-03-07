@@ -31,13 +31,20 @@ suite('auth routes', () => {
             profile = any.simpleObject(),
             server = {
                 route: sinon.stub()
+            },
+            request = {
+                auth: {
+                    isAuthenticated: true,
+                    credentials: {
+                        profile,
+                        query: {}
+                    }
+                },
+                cookieAuth: {
+                    set: sinon.spy()
+                }
             };
-        server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', {
-            auth: {
-                isAuthenticated: true,
-                credentials: {profile}
-            }
-        }, reply);
+        server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', request, reply);
 
         routes.register(server, null, next);
 
@@ -48,6 +55,7 @@ suite('auth routes', () => {
                 auth: 'auth0'
             }
         }));
+        assert.calledWith(request.cookieAuth.set, request.auth.credentials);
         assert.calledWith(reply.view, 'login', {profile});
         assert.calledOnce(next);
     });
@@ -71,6 +79,35 @@ suite('auth routes', () => {
         routes.register(server, null, sinon.spy());
 
         assert.calledWith(reply, error);
+    });
+
+    test('that request is redirected to original route when login not loaded directly', () => {
+        const
+            originalRoute = any.string(),
+            reply = {redirect: sinon.spy()},
+            profile = any.simpleObject(),
+            server = {
+                route: sinon.stub()
+            },
+            request = {
+                auth: {
+                    isAuthenticated: true,
+                    credentials: {
+                        profile,
+                        query: {
+                            next: originalRoute
+                        }
+                    }
+                },
+                cookieAuth: {
+                    set: sinon.spy()
+                }
+            };
+        server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', request, reply);
+
+        routes.register(server, null, sinon.spy());
+
+        assert.calledOnce(reply.redirect, originalRoute);
     });
 
     test('that the scopes route is defined', () => {
