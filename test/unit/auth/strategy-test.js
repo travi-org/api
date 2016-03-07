@@ -14,11 +14,11 @@ suite('authentication strategy', () => {
     test('that the plugin is defined', () => {
         assert.equals(auth.register.attributes, {
             name: 'authentication-strategy',
-            dependencies: 'bell'
+            dependencies: ['bell', 'hapi-auth-cookie']
         });
     });
 
-    test('that bell is registered as a strategy', () => {
+    test('that the authentication and session strategies are registered', () => {
         const
             next = sinon.spy(),
             strategy = sinon.spy(),
@@ -41,6 +41,11 @@ suite('authentication strategy', () => {
                 domain: 'travi.auth0.com'
             },
             forceHttps: secure,
+            isSecure: secure
+        });
+        assert.calledWith(strategy, 'session', 'cookie', {
+            password,
+            redirectTo: '/login',
             isSecure: secure
         });
         assert.calledOnce(next);
