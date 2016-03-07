@@ -30,13 +30,14 @@ suite('auth routes', () => {
             reply = {view: sinon.spy()},
             profile = any.simpleObject(),
             server = {
-                route: sinon.stub().yieldsTo('handler', {
-                    auth: {
-                        isAuthenticated: true,
-                        credentials: {profile}
-                    }
-                }, reply)
+                route: sinon.stub()
             };
+        server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', {
+            auth: {
+                isAuthenticated: true,
+                credentials: {profile}
+            }
+        }, reply);
 
         routes.register(server, null, next);
 
@@ -57,17 +58,39 @@ suite('auth routes', () => {
             message = any.string(),
             reply = sinon.spy(),
             server = {
-                route: sinon.stub().yieldsTo('handler', {
-                    auth: {
-                        isAuthenticated: false,
-                        error: {message}
-                    }
-                }, reply)
+                route: sinon.stub()
             };
+        server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', {
+            auth: {
+                isAuthenticated: false,
+                error: {message}
+            }
+        }, reply);
         Boom.unauthorized.withArgs(`Authentication failed due to: ${message}`).returns(error);
 
         routes.register(server, null, sinon.spy());
 
         assert.calledWith(reply, error);
+    });
+
+    test('that the scopes route is defined', () => {
+        const
+            next = sinon.spy(),
+            reply = {view: sinon.spy()},
+            server = {
+                route: sinon.stub()
+            };
+        server.route.withArgs(sinon.match({path: '/scopes'})).yieldsTo('handler', {}, reply);
+
+        routes.register(server, null, next);
+
+        assert.calledWith(server.route, sinon.match({
+            method: 'GET',
+            path: '/scopes',
+            config: {
+                auth: 'session'
+            }
+        }));
+        assert.calledWith(reply.view, 'scopes');
     });
 });
