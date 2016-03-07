@@ -46,6 +46,7 @@ suite('authentication strategy', () => {
         assert.calledWith(strategy, 'session', 'cookie', {
             password,
             redirectTo: '/login',
+            appendNext: true,
             isSecure: secure
         });
         assert.calledOnce(next);
