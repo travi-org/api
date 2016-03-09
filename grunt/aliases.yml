@@ -9,6 +9,10 @@ test:
   - unit
   - integration
 
+build: flyway:migrate
+
+heroku:production: build
+
 default:
   - lint
   - test

@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         config: {
             db: {
                 user: process.env.API_DB_USER,
-                password: '',
+                password: process.env.API_DB_PW,
                 url: process.env.API_DB_URL
             }
         }
