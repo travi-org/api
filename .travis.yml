@@ -3,20 +3,16 @@ node_js:
 - 5.1
 - 5.5
 
-before_script:
+before_install:
   - psql -c 'create database travi_api;' -U postgres
+  - npm install -g grunt-cli
 
 addons:
   postgresql: "9.4"
 
 services: postgresql
 
-env:
-  - API_DB_USER=postgres
-  - API_DB_PW=
-  - API_DB_URL=postgresql://localhost/travi_api
-
-before_install: npm install -g grunt-cli
+env: API_DB_USER=postgres API_DB_PW= API_DB_URL=postgresql://localhost/travi_api
 
 install: npm install
 
