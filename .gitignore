@@ -4,3 +4,4 @@ node_modules/
 .idea/
 .dpl/
 newrelic_agent.log
+logfile

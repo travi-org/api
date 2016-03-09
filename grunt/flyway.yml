@@ -1,7 +1,12 @@
+options:
+  driver: org.postgresql.Driver
+  url: 'jdbc:<%= db.url %>'
+  user: '<%= db.user %>'
+  password: '<%= db.password %>'
+  locations: 'filesystem:data/migrations'
+
 validate:
-  options:
-    driver: org.postgresql.Driver
-    url: '<%= db.url %>'
-    user: flyway
-    password: '<%= db.password %>'
   command: validate
+
+migrate:
+  command: migrate

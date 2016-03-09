@@ -12,9 +12,12 @@ module.exports = function (grunt) {
                 cucumberjs: 'grunt-cucumber'
             }
         },
-        db: {
-            url: process.env.API_DB_URL,
-            password: process.env.API_DB_PASSWORD
+        config: {
+            db: {
+                user: process.env.API_DB_USER,
+                password: '',
+                url: process.env.API_DB_URL
+            }
         }
     });
 };
