@@ -2,7 +2,12 @@
 
 'use strict';
 
+const url = require('url');
+
 module.exports = function (grunt) {
+    const
+        dbConnectionInfo = url.parse(process.env.DATABASE_URL),
+        auth = dbConnectionInfo.auth.split(':');
 
     require('time-grunt')(grunt);
     require('load-grunt-config')(grunt, {
@@ -14,9 +19,9 @@ module.exports = function (grunt) {
         },
         config: {
             db: {
-                user: process.env.API_DB_USER,
-                password: process.env.API_DB_PW,
-                url: process.env.API_DB_URL
+                user: auth[0],
+                password: auth[1],
+                url: `postgresql://${dbConnectionInfo.host}${dbConnectionInfo.pathname}`
             }
         }
     });
