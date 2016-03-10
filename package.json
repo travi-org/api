@@ -10,7 +10,7 @@
   "scripts": {
     "test": "grunt",
     "start": "node lib/app.js",
-    "postinstall": "grunt heroku:production",
+    "postinstall": "env $(cat .env) grunt heroku:production",
     "dev": "env $(cat .env) nodemon lib/app.js"
   },
   "engines": {
