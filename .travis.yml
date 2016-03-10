@@ -12,7 +12,7 @@ addons:
 
 services: postgresql
 
-env: API_DB_USER=postgres API_DB_PW= API_DB_URL=postgresql://localhost/travi_api
+env: DATABASE_URL=postgresql://postgres:@localhost/travi_api
 
 install: npm install
 
