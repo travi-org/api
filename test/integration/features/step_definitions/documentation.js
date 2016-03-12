@@ -14,7 +14,7 @@ module.exports = function () {
 
     this.Then(/^the documentation should be viewable in the browser$/, function (callback) {
         assert.equals(this.getResponseStatus(), SUCCESS);
-        assert.equals('text/html', this.getResponseHeaders()['content-type']);
+        assert.equals(this.getResponseHeaders()['content-type'], 'text/html; charset=utf-8');
 
         callback();
     });
