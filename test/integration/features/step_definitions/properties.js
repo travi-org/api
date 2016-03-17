@@ -13,8 +13,8 @@ function assertPropertyIsNotPopulatedInResource(type, property) {
 function assertPropertyIn(property, resourceType, check) {
     const response = JSON.parse(this.getResponseBody());
 
-    if (response._embedded && _.isArray(response._embedded[resourceType])) {
-        _.each(response._embedded[resourceType], (item) => {
+    if (response._embedded && _.isArray(this.getResourceListFromResponse(resourceType, response))) {
+        _.each(this.getResourceListFromResponse(resourceType, response), (item) => {
             check(item, property);
         });
     } else {

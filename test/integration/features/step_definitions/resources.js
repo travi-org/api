@@ -69,7 +69,7 @@ module.exports = function () {
     });
 
     this.Given(/^the list of "([^"]*)" is not empty$/, (resourceType, callback) => {
-        defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)], {min: 2}));
+        defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)], {min: 1}));
 
         callback();
     });
@@ -118,9 +118,8 @@ module.exports = function () {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
         const
-            actualList = JSON.parse(this.getResponseBody())._embedded[resourceType],
+            actualList = this.getResourceListFromResponse(resourceType, JSON.parse(this.getResponseBody())),
             expectedList = getListForType(resourceType);
-        console.log(actualList);  //eslint-disable-line no-console
 
         assert.equals(actualList.length, expectedList.length);
         _.forEach(actualList, (actualItem, index) => {
@@ -157,7 +156,7 @@ module.exports = function () {
     this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
         const
             response = JSON.parse(this.getResponseBody()),
-            items = response._embedded[resourceType];
+            items = this.getResourceListFromResponse(resourceType, response);
 
         assert.defined(response._links.self);
         assert.greater(items.length, 0);

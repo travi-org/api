@@ -90,4 +90,18 @@ module.exports.World = function World() {
     this.getResponseBody = () => this.serverResponse.payload;
     this.getResponseStatus = () => this.serverResponse.statusCode;
     this.getResponseHeaders = () => this.serverResponse.headers;
+
+    this.getResourceListFromResponse = (resourceType, response) => {
+        const resources = response._embedded[resourceType];
+        let list;
+
+        if (resources.length) {
+            list = resources;
+        } else {
+            list = [resources];
+        }
+
+        return list;
+    }
+
 };

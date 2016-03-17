@@ -16,8 +16,8 @@ function assertThumbnailSizedAt(property, size, response, resourceType) {
         assert.equals(thumbnail.size, parseInt(size, 10));
     }
 
-    if (response._embedded && _.isArray(response._embedded[resourceType])) {
-        _.each(response._embedded[resourceType], (item) => {
+    if (response._embedded && _.isArray(this.getResourceListFromResponse(resourceType, response))) {
+        _.each(this.getResourceListFromResponse(resourceType, response), (item) => {
             check(item, property);
         });
     } else {
@@ -34,7 +34,7 @@ module.exports = function () {
         resourceType,
         callback
     ) {
-        assertThumbnailSizedAt(property, size, JSON.parse(this.getResponseBody()), resourceType);
+        assertThumbnailSizedAt.call(this, property, size, JSON.parse(this.getResponseBody()), resourceType);
 
         callback();
     });
