@@ -102,6 +102,6 @@ module.exports.World = function World() {
         }
 
         return list;
-    }
+    };
 
 };
