@@ -6,6 +6,8 @@ travi-api
 [![Code Climate](https://img.shields.io/codeclimate/github/travi/travi-api.svg?style=flat)](https://codeclimate.com/github/travi/travi-api)
 [![Dependency Status](https://img.shields.io/gemnasium/travi/travi-api.svg?style=flat)](https://gemnasium.com/travi/travi-api)
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/)
+
 ## Project Goals
 
 I'm using this as an opportunity to learn how to apply a number of core concepts of api development to node.
