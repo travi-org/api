@@ -70,7 +70,7 @@
     "md5": "2.1.0",
     "newrelic": "1.26.0",
     "path": "0.12.7",
-    "query-string": "3.0.3",
+    "query-string": "4.0.0",
     "scarecrow": "3.0.0",
     "vision": "4.0.1",
     "visionary": "4.0.0"
