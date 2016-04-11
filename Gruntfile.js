@@ -5,6 +5,7 @@
 const url = require('url');
 
 module.exports = function (grunt) {
+    require('dotenv-safe').config();
     const
         dbConnectionInfo = url.parse(process.env.DATABASE_URL),
         auth = dbConnectionInfo.auth.split(':');
