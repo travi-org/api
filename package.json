@@ -14,7 +14,7 @@
     "dev": "nodemon -r dotenv-safe/config lib/app.js"
   },
   "engines": {
-    "node": "5.10.x",
+    "node": "6.0.x",
     "npm": "3.8.x"
   },
   "config": {
