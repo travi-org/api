@@ -1,6 +1,7 @@
 language: node_js
 node_js:
 - "5.10"
+- 6.0
 
 before_install:
   - psql -c 'create database travi_api;' -U postgres
