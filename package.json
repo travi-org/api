@@ -44,7 +44,7 @@
     "grunt-mocha-cov": "0.4.0",
     "hoek": "3.0.4",
     "load-grunt-config": "0.19.2",
-    "proxyquire": "1.7.4",
+    "proxyquire": "1.7.7",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
     "referee-sinon": "1.0.3",
