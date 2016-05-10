@@ -55,7 +55,7 @@ suite('users controller', () => {
 
     test('that not-found error returned for non-existent user', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy();
         repo.getUser.withArgs(id).yields(null, null);
 
@@ -66,7 +66,7 @@ suite('users controller', () => {
 
     test('that user returned from repository', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy(),
             user = {id},
             userView = {view: true};
@@ -80,7 +80,7 @@ suite('users controller', () => {
 
     test('that error bubbles for user request', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy();
         repo.getUser.yields(error);
 

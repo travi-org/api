@@ -48,7 +48,7 @@ suite('user repository', () => {
 
     test('that ride is loaded from file', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy(),
             ride = { id },
             data = [ride];
@@ -61,7 +61,7 @@ suite('user repository', () => {
 
     test('that error bubbles for failure to read the file for ride', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy();
         fs.readFile.yields(error);
 

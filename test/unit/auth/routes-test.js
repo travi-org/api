@@ -4,7 +4,7 @@ const
     routes = require('../../../lib/auth/routes'),
     Boom = require('boom'),
 
-    any = require('../../helpers/any');
+    any = require('@travi/any');
 
 suite('auth routes', () => {
     let sandbox;

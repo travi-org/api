@@ -2,7 +2,7 @@
 
 const
     proxyquire = require('proxyquire'),
-    any = require('../../../helpers/any');
+    any = require('@travi/any');
 
 suite('api authorization', () => {
     const
@@ -14,7 +14,7 @@ suite('api authorization', () => {
     test('that grant is retrieved by id', () => {
         const
             callback = sinon.spy(),
-            grantId = any.int(grantList.length - 1);
+            grantId = any.integer(grantList.length - 1);
 
         grants.getById(grantId, callback);
 

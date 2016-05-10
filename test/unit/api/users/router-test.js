@@ -98,9 +98,9 @@ suite('user router', () => {
                 rep = {
                     entity: {
                         users: [
-                            {id: any.int()},
-                            {id: any.int()},
-                            {id: any.int()}
+                            {id: any.integer()},
+                            {id: any.integer()},
+                            {id: any.integer()}
                         ]
                     },
                     embed: sinon.spy(),
@@ -160,7 +160,7 @@ suite('user router', () => {
 
         test('that user returned from controller', () => {
             const
-                id = any.int(),
+                id = any.integer(),
                 reply = sinon.spy(),
                 user = {id};
             controller.getUser.withArgs(id).yields(null, user);
@@ -176,7 +176,7 @@ suite('user router', () => {
 
         test('that scopes are passed to controller for request with authorization', () => {
             const
-                id = any.int(),
+                id = any.integer(),
                 reply = sinon.spy(),
                 scopes = any.listOf(any.string);
             router.register(server, null, sinon.spy());
@@ -191,7 +191,7 @@ suite('user router', () => {
 
         test('that 404 returned when user does not exist', () => {
             const
-                id = any.int(),
+                id = any.integer(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),

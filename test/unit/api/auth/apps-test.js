@@ -1,7 +1,7 @@
 'use strict';
 
 const
-    any = require('../../../helpers/any'),
+    any = require('@travi/any'),
     proxyquire = require('proxyquire');
 
 suite('application authorization', () => {

@@ -2,7 +2,7 @@
 
 const
     auth = require('../../../lib/auth/strategy'),
-    any = require('../../helpers/any');
+    any = require('@travi/any');
 
 suite('authentication strategy', () => {
     teardown(() => {

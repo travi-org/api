@@ -1,21 +1,21 @@
 'use strict';
 
-const any = require('./any');
+const any = require('@travi/any');
 
 any.resource = function () {
-    return {};
+    return any.simpleObject();
 };
 
 any.resources = {
     ride() {
         return {
-            id: any.int(),
+            id: any.integer(),
             nickname: any.string()
         };
     },
     user() {
         return {
-            id: any.string(),
+            id: any.word(),
             'first-name': any.string(),
             'last-name': any.string(),
             email: any.email()

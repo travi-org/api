@@ -42,7 +42,7 @@ suite('rides controller', () => {
 
     test('that not-found error returned for non-existent ride', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy();
         repo.getRide.withArgs(id).yields(null, null);
 
@@ -53,7 +53,7 @@ suite('rides controller', () => {
 
     test('that ride returned from repository', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy(),
             ride = {id};
         repo.getRide.withArgs(id).yields(null, ride);
@@ -65,7 +65,7 @@ suite('rides controller', () => {
 
     test('that error bubbles for ride request', () => {
         const
-            id = any.int(),
+            id = any.integer(),
             callback = sinon.spy();
         repo.getRide.yields(error);
 

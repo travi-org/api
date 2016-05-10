@@ -4,7 +4,7 @@ const
     oz = require('oz'),
     path = require('path'),
 
-    any = require('../../../helpers/any');
+    any = require('@travi/any');
 
 process.env.AUTH0_CLIENT_ID = any.string();
 process.env.AUTH0_CLIENT_SECRET = any.string();

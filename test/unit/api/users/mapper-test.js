@@ -25,7 +25,7 @@ suite('user mapper', () => {
     test('that a user is mapped to the view representation', () => {
         const
             user = any.resources.user(),
-            size = any.int();
+            size = any.integer();
 
         assertUserMappedToViewProperly(mapper.mapToView(user, size), user, size);
     });
@@ -33,7 +33,7 @@ suite('user mapper', () => {
     test('that a list of users is mapped to a list of user view objects', () => {
         const
             users = any.listOf(any.resources.user),
-            size = any.int(),
+            size = any.integer(),
             userViews = mapper.mapListToView(users, size);
 
         _.forEach(users, (user, index) => {
@@ -44,7 +44,7 @@ suite('user mapper', () => {
     test('that email is populated when authorized', () => {
         const
             user = any.resources.user(),
-            size = any.int();
+            size = any.integer();
 
         assert.equal(mapper.mapToView(user, size, any.listOf(any.string)).email, user.email);
     });
@@ -52,7 +52,7 @@ suite('user mapper', () => {
     test('that email is populated in each item in list when authorized', () => {
         const
             users = any.listOf(any.resources.user),
-            size = any.int(),
+            size = any.integer(),
             userViews = mapper.mapListToView(users, size, any.listOf(any.string));
 
         _.forEach(users, (user, index) => {

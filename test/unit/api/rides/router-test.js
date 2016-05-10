@@ -100,9 +100,9 @@ suite('ride router', () => {
                 rep = {
                     entity: {
                         rides: [
-                            {id: any.int()},
-                            {id: any.int()},
-                            {id: any.int()}
+                            {id: any.integer()},
+                            {id: any.integer()},
+                            {id: any.integer()}
                         ]
                     },
                     embed: sinon.spy(),
@@ -162,7 +162,7 @@ suite('ride router', () => {
 
         test('that ride returned from controller', () => {
             const
-                id = any.int(),
+                id = any.integer(),
                 reply = sinon.spy(),
                 ride = {id};
             controller.getRide.withArgs(id).yields(null, ride);
@@ -175,7 +175,7 @@ suite('ride router', () => {
 
         test('that error mapped when ride request results in error', () => {
             const
-                id = any.int(),
+                id = any.integer(),
                 setContentType = sinon.spy(),
                 setResponseCode = sinon.stub().returns({type: setContentType}),
                 reply = sinon.stub().withArgs().returns({code: setResponseCode}),
