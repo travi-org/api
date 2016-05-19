@@ -31,7 +31,7 @@
     "@travi/any": "0.1.1",
     "babel-eslint": "6.0.4",
     "chai": "3.5.0",
-    "cucumber": "0.10.2",
+    "cucumber": "0.10.3",
     "dotenv-safe": "2.3.1",
     "eslint-config-defaults": "9.0.0",
     "eslint-plugin-filenames": "0.2.0",
