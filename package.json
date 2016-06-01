@@ -28,7 +28,7 @@
     }
   },
   "devDependencies": {
-    "@travi/any": "0.1.1",
+    "@travi/any": "0.2.0",
     "babel-eslint": "6.0.4",
     "chai": "3.5.0",
     "cucumber": "1.0.0",
