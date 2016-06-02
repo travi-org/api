@@ -43,7 +43,7 @@
     "grunt-flyway": "travi/grunt-flyway#credentials",
     "grunt-jslint": "1.1.14",
     "grunt-mocha-cov": "0.4.0",
-    "hoek": "3.0.4",
+    "hoek": "4.0.1",
     "load-grunt-config": "0.19.2",
     "proxyquire": "1.7.9",
     "referee": "1.2.0",
