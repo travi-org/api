@@ -1,6 +1,6 @@
 lint: eslint
 
-unit: mochacov:unit
+unit: mocha_istanbul:unit
 
 integration: cucumberjs:integration
 wip: cucumberjs:wip

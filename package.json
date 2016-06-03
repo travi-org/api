@@ -17,20 +17,11 @@
     "node": "6.1.x",
     "npm": "3.8.x"
   },
-  "config": {
-    "blanket": {
-      "pattern": "///[\\w-]+\\.js$/",
-      "data-cover-never": [
-        "node_modules",
-        "public",
-        "test"
-      ]
-    }
-  },
   "devDependencies": {
     "@travi/any": "0.3.0",
     "babel-eslint": "6.0.4",
     "chai": "3.5.0",
+    "coveralls": "2.11.9",
     "cucumber": "1.0.0",
     "dotenv-safe": "2.3.1",
     "eslint-config-defaults": "9.0.0",
@@ -42,8 +33,9 @@
     "grunt-eslint": "17.3.2",
     "grunt-flyway": "travi/grunt-flyway#credentials",
     "grunt-jslint": "1.1.14",
-    "grunt-mocha-cov": "0.4.0",
+    "grunt-mocha-istanbul": "5.0.1",
     "hoek": "4.0.1",
+    "istanbul": "1.0.0-alpha.2",
     "load-grunt-config": "0.19.2",
     "proxyquire": "1.7.9",
     "referee": "1.2.0",

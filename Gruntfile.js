@@ -26,4 +26,13 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.event.on('coverage', (lcov, done) => {
+        require('coveralls').handleInput(lcov, (err) => {
+            if (err) {
+                return done(err);
+            }
+            return done();
+        });
+    });
 };

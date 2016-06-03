@@ -5,3 +5,4 @@ node_modules/
 .dpl/
 newrelic_agent.log
 logfile
+coverage/
