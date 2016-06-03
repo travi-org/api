@@ -37,6 +37,7 @@
     "hoek": "4.0.1",
     "istanbul": "1.0.0-alpha.2",
     "load-grunt-config": "0.19.2",
+    "mocha": "2.5.3",
     "proxyquire": "1.7.9",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
