@@ -22,7 +22,7 @@
     "babel-eslint": "6.1.0",
     "chai": "3.5.0",
     "coveralls": "2.11.9",
-    "cucumber": "1.0.0",
+    "cucumber": "1.1.0",
     "dotenv-safe": "2.3.1",
     "eslint-config-defaults": "9.0.0",
     "eslint-plugin-filenames": "0.2.0",
