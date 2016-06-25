@@ -25,7 +25,7 @@
     "cucumber": "1.2.0",
     "dotenv-safe": "2.3.1",
     "eslint-config-defaults": "9.0.0",
-    "eslint-plugin-filenames": "0.2.0",
+    "eslint-plugin-filenames": "1.0.0",
     "formatio": "1.2.0",
     "grunt": "1.0.1",
     "grunt-cli": "1.2.0",
