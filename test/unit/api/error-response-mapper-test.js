@@ -1,5 +1,3 @@
-'use strict';
-
 const
     path = require('path'),
     errorMapper = require(path.join(__dirname, '../../../lib/api/error-response-mapper'));

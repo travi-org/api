@@ -1,6 +1,4 @@
 /*eslint max-params: [2, 4]*/
-'use strict';
-
 const
     _ = require('lodash'),
     queryString = require('query-string');

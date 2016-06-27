@@ -1,5 +1,3 @@
-'use strict';
-
 const
     SUCCESS = 200,
     NOT_FOUND = 404,

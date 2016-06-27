@@ -1,5 +1,3 @@
-'use strict';
-
 const
     auth = require('../../../../lib/api/auth/strategy'),
     apps = require('../../../../lib/api/auth/apps'),

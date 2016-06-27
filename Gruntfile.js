@@ -1,6 +1,4 @@
-/*eslint filenames/filenames: 0 */
-
-'use strict';
+/*eslint filenames/match-regex: 0 */
 
 const url = require('url');
 
@@ -8,7 +6,7 @@ module.exports = function (grunt) {
     require('dotenv').config({silent: true});
     const
         dbConnectionInfo = url.parse(process.env.DATABASE_URL),
-        auth = dbConnectionInfo.auth.split(':');
+        [user, password] = dbConnectionInfo.auth.split(':');
 
     require('time-grunt')(grunt);
     require('load-grunt-config')(grunt, {
@@ -20,8 +18,8 @@ module.exports = function (grunt) {
         },
         config: {
             db: {
-                user: auth[0],
-                password: auth[1],
+                user,
+                password,
                 url: `postgresql://${dbConnectionInfo.host}${dbConnectionInfo.pathname}`
             }
         }

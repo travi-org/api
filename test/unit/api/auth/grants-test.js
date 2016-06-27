@@ -1,5 +1,3 @@
-'use strict';
-
 const
     proxyquire = require('proxyquire'),
     any = require('@travi/any');

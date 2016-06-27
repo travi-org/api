@@ -1,5 +1,3 @@
-'use strict';
-
 const
     auth = require('../../../lib/auth/strategy'),
     any = require('@travi/any');

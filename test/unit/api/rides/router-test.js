@@ -1,5 +1,3 @@
-'use strict';
-
 const
     path = require('path'),
     any = require(path.join(__dirname, '../../../helpers/any-for-api')),

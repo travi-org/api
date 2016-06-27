@@ -1,5 +1,3 @@
-'use strict';
-
 const any = require('@travi/any');
 
 any.resource = function () {

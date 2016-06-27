@@ -1,5 +1,3 @@
-'use strict';
-
 const
     oz = require('oz'),
     hoek = require('hoek'),

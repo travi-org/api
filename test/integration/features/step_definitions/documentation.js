@@ -1,5 +1,3 @@
-'use strict';
-
 const
     referee = require('referee'),
     assert = referee.assert;

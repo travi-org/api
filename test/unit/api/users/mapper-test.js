@@ -1,5 +1,3 @@
-'use strict';
-
 const
     path = require('path'),
     assert = require('chai').assert,

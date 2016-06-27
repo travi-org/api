@@ -1,5 +1,3 @@
-'use strict';
-
 const
     routes = require('../../../lib/auth/routes'),
     Boom = require('boom'),
