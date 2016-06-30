@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@travi/any": "0.4.0",
-    "@travi/eslint-config-travi": "0.1.4",
+    "@travi/eslint-config-travi": "0.2.0",
     "babel-eslint": "6.1.0",
     "chai": "3.5.0",
     "coveralls": "2.11.9",
