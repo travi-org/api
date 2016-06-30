@@ -1,0 +1,6 @@
+extends: '@travi/travi/rules/tests/cucumber'
+
+globals:
+  sinon: false
+  assert: false
+  refute: false
