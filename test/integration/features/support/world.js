@@ -55,7 +55,7 @@ module.exports.World = function World() {
 
                 callback();
             });
-        });
+        }).catch(callback);
     };
 
     this.getRequestTo = (url, callback) => {
