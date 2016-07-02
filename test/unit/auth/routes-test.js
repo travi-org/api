@@ -1,8 +1,6 @@
-const
-    routes = require('../../../lib/auth/routes'),
-    Boom = require('boom'),
-
-    any = require('@travi/any');
+import routes from '../../../lib/auth/routes';
+import Boom from 'boom';
+import * as any from '@travi/any';
 
 suite('auth routes', () => {
     let sandbox;

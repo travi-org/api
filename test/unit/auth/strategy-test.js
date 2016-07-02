@@ -1,6 +1,5 @@
-const
-    auth = require('../../../lib/auth/strategy'),
-    any = require('@travi/any');
+import auth from '../../../lib/auth/strategy';
+import * as any from '@travi/any';
 
 suite('authentication strategy', () => {
     teardown(() => {

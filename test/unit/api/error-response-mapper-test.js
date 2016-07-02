@@ -1,6 +1,4 @@
-const
-    path = require('path'),
-    errorMapper = require(path.join(__dirname, '../../../lib/api/error-response-mapper'));
+import {mapToResponse} from '../../../lib/api/error-response-mapper';
 
 require('setup-referee-sinon/globals');
 
@@ -21,7 +19,7 @@ suite('error response mapper', () => {
     });
 
     test('that vnd.error spec met', () => {
-        errorMapper.mapToResponse({}, reply);
+        mapToResponse({}, reply);
 
         assert.calledWith(reply, sinon.match({
             _links: {
@@ -35,7 +33,7 @@ suite('error response mapper', () => {
 
     suite('unknown error', () => {
         test('that status is set to 500', () => {
-            errorMapper.mapToResponse({}, reply);
+            mapToResponse({}, reply);
 
             assert.calledWith(code, SERVER_ERROR);
             assert.calledWith(reply, sinon.match({message: 'Server Error'}));
@@ -44,7 +42,7 @@ suite('error response mapper', () => {
 
     suite('not found error', () => {
         test('that status is set to 404', () => {
-            errorMapper.mapToResponse({
+            mapToResponse({
                 notFound: true
             }, reply);
 
