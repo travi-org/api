@@ -1,8 +1,7 @@
-const
-    oz = require('oz'),
-    hoek = require('hoek'),
-    apps = require('../../../../data/auth/apps'),
-    grants = require('../../../../data/auth/grants');
+import oz from 'oz';
+import hoek from 'hoek';
+import apps from '../../../../data/auth/apps';
+import grants from '../../../../data/auth/grants';
 
 function requestAppTicket(appDetails, callback) {
     this.makeOzRequest({endpoint: '/oz/app'}, appDetails, callback);

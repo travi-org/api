@@ -1,7 +1,6 @@
 /*eslint max-params: [2, 4]*/
-const
-    _ = require('lodash'),
-    queryString = require('query-string');
+import _ from 'lodash';
+import queryString from 'query-string';
 
 function assertThumbnailSizedAt(property, size, response, resourceType) {
     function check(item, prop) {

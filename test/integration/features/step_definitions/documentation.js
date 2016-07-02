@@ -1,6 +1,4 @@
-const
-    referee = require('referee'),
-    assert = referee.assert;
+import referee, {assert} from 'referee';
 require('referee-more-assertions')(referee);
 
 module.exports = function () {

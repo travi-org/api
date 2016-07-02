@@ -1,14 +1,12 @@
-const
-    oz = require('oz'),
-    path = require('path'),
-
-    any = require('@travi/any');
+import oz from 'oz';
+import path from 'path';
+import * as any from '@travi/any';
 
 process.env.AUTH0_CLIENT_ID = any.string();
 process.env.AUTH0_CLIENT_SECRET = any.string();
 process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = any.string();
 
-module.exports.World = function World() {
+export function World() {
     const
         SUCCESS = 200,
         loadApi = require(path.join(__dirname, '../../../../lib/app.js'));
@@ -102,4 +100,4 @@ module.exports.World = function World() {
         return list;
     };
 
-};
+}

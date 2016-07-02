@@ -1,6 +1,4 @@
-const
-    referee = require('referee'),
-    assert = referee.assert;
+import referee, {assert} from 'referee';
 referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 
 module.exports = function () {
