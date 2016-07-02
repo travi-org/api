@@ -1,6 +1,5 @@
-const
-    any = require('@travi/any'),
-    proxyquire = require('proxyquire');
+import * as any from '@travi/any';
+import proxyquire from 'proxyquire';
 
 suite('application authorization', () => {
     const
@@ -10,7 +9,7 @@ suite('application authorization', () => {
             '../../../data/auth/apps': {
                 [appName]: app
             }
-        });
+        }).default;
 
     test('that app is retrieved by id', () => {
         const callback = sinon.spy();

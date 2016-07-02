@@ -1,7 +1,6 @@
-const
-    auth = require('../../../../lib/api/auth/strategy'),
-    apps = require('../../../../lib/api/auth/apps'),
-    grants = require('../../../../lib/api/auth/grants');
+import auth from '../../../../lib/api/auth/strategy';
+import apps from '../../../../lib/api/auth/apps';
+import grants from '../../../../lib/api/auth/grants';
 
 suite('api authorization', () => {
     test('that the plugin is defined', () => {
