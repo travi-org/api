@@ -1,11 +1,7 @@
-const
-    path = require('path'),
-    assert = require('chai').assert,
-    md5 = require('md5'),
-    _ = require('lodash'),
-
-    mapper = require(path.join(__dirname, '../../../../lib/api/users/mapper')),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api'));
+import {assert} from 'chai';
+import md5 from 'md5';
+import mapper from '../../../../lib/api/users/mapper';
+import any from '../../../helpers/any-for-api';
 
 function assertUserMappedToViewProperly(userView, user, size) {
     assert.deepEqual(userView, {
@@ -34,7 +30,7 @@ suite('user mapper', () => {
             size = any.integer(),
             userViews = mapper.mapListToView(users, size);
 
-        _.forEach(users, (user, index) => {
+        users.forEach((user, index) => {
             assertUserMappedToViewProperly(userViews[index], user, size);
         });
     });
@@ -53,7 +49,7 @@ suite('user mapper', () => {
             size = any.integer(),
             userViews = mapper.mapListToView(users, size, any.listOf(any.string));
 
-        _.forEach(users, (user, index) => {
+        users.forEach((user, index) => {
             assert.equal(userViews[index].email, user.email);
         });
     });

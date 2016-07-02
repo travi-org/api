@@ -1,10 +1,7 @@
-const
-    path = require('path'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
-
-    controller = require(path.join(__dirname, '../../../../lib/api/users/controller')),
-    mapper = require(path.join(__dirname, '../../../../lib/api/users/mapper')),
-    repo = require(path.join(__dirname, '../../../../lib/api/users/repository'));
+import any from '../../../helpers/any-for-api';
+import controller from '../../../../lib/api/users/controller';
+import mapper from '../../../../lib/api/users/mapper';
+import repo from '../../../../lib/api/users/repository';
 
 suite('users controller', () => {
     const

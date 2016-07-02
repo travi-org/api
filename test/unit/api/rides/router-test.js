@@ -1,12 +1,9 @@
-const
-    path = require('path'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
-    Joi = require('joi'),
-    deepFreeze = require('deep-freeze'),
-    _ = require('lodash'),
-    router = require(path.join(__dirname, '../../../../lib/api/router')),
-    controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
-    errorMapper = require(path.join(__dirname, '../../../../lib/api/error-response-mapper'));
+import any from '../../../helpers/any-for-api';
+import Joi from 'joi';
+import deepFreeze from 'deep-freeze';
+import router from '../../../../lib/api/router';
+import controller from '../../../../lib/api/rides/controller';
+import * as errorMapper from '../../../../lib/api/error-response-mapper';
 
 suite('ride router', () => {
     const requestNoAuth = deepFreeze({auth: {}}),
@@ -111,7 +108,7 @@ suite('ride router', () => {
             prepare(rep, next);
 
             sinon.assert.callCount(rep.embed, rep.entity.rides.length);
-            _.each(rep.entity.rides, (ride) => {
+            rep.entity.rides.forEach((ride) => {
                 assert.calledWith(rep.embed, 'rides', `./${ride.id}`, ride);
             });
             assert.calledWith(rep.ignore, 'rides');

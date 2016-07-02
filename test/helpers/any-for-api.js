@@ -21,4 +21,4 @@ any.resources = {
     }
 };
 
-module.exports = any;
+export default any;

@@ -1,10 +1,10 @@
-const
-    fs = require('fs'),
-    path = require('path'),
-    hoek = require('hoek'),
-    _ = require('lodash'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
+import fs from 'fs';
+import hoek from 'hoek';
+import any from '../../../helpers/any-for-api';
+import _ from 'lodash';
+import path from 'path';
 
+const
     resourceLists = {},
     SUCCESS = 200,
     resourceComparators = {

@@ -1,9 +1,6 @@
-const
-    path = require('path'),
-    any = require(path.join(__dirname, '../../../helpers/any-for-api')),
-
-    controller = require(path.join(__dirname, '../../../../lib/api/rides/controller')),
-    repo = require(path.join(__dirname, '../../../../lib/api/rides/repository'));
+import any from '../../../helpers/any-for-api';
+import controller from '../../../../lib/api/rides/controller';
+import repo from '../../../../lib/api/rides/repository';
 
 suite('rides controller', () => {
     const
