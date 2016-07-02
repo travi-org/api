@@ -1,8 +1,10 @@
-npm-debug.log
-.env
-node_modules/
 .idea/
 .dpl/
+node_modules/
+coverage/
+dist/
+
+npm-debug.log
+.env
 newrelic_agent.log
 logfile
-coverage/

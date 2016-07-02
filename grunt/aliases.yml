@@ -9,7 +9,11 @@ test:
   - unit
   - integration
 
-build: flyway:migrate
+compile: babel
+
+build:
+  - compile
+  - flyway:migrate
 
 heroku:production: build
 

@@ -9,9 +9,9 @@
   },
   "scripts": {
     "test": "grunt",
-    "start": "node lib/app.js",
+    "start": "node dist/app.js",
     "postinstall": "grunt heroku:production",
-    "dev": "nodemon -r dotenv-safe/config lib/app.js"
+    "dev": "nodemon lib/dev.js"
   },
   "engines": {
     "node": "6.1.x",
@@ -20,13 +20,16 @@
   "devDependencies": {
     "@travi/any": "0.4.0",
     "@travi/eslint-config-travi": "0.2.0",
+    "babel-cli": "6.10.1",
     "babel-eslint": "6.1.0",
+    "babel-preset-es2015-node": "6.1.0",
     "chai": "3.5.0",
     "coveralls": "2.11.9",
     "cucumber": "1.2.0",
     "dotenv-safe": "2.3.1",
     "formatio": "1.2.0",
     "grunt": "1.0.1",
+    "grunt-babel": "6.0.0",
     "grunt-cli": "1.2.0",
     "grunt-cucumberjs": "0.10.2",
     "grunt-eslint": "18.1.0",
