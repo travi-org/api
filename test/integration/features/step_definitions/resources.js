@@ -1,3 +1,5 @@
+/*eslint max-statements: ["error", 20]*/
+
 import fs from 'fs';
 import hoek from 'hoek';
 import any from '../../../helpers/any-for-api';
@@ -23,6 +25,16 @@ const
                 userPath = `/users/${expectedItem.id}`;
 
             assert.equals(userPath, selfLink.substring(selfLink.length - userPath.length));
+            assert.equals(actualItem.id, expectedItem.id);
+            assert.equals(actualItem['first-name'], expectedItem['first-name']);
+            assert.equals(actualItem['last-name'], expectedItem['last-name']);
+        },
+        persons(actualItem, expectedItem) {
+            const
+                selfLink = actualItem._links.self.href,
+                personsPath = `/persons/${expectedItem.id}`;
+
+            assert.equals(personsPath, selfLink.substring(selfLink.length - personsPath.length));
             assert.equals(actualItem.id, expectedItem.id);
             assert.equals(actualItem['first-name'], expectedItem['first-name']);
             assert.equals(actualItem['last-name'], expectedItem['last-name']);
@@ -72,6 +84,10 @@ module.exports = function () {
         callback();
     });
 
+    this.Given(/^person "([^"]*)" exists$/, (user, callback) => {
+        callback();
+    });
+
     this.Given(/^user "([^"]*)" exists$/, (user, callback) => {
         callback();
     });
@@ -81,6 +97,10 @@ module.exports = function () {
     });
 
     this.Given(/^user "([^"]*)" does not exist$/, (user, callback) => {
+        callback();
+    });
+
+    this.Given(/^person "([^"]*)" does not exist$/, (user, callback) => {
         callback();
     });
 
@@ -112,6 +132,18 @@ module.exports = function () {
         });
     });
 
+    this.When(/^person "([^"]*)" is requested by id$/, function (person, callback) {
+        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', (err, content) => {
+            hoek.assert(!err, err);
+
+            const
+                match = _.find(JSON.parse(content), _.matchesProperty('first-name', person)),
+                id = !_.isEmpty(match) ? _.result(match, 'id') : person;
+
+            this.getRequestTo(`/persons/${id}`, callback);
+        });
+    });
+
     this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
@@ -140,6 +172,14 @@ module.exports = function () {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
         assert.equals(JSON.parse(this.getResponseBody())['first-name'], user);
+
+        callback();
+    });
+
+    this.Then(/^person "([^"]*)" is returned$/, function (person, callback) {
+        assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
+
+        assert.equals(JSON.parse(this.getResponseBody())['first-name'], person);
 
         callback();
     });
