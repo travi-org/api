@@ -47,7 +47,7 @@
     "setup-referee-sinon": "0.3.0",
     "sinon": "1.17.4",
     "sinon-as-promised": "4.0.2",
-    "time-grunt": "1.3.0"
+    "time-grunt": "1.4.0"
   },
   "dependencies": {
     "bell": "8.0.0",
