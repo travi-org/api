@@ -1,6 +1,6 @@
 import any from '../../../helpers/any-for-api';
 import controller from '../../../../lib/api/persons/controller';
-import mapper from '../../../../lib/api/users/mapper';
+import mapper from '../../../../lib/api/persons/mapper';
 import repo from '../../../../lib/api/persons/repository';
 
 suite('users controller', () => {

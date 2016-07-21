@@ -23,8 +23,7 @@ module.exports = function () {
             {
                 self: { href: `${baseUrl}/` },
                 rides: { href: `${baseUrl}/rides` },
-                persons: { href: `${baseUrl}/persons` },
-                users: { href: `${baseUrl}/users` }
+                persons: { href: `${baseUrl}/persons` }
             }
         );
 

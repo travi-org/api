@@ -84,11 +84,7 @@ module.exports = function () {
         callback();
     });
 
-    this.Given(/^person "([^"]*)" exists$/, (user, callback) => {
-        callback();
-    });
-
-    this.Given(/^user "([^"]*)" exists$/, (user, callback) => {
+    this.Given(/^person "([^"]*)" exists$/, (person, callback) => {
         callback();
     });
 
@@ -96,11 +92,7 @@ module.exports = function () {
         callback();
     });
 
-    this.Given(/^user "([^"]*)" does not exist$/, (user, callback) => {
-        callback();
-    });
-
-    this.Given(/^person "([^"]*)" does not exist$/, (user, callback) => {
+    this.Given(/^person "([^"]*)" does not exist$/, (person, callback) => {
         callback();
     });
 
@@ -120,20 +112,8 @@ module.exports = function () {
         });
     });
 
-    this.When(/^user "([^"]*)" is requested by id$/, function (user, callback) {
-        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', (err, content) => {
-            hoek.assert(!err, err);
-
-            const
-                match = _.find(JSON.parse(content), _.matchesProperty('first-name', user)),
-                id = !_.isEmpty(match) ? _.result(match, 'id') : user;
-
-            this.getRequestTo(`/users/${id}`, callback);
-        });
-    });
-
     this.When(/^person "([^"]*)" is requested by id$/, function (person, callback) {
-        fs.readFile(path.join(__dirname, '../../../../data/users.json'), 'utf8', (err, content) => {
+        fs.readFile(path.join(__dirname, '../../../../data/persons.json'), 'utf8', (err, content) => {
             hoek.assert(!err, err);
 
             const
@@ -164,14 +144,6 @@ module.exports = function () {
         assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
 
         refute.defined(JSON.parse(this.getResponseBody())._embedded);
-
-        callback();
-    });
-
-    this.Then(/^user "([^"]*)" is returned$/, function (user, callback) {
-        assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
-
-        assert.equals(JSON.parse(this.getResponseBody())['first-name'], user);
 
         callback();
     });

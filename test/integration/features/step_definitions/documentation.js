@@ -22,7 +22,7 @@ module.exports = function () {
     this.Then(/^the top\-level endpoints should be included$/, function (callback) {
         const paths = JSON.parse(this.getResponseBody()).paths;
         assert.defined(paths['/rides']);
-        assert.defined(paths['/users']);
+        assert.defined(paths['/persons']);
 
         callback();
     });
@@ -31,7 +31,7 @@ module.exports = function () {
         const paths = JSON.parse(this.getResponseBody()).paths;
 
         assert.defined(paths['/rides/{id}']);
-        assert.defined(paths['/users/{id}']);
+        assert.defined(paths['/persons/{id}']);
 
         callback();
     });

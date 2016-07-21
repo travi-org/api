@@ -1,56 +1,56 @@
 import {assert} from 'chai';
 import md5 from 'md5';
-import mapper from '../../../../lib/api/users/mapper';
+import mapper from '../../../../lib/api/persons/mapper';
 import any from '../../../helpers/any-for-api';
 
-function assertUserMappedToViewProperly(userView, user, size) {
-    assert.deepEqual(userView, {
-        id: user.id,
-        'first-name': user['first-name'],
-        'last-name': user['last-name'],
+function assertPersonMappedToViewProperly(personView, person, size) {
+    assert.deepEqual(personView, {
+        id: person.id,
+        'first-name': person['first-name'],
+        'last-name': person['last-name'],
         avatar: {
-            src: `https://www.gravatar.com/avatar/${md5(user.email)}?size=${size}`,
+            src: `https://www.gravatar.com/avatar/${md5(person.email)}?size=${size}`,
             size
         }
     });
 }
 
-suite('user mapper', () => {
-    test('that a user is mapped to the view representation', () => {
+suite('person mapper', () => {
+    test('that a person is mapped to the view representation', () => {
         const
-            user = any.resources.user(),
+            person = any.resources.person(),
             size = any.integer();
 
-        assertUserMappedToViewProperly(mapper.mapToView(user, size), user, size);
+        assertPersonMappedToViewProperly(mapper.mapToView(person, size), person, size);
     });
 
-    test('that a list of users is mapped to a list of user view objects', () => {
+    test('that a list of persons is mapped to a list of person view objects', () => {
         const
-            users = any.listOf(any.resources.user),
+            persons = any.listOf(any.resources.person),
             size = any.integer(),
-            userViews = mapper.mapListToView(users, size);
+            personViews = mapper.mapListToView(persons, size);
 
-        users.forEach((user, index) => {
-            assertUserMappedToViewProperly(userViews[index], user, size);
+        persons.forEach((person, index) => {
+            assertPersonMappedToViewProperly(personViews[index], person, size);
         });
     });
 
     test('that email is populated when authorized', () => {
         const
-            user = any.resources.user(),
+            person = any.resources.person(),
             size = any.integer();
 
-        assert.equal(mapper.mapToView(user, size, any.listOf(any.string)).email, user.email);
+        assert.equal(mapper.mapToView(person, size, any.listOf(any.string)).email, person.email);
     });
 
     test('that email is populated in each item in list when authorized', () => {
         const
-            users = any.listOf(any.resources.user),
+            persons = any.listOf(any.resources.person),
             size = any.integer(),
-            userViews = mapper.mapListToView(users, size, any.listOf(any.string));
+            personViews = mapper.mapListToView(persons, size, any.listOf(any.string));
 
-        users.forEach((user, index) => {
-            assert.equal(userViews[index].email, user.email);
+        persons.forEach((person, index) => {
+            assert.equal(personViews[index].email, person.email);
         });
     });
 });

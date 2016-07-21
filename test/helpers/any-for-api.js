@@ -11,14 +11,6 @@ any.resources = {
             nickname: any.string()
         };
     },
-    user() {
-        return {
-            id: any.word(),
-            'first-name': any.string(),
-            'last-name': any.string(),
-            email: any.email()
-        };
-    },
     person() {
         return {
             id: any.word(),
