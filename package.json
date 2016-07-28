@@ -69,7 +69,7 @@
     "newrelic": "1.28.3",
     "path": "0.12.7",
     "query-string": "4.2.2",
-    "scarecrow": "3.0.2",
+    "scarecrow": "3.0.3",
     "vision": "4.1.0",
     "visionary": "6.0.0"
   }
