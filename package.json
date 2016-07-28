@@ -31,7 +31,7 @@
     "grunt": "1.0.1",
     "grunt-babel": "6.0.0",
     "grunt-cli": "1.2.0",
-    "grunt-cucumberjs": "0.10.3",
+    "grunt-cucumberjs": "0.10.4",
     "grunt-eslint": "19.0.0",
     "grunt-flyway": "travi/grunt-flyway#credentials",
     "grunt-jslint": "1.1.14",
