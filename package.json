@@ -50,7 +50,7 @@
     "time-grunt": "1.4.0"
   },
   "dependencies": {
-    "bell": "8.0.0",
+    "bell": "8.0.1",
     "deep-freeze": "0.0.1",
     "glue": "3.3.0",
     "good": "7.0.1",
