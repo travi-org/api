@@ -6,6 +6,9 @@ travi-api
 [![Code Climate](https://img.shields.io/codeclimate/github/travi/travi-api.svg?style=flat)](https://codeclimate.com/github/travi/travi-api)
 [![Dependency Status](https://img.shields.io/gemnasium/travi/travi-api.svg?style=flat)](https://gemnasium.com/travi/travi-api)
 
+## Try It
+You can interact with the api through the [Swagger UI instance](https://api.travi.org/documentation) hosted with the API.
+
 ## Project Goals
 
 I'm using this as an opportunity to learn how to apply a number of core concepts of api development to node.
@@ -14,8 +17,8 @@ I'm using this as an opportunity to learn how to apply a number of core concepts
     * [Hapi](http://hapijs.com/)
     * [Halacious](https://github.com/bleupen/halacious)
 - [ ] Access Control
-    * Limited read-only access with no auth context
-    * Privilege elevation for advanced actions
+    - [x] Limited read-only access with no auth context
+    - [ ]  Privilege elevation for advanced actions
         * Either OAuth or [Oz](https://github.com/hueniverse/oz) for authorization
 
 ## Local Development
