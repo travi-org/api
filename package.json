@@ -15,7 +15,7 @@
   },
   "engines": {
     "node": "6.6.x",
-    "npm": "3.8.x"
+    "npm": "3.10.x"
   },
   "devDependencies": {
     "@travi/any": "0.6.1",
