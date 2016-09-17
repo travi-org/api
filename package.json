@@ -14,7 +14,7 @@
     "dev": "nodemon lib/dev.js"
   },
   "engines": {
-    "node": "6.1.x",
+    "node": "6.6.x",
     "npm": "3.8.x"
   },
   "devDependencies": {
