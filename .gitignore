@@ -3,6 +3,7 @@
 node_modules/
 coverage/
 dist/
+pacts/
 
 npm-debug.log
 .env
