@@ -20,6 +20,9 @@ I'm using this as an opportunity to learn how to apply a number of core concepts
     - [x] Limited read-only access with no auth context
     - [ ]  Privilege elevation for advanced actions
         * Either OAuth or [Oz](https://github.com/hueniverse/oz) for authorization
+- [ ] Consumer Driven Contracts
+    - [ ] Pact Provider
+    - [x] Leverage the [broker](https://pact-api.travi.org) the share pacts from consumers
 
 ## Local Development
 
