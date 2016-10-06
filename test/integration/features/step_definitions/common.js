@@ -1,3 +1,5 @@
+import loadApi from '../../../../lib/app.js';
+
 const
     SUCCESS = 200,
     NOT_FOUND = 404,
@@ -8,6 +10,10 @@ const
 
 module.exports = function () {
     this.World = require('../support/world.js').World;
+    
+    this.Before(function (scenario, callback) {
+        loadApi.then(() => callback());
+    });
 
     this.After(function () {
         this.serverResponse = null;
