@@ -9,7 +9,9 @@
   },
   "scripts": {
     "lint:js": "eslint .",
+    "tests:unit": "mocha --recursive test/unit",
     "test": "grunt",
+    "coverage": "nyc run-s tests:unit",
     "start": "node dist/app.js",
     "postinstall": "grunt heroku:production",
     "dev": "nodemon lib/dev.js"
@@ -41,6 +43,8 @@
     "istanbul": "1.1.0-alpha.1",
     "load-grunt-config": "0.19.2",
     "mocha": "3.2.0",
+    "npm-run-all": "3.1.2",
+    "nyc": "10.0.0",
     "proxyquire": "1.7.10",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
