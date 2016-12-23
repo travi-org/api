@@ -2,20 +2,19 @@ import * as any from '@travi/any';
 import proxyquire from 'proxyquire';
 
 suite('application authorization', () => {
-    const
-        appName = any.string(),
-        app = any.simpleObject(),
-        apps = proxyquire('../../../../lib/api/auth/apps', {
-            '../../../data/auth/apps': {
-                [appName]: app
-            }
-        }).default;
+  const appName = any.string();
+  const app = any.simpleObject();
+  const apps = proxyquire('../../../../lib/api/auth/apps', {
+    '../../../data/auth/apps.json': {
+      [appName]: app
+    }
+  }).default;
 
-    test('that app is retrieved by id', () => {
-        const callback = sinon.spy();
+  test('that app is retrieved by id', () => {
+    const callback = sinon.spy();
 
-        apps.getById(appName, callback);
+    apps.getById(appName, callback);
 
-        assert.calledWith(callback, null, app);
-    });
+    assert.calledWith(callback, null, app);
+  });
 });
