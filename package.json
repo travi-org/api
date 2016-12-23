@@ -10,6 +10,8 @@
   "scripts": {
     "lint:js": "eslint .",
     "tests:unit": "mocha --recursive test/unit",
+    "tests:integration": "cucumber.js test/integration --compiler js:babel-register --tags ~@wip --strict",
+    "tests:integration:wip": "cucumber.js test/integration --compiler js:babel-register --tags @wip",
     "test": "grunt",
     "coverage": "nyc run-s tests:unit",
     "babel": "babel lib --out-dir dist",
