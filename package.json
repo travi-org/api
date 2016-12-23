@@ -6,6 +6,7 @@
   "repository": "travi/travi-api",
   "scripts": {
     "lint:js": "eslint .",
+    "lint:md": "globstar --node -- markdownlint **/*.md",
     "tests:unit": "mocha --recursive test/unit",
     "tests:integration": "cucumber.js test/integration --compiler js:babel-register --tags 'not @wip'",
     "tests:integration:wip": "cucumber.js test/integration --compiler js:babel-register --tags @wip",
@@ -37,6 +38,7 @@
     "dotenv": "2.0.0",
     "dotenv-safe": "3.0.0",
     "formatio": "1.2.0",
+    "globstar": "1.0.0",
     "grunt": "1.0.1",
     "grunt-babel": "6.0.0",
     "grunt-cli": "1.2.0",
@@ -44,6 +46,7 @@
     "hoek": "4.1.0",
     "husky": "0.12.0",
     "load-grunt-config": "0.19.2",
+    "markdownlint-cli": "0.2.0",
     "mocha": "3.2.0",
     "npm-run-all": "3.1.2",
     "nyc": "10.0.0",
