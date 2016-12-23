@@ -1,3 +1,6 @@
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
+
 function assertPropertyIsPopulatedInResource(type, property) {
   assert.defined(type[property]);
 }
@@ -19,10 +22,10 @@ function assertPropertyIn(property, resourceType, check) {
   }
 }
 
-module.exports = function () {
-  this.World = require('../support/world.js').World;
+defineSupportCode(({Then, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
+  Then(/^"([^"]*)" is not included in "([^"]*)"$/, function (property, resourceType, callback) {
     assertPropertyIn.call(
       this,
       property,
@@ -33,7 +36,7 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
+  Then(/^"([^"]*)" is populated in "([^"]*)"$/, function (property, resourceType, callback) {
     assertPropertyIn.call(
       this,
       property,
@@ -43,4 +46,4 @@ module.exports = function () {
 
     callback();
   });
-};
+});

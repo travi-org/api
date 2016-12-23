@@ -1,5 +1,7 @@
 import oz from 'oz';
 import hoek from 'hoek';
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
 import apps from '../../../../data/auth/apps.json';
 import grants from '../../../../data/auth/grants.json';
 
@@ -36,14 +38,14 @@ function getUserTicket(callback) {
   });
 }
 
-module.exports = function () {
-  this.World = require('../support/world.js').World;
+defineSupportCode(({Given, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.Given(/^request is anonymous$/, callback => {
+  Given(/^request is anonymous$/, callback => {
     callback();
   });
 
-  this.Given(/^request includes oz ticket$/, function (callback) {
+  Given(/^request includes oz ticket$/, function (callback) {
     getUserTicket.call(this, callback);
   });
-};
+});

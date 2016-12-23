@@ -1,26 +1,29 @@
 import referee, {assert} from 'referee';
+import {OK} from 'http-status-codes';
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
 
 require('referee-more-assertions')(referee);
 
-module.exports = function () {
-  const SUCCESS = 200;
+defineSupportCode(({When, Then, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.When(/^the documentation is requested in the browser$/, function (callback) {
+  When(/^the documentation is requested in the browser$/, function (callback) {
     this.getRequestTo('/documentation', callback);
   });
 
-  this.Then(/^the documentation should be viewable in the browser$/, function (callback) {
-    assert.equals(this.getResponseStatus(), SUCCESS);
+  Then(/^the documentation should be viewable in the browser$/, function (callback) {
+    assert.equals(this.getResponseStatus(), OK);
     assert.equals(this.getResponseHeaders()['content-type'], 'text/html; charset=utf-8');
 
     callback();
   });
 
-  this.When(/^the docs are requested$/, function (callback) {
+  When(/^the docs are requested$/, function (callback) {
     this.getRequestTo('/swagger', callback);
   });
 
-  this.Then(/^the top-level endpoints should be included$/, function (callback) {
+  Then(/^the top-level endpoints should be included$/, function (callback) {
     const paths = JSON.parse(this.getResponseBody()).paths;
     assert.defined(paths['/rides']);
     assert.defined(paths['/persons']);
@@ -28,7 +31,7 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^the GET by id endpoints should be included$/, function (callback) {
+  Then(/^the GET by id endpoints should be included$/, function (callback) {
     const paths = JSON.parse(this.getResponseBody()).paths;
 
     assert.defined(paths['/rides/{id}']);
@@ -36,4 +39,4 @@ module.exports = function () {
 
     callback();
   });
-};
+});
