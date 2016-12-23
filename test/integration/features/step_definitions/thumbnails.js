@@ -1,4 +1,6 @@
 import queryString from 'query-string';
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
 
 function assertThumbnailSizedAt(property, size, response, resourceType) {
   function check(item, prop) {
@@ -21,10 +23,10 @@ function assertThumbnailSizedAt(property, size, response, resourceType) {
   }
 }
 
-module.exports = function () {
-  this.World = require('../support/world.js').World;
+defineSupportCode(({Then, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.Then(/^the "([^"]*)" is sized at "([^"]*)"px in "([^"]*)"$/, function (
+  Then(/^the "([^"]*)" is sized at "([^"]*)"px in "([^"]*)"$/, function (
     property,
     size,
     resourceType,
@@ -34,4 +36,4 @@ module.exports = function () {
 
     callback();
   });
-};
+});

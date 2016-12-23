@@ -2,10 +2,12 @@ import fs from 'fs';
 import hoek from 'hoek';
 import _ from 'lodash';
 import path from 'path';
+import {OK} from 'http-status-codes';
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
 import any from '../../../helpers/any-for-api';
 
 const resourceLists = {};
-const SUCCESS = 200;
 const resourceComparators = {
   rides(actualItem, expectedItem) {
     const selfLink = actualItem._links.self.href;   // eslint-disable-line no-underscore-dangle
@@ -55,44 +57,44 @@ function getListForType(resourceType) {
   return resourceLists[resourceType];
 }
 
-module.exports = function () {
-  this.World = require('../support/world.js').World;
+defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.After(() => {
+  After(() => {
     if (fs.readFile.restore) {
       fs.readFile.restore();
     }
   });
 
-  this.Given(/^the list of "([^"]*)" is empty$/, (resourceType, callback) => {
+  Given(/^the list of "([^"]*)" is empty$/, (resourceType, callback) => {
     defineListForType(resourceType, []);
 
     callback();
   });
 
-  this.Given(/^the list of "([^"]*)" is not empty$/, (resourceType, callback) => {
+  Given(/^the list of "([^"]*)" is not empty$/, (resourceType, callback) => {
     defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)], {min: 1}));
 
     callback();
   });
 
-  this.Given(/^person "([^"]*)" exists$/, (person, callback) => {
+  Given(/^person "([^"]*)" exists$/, (person, callback) => {
     callback();
   });
 
-  this.Given(/^ride "([^"]*)" exists$/, (ride, callback) => {
+  Given(/^ride "([^"]*)" exists$/, (ride, callback) => {
     callback();
   });
 
-  this.Given(/^person "([^"]*)" does not exist$/, (person, callback) => {
+  Given(/^person "([^"]*)" does not exist$/, (person, callback) => {
     callback();
   });
 
-  this.Given(/^ride "([^"]*)" does not exist$/, (ride, callback) => {
+  Given(/^ride "([^"]*)" does not exist$/, (ride, callback) => {
     callback();
   });
 
-  this.When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
+  When(/^ride "([^"]*)" is requested by id$/, function (ride, callback) {
     fs.readFile(path.join(__dirname, '../../../../data/rides.json'), 'utf8', (err, content) => {
       hoek.assert(!err, err);
 
@@ -103,7 +105,7 @@ module.exports = function () {
     });
   });
 
-  this.When(/^person "([^"]*)" is requested by id$/, function (person, callback) {
+  When(/^person "([^"]*)" is requested by id$/, function (person, callback) {
     fs.readFile(path.join(__dirname, '../../../../data/persons.json'), 'utf8', (err, content) => {
       hoek.assert(!err, err);
 
@@ -114,8 +116,8 @@ module.exports = function () {
     });
   });
 
-  this.Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
-    assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
+  Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
+    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
 
     const actualList = this.getResourceListFromResponse(resourceType, JSON.parse(this.getResponseBody()));
     const expectedList = getListForType(resourceType);
@@ -129,30 +131,30 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^an empty list is returned$/, function (callback) {
-    assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
+  Then(/^an empty list is returned$/, function (callback) {
+    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
 
     refute.defined(JSON.parse(this.getResponseBody())._embedded);   // eslint-disable-line no-underscore-dangle
 
     callback();
   });
 
-  this.Then(/^person "([^"]*)" is returned$/, function (person, callback) {
-    assert.equals(this.getResponseStatus(), SUCCESS, this.getResponseBody());
+  Then(/^person "([^"]*)" is returned$/, function (person, callback) {
+    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
 
     assert.equals(JSON.parse(this.getResponseBody())['first-name'], person);
 
     callback();
   });
 
-  this.Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
-    assert.equals(this.getResponseStatus(), SUCCESS);
+  Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
+    assert.equals(this.getResponseStatus(), OK);
     assert.equals(JSON.parse(this.getResponseBody()).nickname, ride);
 
     callback();
   });
 
-  this.Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
+  Then(/^list of "([^"]*)" has self links populated$/, function (resourceType, callback) {
     const response = JSON.parse(this.getResponseBody());
     const items = this.getResourceListFromResponse(resourceType, response);
 
@@ -164,4 +166,4 @@ module.exports = function () {
 
     callback();
   });
-};
+});

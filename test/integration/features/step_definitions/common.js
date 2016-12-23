@@ -1,31 +1,32 @@
+import {OK, NOT_FOUND} from 'http-status-codes';
+import {defineSupportCode} from 'cucumber';
+import {World} from '../support/world';
 import loadApi from '../../../../lib/app';
 
-const SUCCESS = 200;
-const NOT_FOUND = 404;
 const statuses = {
   'Not Found': NOT_FOUND,
-  Success: SUCCESS
+  Success: OK
 };
 
-module.exports = function () {
-  this.World = require('../support/world.js').World;
+defineSupportCode(({Before, After, When, Then, setWorldConstructor}) => {
+  setWorldConstructor(World);
 
-  this.Before((scenario, callback) => {
+  Before((scenario, callback) => {
     loadApi.then(() => callback());
   });
 
-  this.After(function () {
+  After(function () {
     this.serverResponse = null;
     this.ozUserTicket = null;
   });
 
-  this.When(/^"([^"]*)" is requested$/, function (endpoint, callback) {
+  When(/^"([^"]*)" is requested$/, function (endpoint, callback) {
     this.getRequestTo(endpoint, callback);
   });
 
-  this.Then(/^the response will be "([^"]*)"$/, function (status, callback) {
+  Then(/^the response will be "([^"]*)"$/, function (status, callback) {
     assert.equals(this.getResponseStatus(), statuses[status]);
 
     callback();
   });
-};
+});
