@@ -3,10 +3,7 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/travi/travi-api"
-  },
+  "repository": "travi/travi-api",
   "scripts": {
     "lint:js": "eslint .",
     "tests:unit": "mocha --recursive test/unit",
