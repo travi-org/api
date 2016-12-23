@@ -23,7 +23,7 @@
     "commitmsg": "validate-commit-msg"
   },
   "engines": {
-    "node": "6.6.x",
+    "node": "7.3.x",
     "npm": "3.10.x"
   },
   "devDependencies": {
