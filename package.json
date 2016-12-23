@@ -12,6 +12,8 @@
     "tests:unit": "mocha --recursive test/unit",
     "test": "grunt",
     "coverage": "nyc run-s tests:unit",
+    "babel": "babel lib --out-dir dist",
+    "build": "run-p babel",
     "start": "node dist/app.js",
     "postinstall": "grunt heroku:production",
     "dev": "nodemon lib/dev.js"
