@@ -10,12 +10,7 @@ module.exports = function (grunt) {
 
     require('time-grunt')(grunt);
     require('load-grunt-config')(grunt, {
-        jitGrunt: {
-            staticMappings: {
-                mochacov: 'grunt-mocha-cov',
-                cucumberjs: 'grunt-cucumber'
-            }
-        },
+        jitGrunt: {},
         config: {
             db: {
                 user,
@@ -23,14 +18,5 @@ module.exports = function (grunt) {
                 url: `postgresql://${dbConnectionInfo.host}${dbConnectionInfo.pathname}`
             }
         }
-    });
-
-    grunt.event.on('coverage', (lcov, done) => {
-        require('coveralls').handleInput(lcov, (err) => {
-            if (err) {
-                return done(err);
-            }
-            return done();
-        });
     });
 };

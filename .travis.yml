@@ -2,9 +2,7 @@ language: node_js
 node_js:
 - 6.6
 
-before_install:
-  - psql -c 'create database travi_api;' -U postgres
-  - npm install -g grunt-cli
+before_install: psql -c 'create database travi_api;' -U postgres
 
 addons:
   postgresql: "9.4"
@@ -17,7 +15,7 @@ install: npm install
 
 sudo: false
 
-after_script: grunt mochacov:coverage
+after_script: npm run report-coverage
 
 deploy:
   provider: heroku
