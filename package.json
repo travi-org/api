@@ -8,6 +8,7 @@
     "url": "git://github.com/travi/travi-api"
   },
   "scripts": {
+    "lint:js": "eslint .",
     "test": "grunt",
     "start": "node dist/app.js",
     "postinstall": "grunt heroku:production",
