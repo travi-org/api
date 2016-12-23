@@ -15,6 +15,7 @@
     "babel": "babel lib --out-dir dist",
     "build": "run-p babel",
     "start": "node dist/app.js",
+    "heroku:production": "run-s build",
     "postinstall": "grunt heroku:production",
     "dev": "nodemon lib/dev.js",
     "precommit": "npm test",
