@@ -30,6 +30,18 @@ I'm using this as an opportunity to learn how to apply a number of core concepts
 
 ## Local Development
 
+### Environment variables
+
 This application uses environment variables for certain configuration. For local development, the npm script `dev` expects
-a `.env` file to exist as described [here](https://devcenter.heroku.com/articles/heroku-local#set-up-your-local-environment-variables)
+a `.env` file to exist, as described [here](https://devcenter.heroku.com/articles/heroku-local#set-up-your-local-environment-variables)
 and contain the necessary variable definitions.
+
+### Database
+
+Postgres is used as the database.
+
+If installed with homebrew, ensure that the services is started with
+
+```bash
+$ brew services start postgresql
+```
