@@ -4,6 +4,7 @@ node_modules/
 coverage/
 dist/
 .nyc_output/
+pacts/
 
 npm-debug.log
 .env
