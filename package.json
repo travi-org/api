@@ -27,7 +27,7 @@
     "npm": "3.10.x"
   },
   "devDependencies": {
-    "@travi/any": "1.0.0",
+    "@travi/any": "1.0.1",
     "@travi/eslint-config-travi": "1.0.0-beta.2",
     "babel-cli": "6.18.0",
     "babel-preset-es2015-node": "6.1.1",
