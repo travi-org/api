@@ -7,7 +7,7 @@
 [![Dependency Status](https://img.shields.io/gemnasium/travi/travi-api.svg?style=flat)](https://gemnasium.com/travi/travi-api)
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![greenkeeper badge](https://badges.greenkeeper.io/GainCompliance/hapi-auth-stormpath.svg)
+![greenkeeper badge](https://badges.greenkeeper.io/travi/travi-api.svg)
 
 ## Try It
 
