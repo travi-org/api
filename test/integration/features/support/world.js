@@ -1,12 +1,12 @@
 import oz from 'oz';
 import * as any from '@travi/any';
+import {OK} from 'http-status-codes';
 
 process.env.AUTH0_CLIENT_ID = any.string();
 process.env.AUTH0_CLIENT_SECRET = any.string();
 process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = any.string();
 
 export function World() {
-  const SUCCESS = 200;
   const loadApi = require('../../../../lib/app.js');
 
   this.makeOzRequest = (requestDetails, appDetails, callback) => {
@@ -23,7 +23,7 @@ export function World() {
         payload: requestDetails.payload
       },
       () => {
-        assert.equals(this.getResponseStatus(), SUCCESS);
+        assert.equals(this.getResponseStatus(), OK);
 
         callback(null, this.serverResponse.result.entity);
       }
