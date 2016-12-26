@@ -47,7 +47,7 @@ function defineListForType(resourceType, resourceList) {
 
   sinon.stub(fs, 'readFile')
     .withArgs(sinon.match(
-      value => _.includes(value, `data/${resourceType}.json`),
+      value => value.includes(`data/${resourceType}.json`),
       'utf8'
     ))
     .callsArgWithAsync(2, null, JSON.stringify(resourceList));
@@ -123,7 +123,7 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
     const expectedList = getListForType(resourceType);
 
     assert.equals(actualList.length, expectedList.length);
-    _.forEach(actualList, (actualItem, index) => {
+    actualList.forEach((actualItem, index) => {
       const expectedItem = expectedList[index];
       resourceComparators[resourceType](actualItem, expectedItem);
     });
