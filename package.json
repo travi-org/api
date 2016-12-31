@@ -80,7 +80,7 @@
     "http-status-codes": "1.0.6",
     "inert": "4.1.0",
     "joi": "10.1.0",
-    "lodash": "4.17.3",
+    "lodash": "4.17.4",
     "md5": "2.2.1",
     "newrelic": "1.36.0",
     "path": "0.12.7",
