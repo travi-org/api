@@ -31,7 +31,7 @@
     "@travi/eslint-config-travi": "1.0.0-beta.3",
     "babel-cli": "6.18.0",
     "babel-preset-es2015-node": "6.1.1",
-    "babel-preset-stage-2": "6.18.0",
+    "babel-preset-stage-2": "6.22.0",
     "chai": "3.5.0",
     "coveralls": "2.11.15",
     "cucumber": "2.0.0-rc.6",
