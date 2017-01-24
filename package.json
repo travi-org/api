@@ -63,7 +63,7 @@
     "validate-commit-msg": "2.11.1"
   },
   "dependencies": {
-    "bell": "8.4.0",
+    "bell": "8.5.0",
     "boom": "4.2.0",
     "clone": "2.1.0",
     "deep-freeze": "0.0.1",
