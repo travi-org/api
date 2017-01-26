@@ -52,7 +52,7 @@
     "npm-run-all": "4.0.1",
     "nyc": "10.1.2",
     "oz": "4.0.5",
-    "proxyquire": "1.7.10",
+    "proxyquire": "1.7.11",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
     "referee-sinon": "1.0.3",
