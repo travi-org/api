@@ -60,7 +60,7 @@
     "sinon": "1.17.7",
     "sinon-as-promised": "4.0.2",
     "time-grunt": "1.4.0",
-    "validate-commit-msg": "2.8.2"
+    "validate-commit-msg": "2.11.0"
   },
   "dependencies": {
     "bell": "8.4.0",
