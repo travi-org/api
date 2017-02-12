@@ -23,7 +23,7 @@ export function World() {
         payload: requestDetails.payload
       },
       () => {
-        assert.equals(this.getResponseStatus(), OK);
+        assert.equals(this.getResponseStatus(), OK, this.serverResponse.payload);
 
         callback(null, this.serverResponse.result.entity);
       }

@@ -3,7 +3,7 @@ import hoek from 'hoek';
 import {defineSupportCode} from 'cucumber';
 import {World} from '../support/world';
 import apps from '../../../../data/auth/apps.json';
-import grants from '../../../../data/auth/grants.json';
+import grants from '../../../../data/auth/grants';
 
 function requestAppTicket(appDetails, callback) {
   this.makeOzRequest({endpoint: '/oz/app'}, appDetails, callback);
