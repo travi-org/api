@@ -25,7 +25,7 @@ export function World() {
       () => {
         assert.equals(this.getResponseStatus(), OK, this.serverResponse.payload);
 
-        callback(null, this.serverResponse.result.entity);
+        callback(null, this.serverResponse.result);
       }
     );
   };
