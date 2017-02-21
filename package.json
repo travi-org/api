@@ -77,7 +77,7 @@
     "hapi": "16.1.0",
     "hapi-auth-cookie": "6.1.1",
     "hapi-mustache": "0.0.1",
-    "hapi-swaggered": "2.7.0",
+    "hapi-swaggered": "2.8.1",
     "hapi-swaggered-ui": "2.6.0",
     "http-status-codes": "1.1.6",
     "inert": "4.1.0",
