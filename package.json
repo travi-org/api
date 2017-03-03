@@ -31,7 +31,7 @@
   "devDependencies": {
     "@travi/any": "1.0.4",
     "@travi/eslint-config-travi": "1.0.0-beta.3",
-    "babel-cli": "6.22.2",
+    "babel-cli": "6.23.0",
     "babel-preset-es2015-node": "6.1.1",
     "babel-preset-stage-2": "6.22.0",
     "chai": "3.5.0",
@@ -89,9 +89,9 @@
     "path": "0.12.7",
     "query-string": "4.3.2",
     "scarecrow": "3.0.4",
+    "snyk": "1.25.1",
     "vision": "4.1.1",
-    "visionary": "6.0.2",
-    "snyk": "^1.25.0"
+    "visionary": "6.0.2"
   },
   "config": {
     "commitizen": {
