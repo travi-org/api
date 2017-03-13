@@ -1,5 +1,6 @@
 import oz from 'oz';
-import * as any from '@travi/any';
+import {assert} from 'referee';
+import any from '@travi/any';
 import {OK} from 'http-status-codes';
 
 process.env.AUTH0_CLIENT_ID = any.string();
