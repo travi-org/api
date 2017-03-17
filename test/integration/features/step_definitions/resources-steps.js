@@ -4,8 +4,19 @@ import _ from 'lodash';
 import path from 'path';
 import {OK} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
+import sinon from 'sinon';
 import {World} from '../support/world';
 import any from '../../../helpers/any-for-api';
+
+sinon.behavior = require('sinon/lib/sinon/behavior');
+
+sinon.defaultConfig = {
+  injectInto: null,
+  properties: ['spy', 'stub', 'mock', 'clock', 'server', 'requests'],
+  useFakeTimers: true,
+  useFakeServer: true
+};
+require('sinon-as-promised');
 
 const resourceLists = {};
 const resourceComparators = {
