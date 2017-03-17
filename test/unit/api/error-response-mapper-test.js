@@ -1,16 +1,21 @@
+import {INTERNAL_SERVER_ERROR, NOT_FOUND} from 'http-status-codes';
 import {mapToResponse} from '../../../lib/api/error-response-mapper';
 
 require('setup-referee-sinon/globals');
 
 suite('error response mapper', () => {
-  const type = sinon.stub();
-  const code = sinon.stub();
-  const responseApi = {code, type};
-  const reply = sinon.stub().returns(responseApi);
-  const NOT_FOUND = 404;
-  const SERVER_ERROR = 500;
-  code.returns(responseApi);
-  type.returns(responseApi);
+  let type, code, reply;
+
+  setup(() => {
+    type = sinon.stub();
+    code = sinon.stub();
+
+    const responseApi = {code, type};
+
+    reply = sinon.stub().returns(responseApi);
+    code.returns(responseApi);
+    type.returns(responseApi);
+  });
 
   teardown(() => {
     code.reset();
@@ -34,7 +39,7 @@ suite('error response mapper', () => {
     test('that status is set to 500', () => {
       mapToResponse({}, reply);
 
-      assert.calledWith(code, SERVER_ERROR);
+      assert.calledWith(code, INTERNAL_SERVER_ERROR);
       assert.calledWith(reply, sinon.match({message: 'Server Error'}));
     });
   });
