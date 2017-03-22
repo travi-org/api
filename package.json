@@ -2,6 +2,7 @@
   "name": "travi-api",
   "main": "index.js",
   "license": "MIT",
+  "author": "Matt Travi <npm@travi.org> (https://matt.travi.org/)",
   "private": true,
   "repository": "travi/travi-api",
   "scripts": {
