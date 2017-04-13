@@ -50,7 +50,7 @@
     "hoek": "4.1.1",
     "husky": "0.13.3",
     "load-grunt-config": "0.19.2",
-    "markdownlint-cli": "0.2.0",
+    "markdownlint-cli": "0.3.0",
     "mocha": "3.2.0",
     "nodejs-dashboard": "0.4.1",
     "npm-run-all": "4.0.2",
