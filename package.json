@@ -54,7 +54,7 @@
     "mocha": "3.4.2",
     "nodejs-dashboard": "0.4.1",
     "npm-run-all": "4.0.2",
-    "nyc": "10.3.2",
+    "nyc": "11.0.1",
     "oz": "4.0.5",
     "proxyquire": "1.8.0",
     "referee": "1.2.0",
