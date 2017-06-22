@@ -30,8 +30,8 @@
     "npm": "3.10.x"
   },
   "devDependencies": {
-    "@travi/any": "1.0.7",
-    "@travi/eslint-config-travi": "1.2.10",
+    "@travi/any": "1.1.0",
+    "@travi/eslint-config-travi": "1.2.11",
     "babel-cli": "6.24.1",
     "babel-preset-es2015-node": "6.1.1",
     "babel-preset-stage-2": "6.24.1",
@@ -83,14 +83,14 @@
     "hapi-swaggered-ui": "2.6.0",
     "http-status-codes": "1.1.6",
     "inert": "4.2.0",
-    "joi": "10.5.2",
+    "joi": "10.6.0",
     "lodash": "4.17.4",
     "md5": "2.2.1",
     "newrelic": "1.40.0",
     "path": "0.12.7",
     "query-string": "4.3.4",
     "scarecrow": "3.0.4",
-    "snyk": "1.34.3",
+    "snyk": "1.35.0",
     "vision": "4.1.1",
     "visionary": "6.0.2"
   },
