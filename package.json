@@ -48,7 +48,7 @@
     "grunt-cli": "1.2.0",
     "grunt-flyway": "travi/grunt-flyway#credentials",
     "hoek": "4.1.1",
-    "husky": "0.14.0",
+    "husky": "0.14.1",
     "load-grunt-config": "0.19.2",
     "markdownlint-cli": "0.3.0",
     "mocha": "3.4.2",
