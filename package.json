@@ -88,7 +88,7 @@
     "md5": "2.2.1",
     "newrelic": "2.0.0",
     "path": "0.12.7",
-    "query-string": "4.3.4",
+    "query-string": "5.0.0",
     "scarecrow": "3.0.4",
     "snyk": "1.36.2",
     "vision": "4.1.1",
