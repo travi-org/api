@@ -81,7 +81,7 @@
     "hapi-mustache": "0.0.1",
     "hapi-swaggered": "2.9.0",
     "hapi-swaggered-ui": "2.6.0",
-    "http-status-codes": "1.1.6",
+    "http-status-codes": "1.2.0",
     "inert": "4.2.1",
     "joi": "10.6.0",
     "lodash": "4.17.4",
