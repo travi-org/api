@@ -44,7 +44,7 @@
     "formatio": "1.2.0",
     "globstar": "1.0.0",
     "grunt": "1.0.1",
-    "grunt-babel": "6.0.0",
+    "grunt-babel": "7.0.0",
     "grunt-cli": "1.2.0",
     "grunt-flyway": "travi/grunt-flyway#credentials",
     "hoek": "4.2.0",
