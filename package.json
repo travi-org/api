@@ -6,7 +6,7 @@
   "private": true,
   "repository": "travi/travi-api",
   "scripts": {
-    "lint:js": "eslint .",
+    "lint:js": "eslint . --cache",
     "lint:md": "globstar --node -- markdownlint **/*.md",
     "tests:unit": "mocha --recursive test/unit",
     "tests:integration": "cucumber.js test/integration --compiler js:babel-register --tags 'not @wip'",
