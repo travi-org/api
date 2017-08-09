@@ -1,37 +1,29 @@
 import Joi from 'joi';
 import deepFreeze from 'deep-freeze';
 import any from '../../../helpers/any-for-api';
-import router from '../../../../lib/api/router';
+import routes from '../../../../lib/api/routes';
 import controller from '../../../../lib/api/rides/controller';
+import * as halaciousConfigurator from '../../../../lib/api/halacious-configurator';
 import * as errorMapper from '../../../../lib/api/error-response-mapper';
 
-suite('ride router', () => {
+suite('ride routes', () => {
   const requestNoAuth = deepFreeze({auth: {}});
   const server = {
     route() {
       return undefined;
     }
   };
-  let prepare;
-  let handlers = {};
 
   setup(() => {
-    sinon.stub(server, 'route', definition => {
-      if ('/rides' === definition.path) {
-        handlers.list = definition.handler;
-        prepare = definition.config.plugins.hal.prepare;
-      } else if ('/rides/{id}' === definition.path) {
-        handlers.ride = definition.handler;
-      }
-    });
+    sinon.stub(server, 'route');
     sinon.stub(errorMapper, 'mapToResponse');
+    sinon.stub(halaciousConfigurator, 'default');
   });
 
   teardown(() => {
     errorMapper.mapToResponse.restore();
+    halaciousConfigurator.default.restore();
     server.route.restore();
-    handlers = {};
-    prepare = null;
   });
 
   suite('list route', () => {
@@ -45,17 +37,19 @@ suite('ride router', () => {
 
     test('that list route defined correctly', () => {
       const next = sinon.spy();
-      router.register(server, null, next);
+      const halaciousConfig = any.simpleObject();
+      const resourceType = 'rides';
+      halaciousConfigurator.default.withArgs(resourceType).returns(halaciousConfig);
+
+      routes.register(server, null, next);
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
-        path: '/rides',
+        path: `/${resourceType}`,
         config: {
           tags: ['api'],
           plugins: {
-            hal: {
-              api: 'rides'
-            }
+            hal: halaciousConfig
           }
         }
       }));
@@ -66,9 +60,9 @@ suite('ride router', () => {
       const reply = sinon.spy();
       const data = {foo: 'bar'};
       controller.getList.yields(null, data);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/rides'})).yieldsTo('handler', requestNoAuth, reply);
 
-      handlers.list(requestNoAuth, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(reply, data);
     });
@@ -76,49 +70,24 @@ suite('ride router', () => {
     test('that scopes are passed to controller for request with authorization', () => {
       const reply = sinon.spy();
       const scopes = any.listOf(any.string);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/rides'})).yieldsTo(
+        'handler',
+        {auth: {credentials: {scope: scopes}}},
+        reply
+      );
 
-      handlers.list({
-        auth: {
-          credentials: {scope: scopes}
-        }
-      }, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(controller.getList, scopes);
-    });
-
-    test('that list is formatted to meet hal spec', () => {
-      const next = sinon.spy();
-      const rep = {
-        entity: {
-          rides: [
-            {id: any.integer()},
-            {id: any.integer()},
-            {id: any.integer()}
-          ]
-        },
-        embed: sinon.spy(),
-        ignore: sinon.spy()
-      };
-      router.register(server, null, sinon.spy());
-
-      prepare(rep, next);
-
-      sinon.assert.callCount(rep.embed, rep.entity.rides.length);
-      rep.entity.rides.forEach(ride => {
-        assert.calledWith(rep.embed, 'rides', `./${ride.id}`, ride);
-      });
-      assert.calledWith(rep.ignore, 'rides');
-      assert.calledOnce(next);
     });
 
     test('that error mapped when list request results in error', () => {
       const reply = sinon.spy();
       const err = {};
-      router.register(server, null, sinon.spy());
       controller.getList.yields(err);
+      server.route.withArgs(sinon.match({path: '/rides'})).yieldsTo('handler', requestNoAuth, reply);
 
-      handlers.list(requestNoAuth, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
       refute.called(reply);
@@ -135,7 +104,7 @@ suite('ride router', () => {
     });
 
     test('that individual route defined correctly', () => {
-      router.register(server, null, sinon.spy());
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
@@ -156,9 +125,9 @@ suite('ride router', () => {
       const reply = sinon.spy();
       const ride = {id};
       controller.getRide.withArgs(id).yields(null, ride);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/rides/{id}'})).yieldsTo('handler', {params: {id}}, reply);
 
-      handlers.ride({params: {id}}, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(reply, ride);
     });
@@ -170,9 +139,9 @@ suite('ride router', () => {
       const reply = sinon.stub().withArgs().returns({code: setResponseCode});
       const err = {notFound: true};
       controller.getRide.withArgs(id).yields(err, null);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/rides/{id}'})).yieldsTo('handler', {params: {id}}, reply);
 
-      handlers.ride({params: {id}}, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
     });

@@ -1,37 +1,29 @@
 import Joi from 'joi';
 import deepFreeze from 'deep-freeze';
 import any from '../../../helpers/any-for-api';
-import router from '../../../../lib/api/router';
+import routes from '../../../../lib/api/routes';
 import controller from '../../../../lib/api/persons/controller';
+import * as halaciousConfigurator from '../../../../lib/api/halacious-configurator';
 import * as errorMapper from '../../../../lib/api/error-response-mapper';
 
-suite('person router', () => {
+suite('person routes', () => {
   const requestNoAuth = deepFreeze({auth: {}});
   const server = {
     route() {
       return undefined;
     }
   };
-  let prepare;
-  let handlers = {};
 
   setup(() => {
-    sinon.stub(server, 'route', definition => {
-      if ('/persons' === definition.path) {
-        handlers.list = definition.handler;
-        prepare = definition.config.plugins.hal.prepare;
-      } else if ('/persons/{id}' === definition.path) {
-        handlers.person = definition.handler;
-      }
-    });
+    sinon.stub(server, 'route');
     sinon.stub(errorMapper, 'mapToResponse');
+    sinon.stub(halaciousConfigurator, 'default');
   });
 
   teardown(() => {
     errorMapper.mapToResponse.restore();
+    halaciousConfigurator.default.restore();
     server.route.restore();
-    prepare = null;
-    handlers = {};
   });
 
   suite('list route', () => {
@@ -44,17 +36,19 @@ suite('person router', () => {
     });
 
     test('that list route defined correctly', () => {
-      router.register(server, null, sinon.spy());
+      const halaciousConfig = any.simpleObject();
+      const resourceType = 'persons';
+      halaciousConfigurator.default.withArgs(resourceType).returns(halaciousConfig);
+
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
-        path: '/persons',
+        path: `/${resourceType}`,
         config: {
           tags: ['api'],
           plugins: {
-            hal: {
-              api: 'persons'
-            }
+            hal: halaciousConfig
           }
         }
       }));
@@ -64,9 +58,9 @@ suite('person router', () => {
       const reply = sinon.spy();
       const data = {foo: 'bar'};
       controller.getList.yields(null, data);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/persons'})).yieldsTo('handler', requestNoAuth, reply);
 
-      handlers.list(requestNoAuth, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(reply, data);
     });
@@ -74,49 +68,24 @@ suite('person router', () => {
     test('that scopes are passed to controller for list request with authorization', () => {
       const reply = sinon.spy();
       const scopes = any.listOf(any.string);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/persons'})).yieldsTo(
+        'handler',
+        {auth: {credentials: {scope: scopes}}},
+        reply
+      );
 
-      handlers.list({
-        auth: {
-          credentials: {scope: scopes}
-        }
-      }, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(controller.getList, scopes);
-    });
-
-    test('that list is formatted to meet hal spec', () => {
-      const next = sinon.spy();
-      const rep = {
-        entity: {
-          persons: [
-            {id: any.integer()},
-            {id: any.integer()},
-            {id: any.integer()}
-          ]
-        },
-        embed: sinon.spy(),
-        ignore: sinon.spy()
-      };
-      router.register(server, null, sinon.spy());
-
-      prepare(rep, next);
-
-      sinon.assert.callCount(rep.embed, rep.entity.persons.length);
-      rep.entity.persons.forEach(person => {
-        assert.calledWith(rep.embed, 'persons', `./${person.id}`, person);
-      });
-      assert.calledWith(rep.ignore, 'persons');
-      assert.calledOnce(next);
     });
 
     test('that error mapped when list request results in error', () => {
       const reply = sinon.spy();
       const err = {};
-      router.register(server, null, sinon.spy());
       controller.getList.yields(err);
+      server.route.withArgs(sinon.match({path: '/persons'})).yieldsTo('handler', requestNoAuth, reply);
 
-      handlers.list(requestNoAuth, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
       refute.called(reply);
@@ -133,7 +102,7 @@ suite('person router', () => {
     });
 
     test('that individual route defined correctly', () => {
-      router.register(server, null, sinon.spy());
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
@@ -154,12 +123,13 @@ suite('person router', () => {
       const reply = sinon.spy();
       const user = {id};
       controller.getPerson.withArgs(id).yields(null, user);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/persons/{id}'})).yieldsTo(
+        'handler',
+        {params: {id}, auth: requestNoAuth.auth},
+        reply
+      );
 
-      handlers.person({
-        params: {id},
-        auth: requestNoAuth.auth
-      }, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(reply, user);
     });
@@ -168,12 +138,13 @@ suite('person router', () => {
       const id = any.integer();
       const reply = sinon.spy();
       const scopes = any.listOf(any.string);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/persons/{id}'})).yieldsTo(
+        'handler',
+        {params: {id}, auth: {credentials: {scope: scopes}}},
+        reply
+      );
 
-      handlers.person({
-        params: {id},
-        auth: {credentials: {scope: scopes}}
-      }, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(controller.getPerson, id, scopes);
     });
@@ -185,12 +156,13 @@ suite('person router', () => {
       const reply = sinon.stub().withArgs().returns({code: setResponseCode});
       const err = {notFound: true};
       controller.getPerson.withArgs(id).yields(err, null);
-      router.register(server, null, sinon.spy());
+      server.route.withArgs(sinon.match({path: '/persons/{id}'})).yieldsTo(
+        'handler',
+        {params: {id}, auth: requestNoAuth.auth},
+        reply
+      );
 
-      handlers.person({
-        params: {id},
-        auth: requestNoAuth.auth
-      }, reply);
+      routes.register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
     });
