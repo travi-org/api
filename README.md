@@ -1,10 +1,10 @@
 # API for Travi.org
 
 [![license](https://img.shields.io/github/license/travi-org/api.svg)](LICENSE)
-[![Build Status](https://img.shields.io/travis/travi-org/api/master.svg?style=flat)](https://travis-ci.org/travi/travi-api)
-[![Coverage Status](https://img.shields.io/coveralls/travi-org/api.svg?style=flat)](https://coveralls.io/r/travi/travi-api?branch=master)
-[![Code Climate](https://img.shields.io/codeclimate/github/travi-org/api.svg?style=flat)](https://codeclimate.com/github/travi/travi-api)
-[![Dependency Status](https://img.shields.io/gemnasium/travi-org/api.svg?style=flat)](https://gemnasium.com/travi/travi-api)
+[![Build Status](https://img.shields.io/travis/travi-org/api/master.svg?style=flat)](https://travis-ci.org/travi-org/api)
+[![Coverage Status](https://img.shields.io/coveralls/travi-org/api.svg?style=flat)](https://coveralls.io/r/travi-org/api?branch=master)
+[![Code Climate](https://img.shields.io/codeclimate/github/travi-org/api.svg?style=flat)](https://codeclimate.com/github/travi-org/api)
+[![Dependency Status](https://img.shields.io/gemnasium/travi-org/api.svg?style=flat)](https://gemnasium.com/travi-org/api)
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![greenkeeper badge](https://badges.greenkeeper.io/travi-org/api.svg)
