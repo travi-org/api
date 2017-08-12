@@ -44,8 +44,39 @@ and contain the necessary variable definitions.
 
 Postgres is used as the database.
 
-If installed with homebrew, ensure that the services is started with
+#### Initial setup for this application
 
 ```bash
+$ psql -c 'create database travi_api;'
+```
+
+#### Management with Homebrew
+
+##### Installation
+
+```bash
+$ brew install postgresql
+```
+
+##### Troubleshooting
+
+###### Ensure the service is started
+
+```bash
+$ brew services list
 $ brew services start postgresql
+```
+
+###### View the log
+
+```bash
+$ tail /usr/local/var/postgres/server.log
+```
+
+###### Rebuild everything
+
+```bash
+$ rm -rf /usr/local/var/postgres
+$ initdb -D /usr/local/var/postgres
+$ createdb
 ```
