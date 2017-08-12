@@ -9,5 +9,6 @@ sudo: false
 after_script: npm run report-coverage
 deploy:
   provider: heroku
+  app: travi-api
   api_key:
     secure: FFN5rzk6kuhAgJzeuOvPQO6Cces0DtoviWxUz9wS43+4fUo+9PzXBIjuB6YvB0W2/rFk17D4WU0EmmaZ0dDVH+QraAHAbJb9CcvQ7oFHHQNwHDjbuxmJSZ6FBYCaH1hk+s9xyAt1vFftIwNcAeuJ1wsS7m6Tjn1qUh6AX2Sl8fw=
