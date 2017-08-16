@@ -13,7 +13,7 @@ function assertThumbnailSizedAt(property, size, response, resourceType) {
     assert.equals(thumbnail.size, parseInt(size, 10));
   }
 
-  const embedded = response._embedded;    // eslint-disable-line no-underscore-dangle
+  const embedded = response._embedded;
   if (embedded && Array.isArray(this.getResourceListFromResponse(resourceType, response))) {
     this.getResourceListFromResponse(resourceType, response).forEach(item => {
       check(item, property);
