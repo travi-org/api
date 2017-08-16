@@ -83,7 +83,7 @@ export function World() {
   this.getResponseHeaders = () => this.serverResponse.headers;
 
   this.getResourceListFromResponse = (resourceType, response) => {
-    const resources = response._embedded[resourceType];   // eslint-disable-line no-underscore-dangle
+    const resources = response._embedded[resourceType];
     let list;
 
     if (resources.length) {

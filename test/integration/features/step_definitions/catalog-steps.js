@@ -21,7 +21,7 @@ defineSupportCode(({Given, When, Then, setWorldConstructor}) => {
 
     assert.equals(this.getResponseStatus(), OK);
     assert.equals(
-      JSON.parse(this.getResponseBody())._links,    // eslint-disable-line no-underscore-dangle
+      JSON.parse(this.getResponseBody())._links,
       {
         self: {href: `${baseUrl}/`},
         rides: {href: `${baseUrl}/rides`},

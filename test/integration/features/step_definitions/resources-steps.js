@@ -21,7 +21,7 @@ require('sinon-as-promised');
 const resourceLists = {};
 const resourceComparators = {
   rides(actualItem, expectedItem) {
-    const selfLink = actualItem._links.self.href;   // eslint-disable-line no-underscore-dangle
+    const selfLink = actualItem._links.self.href;
     const ridePath = `/rides/${expectedItem.id}`;
 
     assert.equals(ridePath, selfLink.substring(selfLink.length - ridePath.length));
@@ -29,7 +29,7 @@ const resourceComparators = {
     assert.equals(actualItem.nickname, expectedItem.nickname);
   },
   users(actualItem, expectedItem) {
-    const selfLink = actualItem._links.self.href;   // eslint-disable-line no-underscore-dangle
+    const selfLink = actualItem._links.self.href;
     const userPath = `/users/${expectedItem.id}`;
 
     assert.equals(userPath, selfLink.substring(selfLink.length - userPath.length));
@@ -38,7 +38,7 @@ const resourceComparators = {
     assert.equals(actualItem['last-name'], expectedItem['last-name']);
   },
   persons(actualItem, expectedItem) {
-    const selfLink = actualItem._links.self.href;   // eslint-disable-line no-underscore-dangle
+    const selfLink = actualItem._links.self.href;
     const personsPath = `/persons/${expectedItem.id}`;
 
     assert.equals(personsPath, selfLink.substring(selfLink.length - personsPath.length));
@@ -145,7 +145,7 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
   Then(/^an empty list is returned$/, function (callback) {
     assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
 
-    refute.defined(JSON.parse(this.getResponseBody())._embedded);   // eslint-disable-line no-underscore-dangle
+    refute.defined(JSON.parse(this.getResponseBody())._embedded);
 
     callback();
   });
@@ -169,10 +169,10 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
     const response = JSON.parse(this.getResponseBody());
     const items = this.getResourceListFromResponse(resourceType, response);
 
-    assert.defined(response._links.self);   // eslint-disable-line no-underscore-dangle
+    assert.defined(response._links.self);
     assert.greater(items.length, 0);
     items.forEach(item => {
-      assert.defined(item._links.self);     // eslint-disable-line no-underscore-dangle
+      assert.defined(item._links.self);
     });
 
     callback();
