@@ -53,7 +53,7 @@
     "markdownlint-cli": "0.3.1",
     "mocha": "3.5.0",
     "nodejs-dashboard": "0.4.1",
-    "npm-run-all": "4.0.2",
+    "npm-run-all": "4.1.0",
     "nyc": "11.1.0",
     "oz": "4.0.5",
     "proxyquire": "1.8.0",
