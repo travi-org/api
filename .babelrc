@@ -1,6 +1,6 @@
 {
-  "presets": [
-    "es2015-node",
-    "stage-2"
+  "presets": [["env", {"targets": {"node": "current"}}]],
+  "plugins": [
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
   ]
 }
