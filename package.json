@@ -51,7 +51,7 @@
     "husky": "0.14.3",
     "load-grunt-config": "0.19.2",
     "markdownlint-cli": "0.3.1",
-    "mocha": "3.5.1",
+    "mocha": "3.5.2",
     "nodejs-dashboard": "0.4.1",
     "npm-run-all": "4.1.1",
     "nyc": "11.2.1",
