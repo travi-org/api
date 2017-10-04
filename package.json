@@ -37,7 +37,7 @@
     "babel-preset-env": "1.6.0",
     "chai": "4.1.2",
     "coveralls": "2.13.1",
-    "cucumber": "3.0.3",
+    "cucumber": "3.0.4",
     "cz-conventional-changelog": "2.0.0",
     "dotenv": "4.0.0",
     "dotenv-safe": "4.0.4",
