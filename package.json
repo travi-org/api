@@ -34,7 +34,7 @@
     "@travi/eslint-config-travi": "1.5.10",
     "babel-cli": "6.26.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-env": "1.6.0",
+    "babel-preset-env": "1.6.1",
     "chai": "4.1.2",
     "coveralls": "2.13.1",
     "cucumber": "3.0.3",
