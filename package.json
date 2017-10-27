@@ -55,7 +55,7 @@
     "nodejs-dashboard": "0.4.1",
     "npm-run-all": "4.1.1",
     "nyc": "11.2.1",
-    "oz": "4.0.5",
+    "oz": "5.0.0",
     "proxyquire": "1.8.0",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
