@@ -61,7 +61,7 @@
     "referee-more-assertions": "0.2.0",
     "referee-sinon": "1.0.3",
     "setup-referee-sinon": "0.3.0",
-    "sinon": "3.3.0",
+    "sinon": "4.1.2",
     "sinon-as-promised": "4.0.3",
     "time-grunt": "1.4.0",
     "validate-commit-msg": "2.14.0"
@@ -90,7 +90,7 @@
     "path": "0.12.7",
     "query-string": "5.0.1",
     "scarecrow": "3.0.4",
-    "snyk": "1.41.1",
+    "snyk": "1.49.4",
     "vision": "4.1.1",
     "visionary": "6.0.2"
   },
