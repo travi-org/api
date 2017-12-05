@@ -30,7 +30,7 @@
     "npm": "5.5.x"
   },
   "devDependencies": {
-    "@travi/any": "1.5.1",
+    "@travi/any": "1.6.0",
     "@travi/eslint-config-travi": "1.5.10",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
