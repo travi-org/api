@@ -78,7 +78,7 @@
     "good-squeeze": "5.0.2",
     "halacious": "5.0.1",
     "hapi": "16.6.2",
-    "hapi-auth-cookie": "7.0.0",
+    "hapi-auth-cookie": "8.0.0",
     "hapi-mustache": "0.0.1",
     "hapi-swaggered": "2.12.2",
     "hapi-swaggered-ui": "2.6.2",
