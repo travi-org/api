@@ -40,7 +40,7 @@
     "coveralls": "3.0.0",
     "cucumber": "3.1.0",
     "cz-conventional-changelog": "2.1.0",
-    "dotenv": "4.0.0",
+    "dotenv": "5.0.0",
     "dotenv-safe": "4.0.4",
     "formatio": "1.2.0",
     "globstar": "1.0.0",
