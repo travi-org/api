@@ -24,7 +24,7 @@ defineSupportCode(({When, Then, setWorldConstructor}) => {
   });
 
   Then(/^the top-level endpoints should be included$/, function (callback) {
-    const paths = JSON.parse(this.getResponseBody()).paths;
+    const {paths} = JSON.parse(this.getResponseBody());
     assert.defined(paths['/rides']);
     assert.defined(paths['/persons']);
 
@@ -32,7 +32,7 @@ defineSupportCode(({When, Then, setWorldConstructor}) => {
   });
 
   Then(/^the GET by id endpoints should be included$/, function (callback) {
-    const paths = JSON.parse(this.getResponseBody()).paths;
+    const {paths} = JSON.parse(this.getResponseBody());
 
     assert.defined(paths['/rides/{id}']);
     assert.defined(paths['/persons/{id}']);
