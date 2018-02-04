@@ -21,7 +21,7 @@
     "postinstall": "grunt heroku:production",
     "dev": "nodemon lib/dev.js",
     "precommit": "npm test",
-    "commitmsg": "validate-commit-msg",
+    "commitmsg": "commitlint -e",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
   },
@@ -37,6 +37,7 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
     "chai": "4.1.2",
+    "commitlint-config-travi": "1.2.25",
     "coveralls": "3.0.0",
     "cucumber": "3.1.0",
     "cz-conventional-changelog": "2.1.0",
@@ -64,8 +65,7 @@
     "setup-referee-sinon": "0.3.0",
     "sinon": "4.2.2",
     "sinon-as-promised": "4.0.3",
-    "time-grunt": "1.4.0",
-    "validate-commit-msg": "2.14.0"
+    "time-grunt": "1.4.0"
   },
   "dependencies": {
     "bell": "8.9.0",
