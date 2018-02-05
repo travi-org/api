@@ -1,4 +1,3 @@
-import Joi from 'joi';
 import deepFreeze from 'deep-freeze';
 import any from '../../../helpers/any-for-api';
 import routes from '../../../../lib/api/routes';
@@ -113,7 +112,7 @@ suite('ride routes', () => {
           tags: ['api'],
           validate: {
             params: {
-              id: Joi.string().required()
+              // id: Joi.string().required()
             }
           }
         }
