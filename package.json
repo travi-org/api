@@ -46,7 +46,7 @@
     "dotenv-safe": "4.0.4",
     "formatio": "1.2.0",
     "globstar": "1.0.0",
-    "grunt": "1.0.1",
+    "grunt": "1.0.2",
     "grunt-babel": "7.0.0",
     "grunt-cli": "1.2.0",
     "grunt-flyway": "travi/grunt-flyway#credentials",
