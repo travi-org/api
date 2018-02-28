@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "bell": "8.9.0",
-    "boom": "7.1.1",
+    "boom": "7.2.0",
     "clone": "2.1.1",
     "deep-freeze": "0.0.1",
     "glue": "4.2.0",
