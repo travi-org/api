@@ -1,14 +1,18 @@
 language: node_js
-before_install: psql -c 'create database travi_api;' -U postgres
+sudo: false
 addons:
   postgresql: '9.4'
 services: postgresql
-env: DATABASE_URL=postgresql://postgres:@localhost/travi_api
-install: npm install
-sudo: false
+notifications:
+  email: false
+before_install: psql -c 'create database travi_api;' -U postgres
 after_script: npm run report-coverage
 deploy:
   provider: heroku
   app: travi-api
   api_key:
     secure: FFN5rzk6kuhAgJzeuOvPQO6Cces0DtoviWxUz9wS43+4fUo+9PzXBIjuB6YvB0W2/rFk17D4WU0EmmaZ0dDVH+QraAHAbJb9CcvQ7oFHHQNwHDjbuxmJSZ6FBYCaH1hk+s9xyAt1vFftIwNcAeuJ1wsS7m6Tjn1qUh6AX2Sl8fw=
+env:
+  global:
+    - DATABASE_URL=postgresql://postgres:@localhost/travi_api
+    - secure: ALW7Z79pKklCNsrxBk/U73zxOl3dOJ7tuJe3DYkkHEu2H1ce2WItRyx1z6xRK2Z25Xm2RmXLLS3Fzp2O5ZtHjdWqevXbUTqrhuZPReTDZOlqTEcvz71rZp8V5srp7jZB+WvZc+vDuuOfk/kJMSXr+hduXzHM52QA95RfVFm/ShE=
