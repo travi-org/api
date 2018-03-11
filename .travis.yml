@@ -14,5 +14,7 @@ deploy:
     secure: FFN5rzk6kuhAgJzeuOvPQO6Cces0DtoviWxUz9wS43+4fUo+9PzXBIjuB6YvB0W2/rFk17D4WU0EmmaZ0dDVH+QraAHAbJb9CcvQ7oFHHQNwHDjbuxmJSZ6FBYCaH1hk+s9xyAt1vFftIwNcAeuJ1wsS7m6Tjn1qUh6AX2Sl8fw=
 env:
   global:
-    - DATABASE_URL=postgresql://postgres:@localhost/travi_api
-    - secure: ALW7Z79pKklCNsrxBk/U73zxOl3dOJ7tuJe3DYkkHEu2H1ce2WItRyx1z6xRK2Z25Xm2RmXLLS3Fzp2O5ZtHjdWqevXbUTqrhuZPReTDZOlqTEcvz71rZp8V5srp7jZB+WvZc+vDuuOfk/kJMSXr+hduXzHM52QA95RfVFm/ShE=
+  - DATABASE_URL=postgresql://postgres:@localhost/travi_api
+  - secure: ALW7Z79pKklCNsrxBk/U73zxOl3dOJ7tuJe3DYkkHEu2H1ce2WItRyx1z6xRK2Z25Xm2RmXLLS3Fzp2O5ZtHjdWqevXbUTqrhuZPReTDZOlqTEcvz71rZp8V5srp7jZB+WvZc+vDuuOfk/kJMSXr+hduXzHM52QA95RfVFm/ShE=
+  - secure: Ep6FxUJ58oNxPknZOTWFI17W/2PgDy9V512N1RizCBmk1z8uza/5Jv0s5F7iMDL8JPjvtSadKiwpRq+kJwFY2lGU8xczvrCYZAfq+4+HejlDYABw8359V3RuKhh1L2jmGNv1NaNeup2ceHc2ImWnJ6G4pokrY6QpOf6qcJCUDNY=
+  - secure: h35ln4QUYZwIxjhIR3Yo0fmULHzzOYgxcwUZWyJubhKvn8VJQzSYcXp1eSRyjLi31XDoLw8IOWre5tqJfpxdcFdWd4oEPWNMy1MMgGH0n8SllfsMjwEHFhbdUYUwa3bMLB7Rgk20zwXhT+U9lPat3WJkD/tnHMicFxQHmpJwmlU=
