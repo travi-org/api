@@ -10,8 +10,10 @@ Verifier.verifyProvider({
   providerBaseUrl: `http://0.0.0.0:${defaultPort}`,
   provider: 'travi-api',
   logLevel: 'debug',
-  providerVersion: process.env.TRAVIS_COMMIT,
-  publishVerificationResult: true
+  ...process.env.TRAVIS_COMMIT && {
+    providerVersion: process.env.TRAVIS_COMMIT,
+    publishVerificationResult: true
+  }
 })
   .then(foo => console.log({foo}))        // eslint-disable-line no-console
   .catch(err => console.log({err}));      // eslint-disable-line no-console
