@@ -1,4 +1,5 @@
-const {Verifier} = require('pact');
+import {Verifier} from 'pact';
+import {defaultPort} from '../lib/manifest';
 
 require('dotenv').config({silent: true});
 
@@ -6,7 +7,7 @@ Verifier.verifyProvider({
   pactBrokerUrl: 'https://pact-api.travi.org/',
   pactBrokerUsername: process.env.PACT_BROKER_USER,
   pactBrokerPassword: process.env.PACT_BROKER_PASSWORD,
-  providerBaseUrl: 'http://0.0.0.0:4444',
+  providerBaseUrl: `http://0.0.0.0:${defaultPort}`,
   provider: 'travi-api',
   logLevel: 'debug',
   providerVersion: process.env.TRAVIS_COMMIT,
