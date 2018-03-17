@@ -16,7 +16,6 @@
     "tests:pact": "run-s pact:verify",
     "prepact:verify": "npm start & echo $! > $TMPDIR/pact-verify.pid",
     "pact:verify": "babel-node scripts/verify-pacts.js",
-    "postpact:verify": "kill -TERM `cat $TMPDIR/pact-verify.pid`",
     "test": "run-s lint:* tests:*",
     "report-coverage": "nyc report --reporter=text-lcov | coveralls",
     "babel": "babel lib --source-maps --out-dir dist",

@@ -6,6 +6,9 @@ services: postgresql
 notifications:
   email: false
 before_install: psql -c 'create database travi_api;' -U postgres
+script:
+  - npm test
+  - kill -TERM `cat $TMPDIR/pact-verify.pid`
 after_script: npm run report-coverage
 deploy:
   provider: heroku
