@@ -8,6 +8,8 @@ notifications:
 before_install: psql -c 'create database travi_api;' -U postgres
 script:
   - npm test
+  - node dist/app.js & echo $! > $TMPDIR/pact-verify.pid
+  - babel-node scripts/verify-pacts.js
   - kill -TERM `cat $TMPDIR/pact-verify.pid`
 after_script: npm run report-coverage
 deploy:
