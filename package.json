@@ -63,7 +63,7 @@
     "nyc": "11.6.0",
     "oz": "4.0.5",
     "pact": "4.3.2",
-    "proxyquire": "2.0.0",
+    "proxyquire": "2.0.1",
     "referee": "1.2.0",
     "referee-more-assertions": "0.2.0",
     "referee-sinon": "1.0.3",
