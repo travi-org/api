@@ -60,7 +60,7 @@
     "mocha": "5.1.1",
     "nodejs-dashboard": "0.4.3",
     "npm-run-all": "4.1.2",
-    "nyc": "11.7.1",
+    "nyc": "11.7.2",
     "oz": "4.0.5",
     "pact": "4.3.2",
     "proxyquire": "2.0.1",
