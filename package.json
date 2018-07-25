@@ -31,8 +31,8 @@
     "prepublish": "npm run snyk-protect"
   },
   "engines": {
-    "node": "8.9.x",
-    "npm": "5.6.x"
+    "node": "10.7.x",
+    "npm": "6.1.x"
   },
   "devDependencies": {
     "@travi/any": "1.7.3",

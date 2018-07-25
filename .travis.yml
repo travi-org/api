@@ -6,6 +6,7 @@ services: postgresql
 notifications:
   email: false
 before_install: psql -c 'create database travi_api;' -U postgres
+install: case $TRAVIS_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
 after_script: npm run report-coverage
 deploy:
   provider: heroku
