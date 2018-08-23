@@ -99,7 +99,7 @@
     "query-string": "^6.1.0",
     "scarecrow": "^3.0.4",
     "snyk": "^1.89.0",
-    "vision": "^4.1.1",
+    "vision": "^5.4.0",
     "visionary": "6.0.2"
   },
   "config": {
