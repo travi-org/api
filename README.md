@@ -74,6 +74,12 @@ $ brew services start postgresql
 $ tail /usr/local/var/postgres/server.log
 ```
 
+###### Remove the pid file
+
+```sh
+$ rm /usr/local/var/postgres/postmaster.pid
+```
+
 ###### Rebuild everything
 
 ```bash
