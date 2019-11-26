@@ -6,6 +6,7 @@ import {OK} from 'http-status-codes';
 process.env.AUTH0_CLIENT_ID = any.string();
 process.env.AUTH0_CLIENT_SECRET = any.string();
 process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = any.string();
+process.env.DATABASE_URL = any.url();
 
 export function World() {
   const loadApi = require('../../../../lib/app.js');
