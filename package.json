@@ -75,7 +75,7 @@
     "setup-referee-sinon": "0.3.0",
     "sinon": "4.5.0",
     "sinon-as-promised": "4.0.3",
-    "snyk": "1.265.0",
+    "snyk": "1.266.0",
     "time-grunt": "2.0.0"
   },
   "dependencies": {
