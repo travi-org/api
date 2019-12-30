@@ -73,7 +73,7 @@
     "referee-sinon": "1.0.3",
     "rimraf": "3.0.0",
     "setup-referee-sinon": "0.3.0",
-    "sinon": "4.5.0",
+    "sinon": "8.0.2",
     "sinon-as-promised": "4.0.3",
     "snyk": "1.269.0",
     "time-grunt": "2.0.0"
