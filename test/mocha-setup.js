@@ -1,11 +1,8 @@
 import sinon from 'sinon';
+import chai from 'chai';
 
-sinon.behavior = require('sinon/lib/sinon/behavior');
+sinon.assert.expose(chai.assert, {prefix: ''});
 
-sinon.defaultConfig = {
-  injectInto: null,
-  properties: ['spy', 'stub', 'mock', 'clock', 'server', 'requests'],
-  useFakeTimers: true,
-  useFakeServer: true
-};
-require('sinon-as-promised');
+process.on('unhandledRejection', reason => {
+  throw reason;
+});

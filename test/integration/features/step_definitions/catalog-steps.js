@@ -1,9 +1,7 @@
-import referee, {assert} from 'referee';
+import {assert} from 'chai';
 import {OK} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
 import {World} from '../support/world';
-
-referee.format = require('formatio').configure({quoteStrings: false}).ascii;
 
 defineSupportCode(({Given, When, Then, setWorldConstructor}) => {
   setWorldConstructor(World);
@@ -19,8 +17,8 @@ defineSupportCode(({Given, When, Then, setWorldConstructor}) => {
   Then(/^the catalog should include top level links$/, function (callback) {
     const baseUrl = this.getBaseUrl();
 
-    assert.equals(this.getResponseStatus(), OK);
-    assert.equals(
+    assert.equal(this.getResponseStatus(), OK);
+    assert.deepEqual(
       JSON.parse(this.getResponseBody())._links,
       {
         self: {href: `${baseUrl}/`},

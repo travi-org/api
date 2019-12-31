@@ -1,3 +1,5 @@
+import sinon from 'sinon';
+import {assert} from 'chai';
 import any from '../../../helpers/any-for-api';
 import controller from '../../../../lib/api/rides/controller';
 import repo from '../../../../lib/api/rides/repository';
@@ -31,7 +33,7 @@ suite('rides controller', () => {
 
     controller.getList(undefined, callback);
 
-    assert.calledOnceWith(callback, error);
+    assert.calledWith(callback, error);
   });
 
   test('that not-found error returned for non-existent ride', () => {

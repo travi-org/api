@@ -1,3 +1,5 @@
+import sinon from 'sinon';
+import {assert} from 'chai';
 import any from '../../../helpers/any-for-api';
 import controller from '../../../../lib/api/persons/controller';
 import mapper from '../../../../lib/api/persons/mapper';
@@ -43,7 +45,7 @@ suite('users controller', () => {
 
     controller.getList(undefined, callback);
 
-    assert.calledOnceWith(callback, error);
+    assert.calledWith(callback, error);
   });
 
   test('that not-found error returned for non-existent user', () => {

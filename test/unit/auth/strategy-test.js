@@ -1,4 +1,6 @@
 import * as any from '@travi/any';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import {register} from '../../../lib/auth/strategy';
 
 suite('authentication strategy', () => {
@@ -9,7 +11,7 @@ suite('authentication strategy', () => {
   });
 
   test('that the plugin is defined', () => {
-    assert.equals(register.attributes, {
+    assert.deepEqual(register.attributes, {
       name: 'authentication-strategy',
       dependencies: ['bell', 'hapi-auth-cookie']
     });

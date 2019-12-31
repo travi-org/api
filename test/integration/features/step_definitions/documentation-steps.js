@@ -1,9 +1,7 @@
-import referee, {assert} from 'referee';
+import {assert} from 'chai';
 import {OK} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
 import {World} from '../support/world';
-
-require('referee-more-assertions')(referee);
 
 defineSupportCode(({When, Then, setWorldConstructor}) => {
   setWorldConstructor(World);
@@ -13,8 +11,8 @@ defineSupportCode(({When, Then, setWorldConstructor}) => {
   });
 
   Then(/^the documentation should be viewable in the browser$/, function (callback) {
-    assert.equals(this.getResponseStatus(), OK);
-    assert.equals(this.getResponseHeaders()['content-type'], 'text/html; charset=utf-8');
+    assert.equal(this.getResponseStatus(), OK);
+    assert.equal(this.getResponseHeaders()['content-type'], 'text/html; charset=utf-8');
 
     callback();
   });
@@ -25,8 +23,8 @@ defineSupportCode(({When, Then, setWorldConstructor}) => {
 
   Then(/^the top-level endpoints should be included$/, function (callback) {
     const {paths} = JSON.parse(this.getResponseBody());
-    assert.defined(paths['/rides']);
-    assert.defined(paths['/persons']);
+    assert.isDefined(paths['/rides']);
+    assert.isDefined(paths['/persons']);
 
     callback();
   });
@@ -34,8 +32,8 @@ defineSupportCode(({When, Then, setWorldConstructor}) => {
   Then(/^the GET by id endpoints should be included$/, function (callback) {
     const {paths} = JSON.parse(this.getResponseBody());
 
-    assert.defined(paths['/rides/{id}']);
-    assert.defined(paths['/persons/{id}']);
+    assert.isDefined(paths['/rides/{id}']);
+    assert.isDefined(paths['/persons/{id}']);
 
     callback();
   });

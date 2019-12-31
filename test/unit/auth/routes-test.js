@@ -1,4 +1,6 @@
 import Boom from 'boom';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import * as any from '@travi/any';
 import routes from '../../../lib/auth/routes';
 
@@ -6,7 +8,7 @@ suite('auth routes', () => {
   let sandbox;
 
   setup(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Boom, 'unauthorized');
   });
 
@@ -15,7 +17,7 @@ suite('auth routes', () => {
   });
 
   test('that the plugin is defined', () => {
-    assert.equals(routes.register.attributes, {
+    assert.deepEqual(routes.register.attributes, {
       name: 'authentication-routes'
     });
   });
@@ -100,7 +102,7 @@ suite('auth routes', () => {
 
     routes.register(server, null, sinon.spy());
 
-    assert.calledOnce(reply.redirect, originalRoute);
+    assert.calledWith(reply.redirect, originalRoute);
   });
 
   test('that the scopes route is defined', () => {

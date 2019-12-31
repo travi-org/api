@@ -5,6 +5,7 @@ import path from 'path';
 import {OK} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
 import sinon from 'sinon';
+import {assert} from 'chai';
 import {World} from '../support/world';
 import any from '../../../helpers/any-for-api';
 
@@ -16,7 +17,6 @@ sinon.defaultConfig = {
   useFakeTimers: true,
   useFakeServer: true
 };
-require('sinon-as-promised');
 
 const resourceLists = {};
 const resourceComparators = {
@@ -24,30 +24,29 @@ const resourceComparators = {
     const selfLink = actualItem._links.self.href;
     const ridePath = `/rides/${expectedItem.id}`;
 
-    assert.equals(ridePath, selfLink.substring(selfLink.length - ridePath.length));
-    assert.equals(actualItem.id, expectedItem.id);
-    assert.equals(actualItem.nickname, expectedItem.nickname);
+    assert.equal(ridePath, selfLink.substring(selfLink.length - ridePath.length));
+    assert.equal(actualItem.id, expectedItem.id);
+    assert.equal(actualItem.nickname, expectedItem.nickname);
   },
   users(actualItem, expectedItem) {
     const selfLink = actualItem._links.self.href;
     const userPath = `/users/${expectedItem.id}`;
 
-    assert.equals(userPath, selfLink.substring(selfLink.length - userPath.length));
-    assert.equals(actualItem.id, expectedItem.id);
-    assert.equals(actualItem['first-name'], expectedItem['first-name']);
-    assert.equals(actualItem['last-name'], expectedItem['last-name']);
+    assert.equal(userPath, selfLink.substring(selfLink.length - userPath.length));
+    assert.equal(actualItem.id, expectedItem.id);
+    assert.equal(actualItem['first-name'], expectedItem['first-name']);
+    assert.equal(actualItem['last-name'], expectedItem['last-name']);
   },
   persons(actualItem, expectedItem) {
     const selfLink = actualItem._links.self.href;
     const personsPath = `/persons/${expectedItem.id}`;
 
-    assert.equals(personsPath, selfLink.substring(selfLink.length - personsPath.length));
-    assert.equals(actualItem.id, expectedItem.id);
-    assert.equals(actualItem['first-name'], expectedItem['first-name']);
-    assert.equals(actualItem['last-name'], expectedItem['last-name']);
+    assert.equal(personsPath, selfLink.substring(selfLink.length - personsPath.length));
+    assert.equal(actualItem.id, expectedItem.id);
+    assert.equal(actualItem['first-name'], expectedItem['first-name']);
+    assert.equal(actualItem['last-name'], expectedItem['last-name']);
   }
 };
-require('setup-referee-sinon/globals');
 
 function makeSingular(resourceType) {
   return resourceType.substring(0, resourceType.length - 1);
@@ -128,12 +127,12 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
   });
 
   Then(/^a list of "([^"]*)" is returned$/, function (resourceType, callback) {
-    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
+    assert.equal(this.getResponseStatus(), OK, this.getResponseBody());
 
     const actualList = this.getResourceListFromResponse(resourceType, JSON.parse(this.getResponseBody()));
     const expectedList = getListForType(resourceType);
 
-    assert.equals(actualList.length, expectedList.length);
+    assert.equal(actualList.length, expectedList.length);
     actualList.forEach((actualItem, index) => {
       const expectedItem = expectedList[index];
       resourceComparators[resourceType](actualItem, expectedItem);
@@ -143,24 +142,24 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
   });
 
   Then(/^an empty list is returned$/, function (callback) {
-    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
+    assert.equal(this.getResponseStatus(), OK, this.getResponseBody());
 
-    refute.defined(JSON.parse(this.getResponseBody())._embedded);
+    assert.isUndefined(JSON.parse(this.getResponseBody())._embedded);
 
     callback();
   });
 
   Then(/^person "([^"]*)" is returned$/, function (person, callback) {
-    assert.equals(this.getResponseStatus(), OK, this.getResponseBody());
+    assert.deepEqual(this.getResponseStatus(), OK, this.getResponseBody());
 
-    assert.equals(JSON.parse(this.getResponseBody())['first-name'], person);
+    assert.deepEqual(JSON.parse(this.getResponseBody())['first-name'], person);
 
     callback();
   });
 
   Then(/^ride "([^"]*)" is returned$/, function (ride, callback) {
-    assert.equals(this.getResponseStatus(), OK);
-    assert.equals(JSON.parse(this.getResponseBody()).nickname, ride);
+    assert.equal(this.getResponseStatus(), OK);
+    assert.deepEqual(JSON.parse(this.getResponseBody()).nickname, ride);
 
     callback();
   });
@@ -169,10 +168,10 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
     const response = JSON.parse(this.getResponseBody());
     const items = this.getResourceListFromResponse(resourceType, response);
 
-    assert.defined(response._links.self);
-    assert.greater(items.length, 0);
+    assert.isDefined(response._links.self);
+    assert.isAbove(items.length, 0);
     items.forEach(item => {
-      assert.defined(item._links.self);
+      assert.isDefined(item._links.self);
     });
 
     callback();

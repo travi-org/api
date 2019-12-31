@@ -1,5 +1,5 @@
 import oz from 'oz';
-import {assert} from 'referee';
+import {assert} from 'chai';
 import any from '@travi/any';
 import {OK} from 'http-status-codes';
 
@@ -25,7 +25,7 @@ export function World() {
         payload: requestDetails.payload
       },
       () => {
-        assert.equals(this.getResponseStatus(), OK, this.serverResponse.payload);
+        assert.deepEqual(this.getResponseStatus(), OK, this.serverResponse.payload);
 
         callback(null, this.serverResponse.result);
       }
