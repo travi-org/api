@@ -1,4 +1,6 @@
 import deepFreeze from 'deep-freeze';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import any from '../../../helpers/any-for-api';
 import routes from '../../../../lib/api/routes';
 import controller from '../../../../lib/api/persons/controller';
@@ -87,7 +89,7 @@ suite('person routes', () => {
       routes.register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
-      refute.called(reply);
+      assert.notCalled(reply);
     });
   });
 

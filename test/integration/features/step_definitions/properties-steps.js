@@ -1,12 +1,13 @@
 import {defineSupportCode} from 'cucumber';
+import {assert} from 'chai';
 import {World} from '../support/world';
 
 function assertPropertyIsPopulatedInResource(type, property) {
-  assert.defined(type[property]);
+  assert.isDefined(type[property]);
 }
 
 function assertPropertyIsNotPopulatedInResource(type, property) {
-  refute.defined(type[property]);
+  assert.isUndefined(type[property]);
 }
 
 function assertPropertyIn(property, resourceType, check) {

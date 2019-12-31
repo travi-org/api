@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import any from '../../../helpers/any-for-api';
 import repo from '../../../../lib/api/persons/repository';
-
-require('setup-referee-sinon/globals');
 
 function setUpDataFile(data) {
   fs.readFile.withArgs(

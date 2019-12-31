@@ -1,5 +1,6 @@
 import {OK, NOT_FOUND} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
+import {assert} from 'chai';
 import {World} from '../support/world';
 import loadApi from '../../../../lib/app';
 
@@ -25,7 +26,7 @@ defineSupportCode(({Before, After, When, Then, setWorldConstructor}) => {
   });
 
   Then(/^the response will be "([^"]*)"$/, function (status, callback) {
-    assert.equals(this.getResponseStatus(), statuses[status]);
+    assert.deepEqual(this.getResponseStatus(), statuses[status]);
 
     callback();
   });

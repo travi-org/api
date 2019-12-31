@@ -1,4 +1,6 @@
 import * as any from '@travi/any';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import proxyquire from 'proxyquire';
 
 suite('application authorization', () => {

@@ -1,16 +1,17 @@
 import queryString from 'query-string';
 import {defineSupportCode} from 'cucumber';
+import {assert} from 'chai';
 import {World} from '../support/world';
 
 function assertThumbnailSizedAt(property, size, response, resourceType) {
   function check(item, prop) {
     const thumbnail = item[prop];
 
-    assert.equals(
+    assert.equal(
       queryString.parse(queryString.extract(thumbnail.src)).size,
       size
     );
-    assert.equals(thumbnail.size, parseInt(size, 10));
+    assert.equal(thumbnail.size, parseInt(size, 10));
   }
 
   const embedded = response._embedded;

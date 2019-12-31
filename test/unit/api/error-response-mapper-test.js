@@ -1,7 +1,7 @@
 import {INTERNAL_SERVER_ERROR, NOT_FOUND} from 'http-status-codes';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import {mapToResponse} from '../../../lib/api/error-response-mapper';
-
-require('setup-referee-sinon/globals');
 
 suite('error response mapper', () => {
   let type, code, reply;

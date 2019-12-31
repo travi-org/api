@@ -1,5 +1,7 @@
 import proxyquire from 'proxyquire';
 import * as any from '@travi/any';
+import sinon from 'sinon';
+import {assert} from 'chai';
 
 suite('api authorization', () => {
   const grantList = any.listOf(any.simpleObject);

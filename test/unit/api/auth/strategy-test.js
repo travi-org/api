@@ -1,10 +1,12 @@
+import sinon from 'sinon';
+import {assert} from 'chai';
 import {register} from '../../../../lib/api/auth/strategy';
 import apps from '../../../../lib/api/auth/apps';
 import grants from '../../../../lib/api/auth/grants';
 
 suite('api authorization', () => {
   test('that the plugin is defined', () => {
-    assert.equals(register.attributes, {
+    assert.deepEqual(register.attributes, {
       name: 'auth-strategy',
       dependencies: 'scarecrow'
     });

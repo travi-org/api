@@ -1,4 +1,6 @@
 import any from '@travi/any';
+import sinon from 'sinon';
+import {assert} from 'chai';
 import configurator from '../../../lib/api/halacious-configurator';
 
 suite('halacious configurator', () => {
@@ -7,7 +9,7 @@ suite('halacious configurator', () => {
   test('that halacious config is returned for the provided resource-type', () => {
     const halaciousConfig = configurator(resourceType);
 
-    assert.equals(halaciousConfig.api, resourceType);
+    assert.equal(halaciousConfig.api, resourceType);
   });
 
   test('that list is formatted to meet hal spec', () => {
