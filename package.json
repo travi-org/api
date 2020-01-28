@@ -72,7 +72,7 @@
     "referee-sinon": "1.0.3",
     "rimraf": "3.0.1",
     "sinon": "8.1.0",
-    "snyk": "1.285.0",
+    "snyk": "1.286.0",
     "time-grunt": "2.0.0"
   },
   "dependencies": {
