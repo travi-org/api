@@ -15,15 +15,13 @@ defineSupportCode(({Given, When, Then, setWorldConstructor}) => {
   });
 
   Then(/^the catalog should include top level links$/, function (callback) {
-    const baseUrl = this.getBaseUrl();
-
     assert.equal(this.getResponseStatus(), OK);
     assert.deepEqual(
       JSON.parse(this.getResponseBody())._links,
       {
-        self: {href: `${baseUrl}/`},
-        rides: {href: `${baseUrl}/rides`},
-        persons: {href: `${baseUrl}/persons`}
+        self: {href: '/'},
+        rides: {href: '/rides'},
+        persons: {href: '/persons'}
       }
     );
 
