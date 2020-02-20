@@ -1,7 +1,7 @@
 version: ~> 1.0
 import:
   - form8ion/.travis-ci:node.yml
-  - travi-org/.travis-ci:heroku-api-key-env.yml
+  - travi-org/.travis-ci:authenticated-heroku-deploy.yml
 addons:
   postgresql: '9.4'
 services: postgresql
@@ -9,13 +9,10 @@ notifications:
   email: false
 before_install: psql -c 'create database travi_api;' -U postgres
 after_script: npm run report-coverage
-deploy:
-  provider: heroku:git
-  app: travi-api
-  edge: true
 env:
   global:
   - TMPDIR=/tmp/
+  - HEROKU_APP=travi-api
   - DATABASE_URL=postgresql://postgres:@localhost/travi_api
   - secure: ALW7Z79pKklCNsrxBk/U73zxOl3dOJ7tuJe3DYkkHEu2H1ce2WItRyx1z6xRK2Z25Xm2RmXLLS3Fzp2O5ZtHjdWqevXbUTqrhuZPReTDZOlqTEcvz71rZp8V5srp7jZB+WvZc+vDuuOfk/kJMSXr+hduXzHM52QA95RfVFm/ShE=
   - secure: Ep6FxUJ58oNxPknZOTWFI17W/2PgDy9V512N1RizCBmk1z8uza/5Jv0s5F7iMDL8JPjvtSadKiwpRq+kJwFY2lGU8xczvrCYZAfq+4+HejlDYABw8359V3RuKhh1L2jmGNv1NaNeup2ceHc2ImWnJ6G4pokrY6QpOf6qcJCUDNY=
