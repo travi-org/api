@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/travi-org/api.svg)](LICENSE)
 
-[![Build Status](https://img.shields.io/travis/travi-org/api/master.svg?style=flat)](https://travis-ci.org/travi-org/api)
+[![Build Status](https://img.shields.io/travis/com/travi-org/api/master.svg?style=flat)](https://travis-ci.com/travi-org/api)
 [![Coverage Status](https://img.shields.io/coveralls/travi-org/api.svg?style=flat)](https://coveralls.io/r/travi-org/api?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/github/travi-org/api.svg?style=flat)](https://codeclimate.com/github/travi-org/api)
 [![travi.org-admin/travi-api Pact Status](https://pact-api.travi.org/pacts/provider/travi-api/consumer/travi.org-admin/latest/badge.svg?style=flat)](https://pact-api.travi.org)
