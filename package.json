@@ -27,8 +27,6 @@
     "start": "node dist/app.js",
     "heroku:production": "run-s build",
     "dev": "nodemon lib/app.js",
-    "precommit": "npm test",
-    "commitmsg": "commitlint -e",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
   },
