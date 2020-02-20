@@ -1,5 +1,7 @@
-language: node_js
-sudo: false
+version: ~> 1.0
+import:
+  - form8ion/.travis-ci:node.yml
+  - travi-org/.travis-ci:heroku-api-key-env.yml
 addons:
   postgresql: '9.4'
 services: postgresql
@@ -10,8 +12,7 @@ after_script: npm run report-coverage
 deploy:
   provider: heroku
   app: travi-api
-  api_key:
-    secure: HzcUbFXr86z8lS1ypU/ss/gS3RaTqhyFMgFGi8FpTwMSVGdi33yjozBPPgiTWkjuME577J8h79ffVpHTGQX84UFQO6wMW707BDoKxdJsJSOd8Ed1muv5nDI0K8s7HcrKmqduBM5HW2md0uEiJtOj+qQetpCsS8bsfhZDAJ9lfbY=
+  edge: true
 env:
   global:
   - TMPDIR=/tmp/
