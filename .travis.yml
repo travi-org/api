@@ -10,7 +10,7 @@ notifications:
 before_install: psql -c 'create database travi_api;' -U postgres
 after_script: npm run report-coverage
 deploy:
-  provider: heroku
+  provider: heroku:git
   app: travi-api
   edge: true
 env:
