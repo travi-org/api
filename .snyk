@@ -1,8 +1,25 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:marked:20170112':
     - halacious > marked:
         patched: '2017-02-10T15:09:06.464Z'
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - hapi-swaggered > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - halacious > async > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - halacious > jshint > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - newrelic > async > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - halacious > pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - halacious > pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
+    - halacious > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-05-01T00:56:34.690Z'
