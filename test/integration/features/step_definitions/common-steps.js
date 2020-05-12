@@ -1,8 +1,7 @@
-import {OK, NOT_FOUND} from 'http-status-codes';
+import {NOT_FOUND, OK} from 'http-status-codes';
 import {defineSupportCode} from 'cucumber';
 import {assert} from 'chai';
 import {World} from '../support/world';
-import loadApi from '../../../../lib/app';
 
 const statuses = {
   'Not Found': NOT_FOUND,
@@ -12,8 +11,8 @@ const statuses = {
 defineSupportCode(({Before, After, When, Then, setWorldConstructor}) => {
   setWorldConstructor(World);
 
-  Before((scenario, callback) => {
-    loadApi.then(() => callback());
+  Before(async function () {
+    this.server = await require('../../../../lib/app.js').default;
   });
 
   After(function () {

@@ -9,8 +9,6 @@ process.env.AUTH_COOKIE_ENCRYPTION_PASSWORD = any.string();
 process.env.DATABASE_URL = any.url();
 
 export function World() {
-  const loadApi = require('../../../../lib/app.js');
-
   this.makeOzRequest = (requestDetails, appDetails, callback) => {
     const method = 'POST';
     const url = `http://example.com${requestDetails.endpoint}`;
@@ -33,23 +31,20 @@ export function World() {
   };
 
   this.requestTo = (options, callback) => {
-    loadApi.then(server => {
-      this.serverResponse = null;
-      this.server = server;
+    this.serverResponse = null;
 
-      const headers = {Accept: this.mime, ...options.headers};
+    const headers = {Accept: this.mime, ...options.headers};
 
-      server.inject({
-        method: options.method,
-        url: options.url,
-        payload: options.payload,
-        headers
-      }, response => {
-        this.serverResponse = response;
+    this.server.inject({
+      method: options.method,
+      url: options.url,
+      payload: options.payload,
+      headers
+    }, response => {
+      this.serverResponse = response;
 
-        callback();
-      });
-    }).catch(callback);
+      callback();
+    });
   };
 
   this.getRequestTo = (uri, callback) => {
