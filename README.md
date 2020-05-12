@@ -1,14 +1,19 @@
 # API for Travi.org
 
-[![license](https://img.shields.io/github/license/travi-org/api.svg)](LICENSE)
+<!--status-badges start -->
 
 [![Build Status](https://img.shields.io/travis/com/travi-org/api/master.svg?style=flat)](https://travis-ci.com/travi-org/api)
 [![Coverage Status](https://img.shields.io/coveralls/travi-org/api.svg?style=flat)](https://coveralls.io/r/travi-org/api?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/github/travi-org/api.svg?style=flat)](https://codeclimate.com/github/travi-org/api)
 [![travi.org-admin/travi-api Pact Status](https://pact-api.travi.org/pacts/provider/travi-api/consumer/travi.org-admin/latest/badge.svg?style=flat)](https://pact-api.travi.org)
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![greenkeeper badge](https://badges.greenkeeper.io/travi-org/api.svg)
+<!--status-badges end -->
+
+<!--consumer-badges start -->
+
+[![license](https://img.shields.io/github/license/travi-org/api.svg)](LICENSE)
+
+<!--consumer-badges end -->
 
 ## Try It
 
@@ -32,7 +37,14 @@ of api development to node.
   - [ ] Pact Provider
   - [x] Leverage the [broker](https://pact-api.travi.org) the share pacts from consumers
 
-## Local Development
+## Contribution
+
+<!--contribution-badges start -->
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+![greenkeeper badge](https://badges.greenkeeper.io/travi-org/api.svg)
+
+<!--contribution-badges end -->
 
 ### Environment variables
 
