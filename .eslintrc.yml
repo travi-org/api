@@ -1,1 +1,5 @@
-extends: '@travi/travi/rules/es6'
+extends:
+  - '@travi'
+  - '@travi/hal'
+  - '@travi/mocha'
+  - '@travi/cucumber'

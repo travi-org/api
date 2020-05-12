@@ -2,7 +2,7 @@ import deepFreeze from 'deep-freeze';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '../../../helpers/any-for-api';
-import routes from '../../../../lib/api/routes';
+import {register} from '../../../../lib/api/routes';
 import controller from '../../../../lib/api/persons/controller';
 import * as halaciousConfigurator from '../../../../lib/api/halacious-configurator';
 import * as errorMapper from '../../../../lib/api/error-response-mapper';
@@ -41,7 +41,7 @@ suite('person routes', () => {
       const resourceType = 'persons';
       halaciousConfigurator.default.withArgs(resourceType).returns(halaciousConfig);
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
@@ -61,7 +61,7 @@ suite('person routes', () => {
       controller.getList.yields(null, data);
       server.route.withArgs(sinon.match({path: '/persons'})).yieldsTo('handler', requestNoAuth, reply);
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(reply, data);
     });
@@ -75,7 +75,7 @@ suite('person routes', () => {
         reply
       );
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(controller.getList, scopes);
     });
@@ -86,7 +86,7 @@ suite('person routes', () => {
       controller.getList.yields(err);
       server.route.withArgs(sinon.match({path: '/persons'})).yieldsTo('handler', requestNoAuth, reply);
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
       assert.notCalled(reply);
@@ -103,7 +103,7 @@ suite('person routes', () => {
     });
 
     test('that individual route defined correctly', () => {
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(server.route, sinon.match({
         method: 'GET',
@@ -130,7 +130,7 @@ suite('person routes', () => {
         reply
       );
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(reply, user);
     });
@@ -145,7 +145,7 @@ suite('person routes', () => {
         reply
       );
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(controller.getPerson, id, scopes);
     });
@@ -163,7 +163,7 @@ suite('person routes', () => {
         reply
       );
 
-      routes.register(server, null, sinon.spy());
+      register(server, null, sinon.spy());
 
       assert.calledWith(errorMapper.mapToResponse, err, reply);
     });

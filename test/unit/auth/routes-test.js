@@ -2,7 +2,7 @@ import Boom from 'boom';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import * as any from '@travi/any';
-import routes from '../../../lib/auth/routes';
+import {register} from '../../../lib/auth/routes';
 
 suite('auth routes', () => {
   let sandbox;
@@ -17,7 +17,7 @@ suite('auth routes', () => {
   });
 
   test('that the plugin is defined', () => {
-    assert.deepEqual(routes.register.attributes, {
+    assert.deepEqual(register.attributes, {
       name: 'authentication-routes'
     });
   });
@@ -43,7 +43,7 @@ suite('auth routes', () => {
     };
     server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', request, reply);
 
-    routes.register(server, null, next);
+    register(server, null, next);
 
     assert.calledWith(server.route, sinon.match({
       method: ['GET', 'POST'],
@@ -72,7 +72,7 @@ suite('auth routes', () => {
     }, reply);
     Boom.unauthorized.withArgs(`Authentication failed due to: ${message}`).returns(error);
 
-    routes.register(server, null, sinon.spy());
+    register(server, null, sinon.spy());
 
     assert.calledWith(reply, error);
   });
@@ -100,7 +100,7 @@ suite('auth routes', () => {
     };
     server.route.withArgs(sinon.match({path: '/login'})).yieldsTo('handler', request, reply);
 
-    routes.register(server, null, sinon.spy());
+    register(server, null, sinon.spy());
 
     assert.calledWith(reply.redirect, originalRoute);
   });
@@ -113,7 +113,7 @@ suite('auth routes', () => {
     };
     server.route.withArgs(sinon.match({path: '/scopes'})).yieldsTo('handler', {}, reply);
 
-    routes.register(server, null, next);
+    register(server, null, next);
 
     assert.calledWith(server.route, sinon.match({
       method: 'GET',

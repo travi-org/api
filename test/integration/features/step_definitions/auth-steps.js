@@ -41,7 +41,7 @@ function getUserTicket(callback) {
 defineSupportCode(({Given, setWorldConstructor}) => {
   setWorldConstructor(World);
 
-  Given(/^request is anonymous$/, callback => {
+  Given(/^request is anonymous$/, function (callback) {
     callback();
   });
 

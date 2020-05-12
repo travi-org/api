@@ -6,7 +6,7 @@ import {World} from '../support/world';
 defineSupportCode(({Given, When, Then, setWorldConstructor}) => {
   setWorldConstructor(World);
 
-  Given(/^the api contains no resources$/, callback => {
+  Given(/^the api contains no resources$/, function (callback) {
     callback();
   });
 

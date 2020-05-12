@@ -37,9 +37,7 @@ export function World() {
       this.serverResponse = null;
       this.server = server;
 
-      const headers = Object.assign({
-        Accept: this.mime
-      }, options.headers);
+      const headers = {Accept: this.mime, ...options.headers};
 
       server.inject({
         method: options.method,

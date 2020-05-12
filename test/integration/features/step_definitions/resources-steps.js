@@ -76,31 +76,31 @@ defineSupportCode(({After, Given, When, Then, setWorldConstructor}) => {
     }
   });
 
-  Given(/^the list of "([^"]*)" is empty$/, (resourceType, callback) => {
+  Given(/^the list of "([^"]*)" is empty$/, function (resourceType, callback) {
     defineListForType(resourceType, []);
 
     callback();
   });
 
-  Given(/^the list of "([^"]*)" is not empty$/, (resourceType, callback) => {
+  Given(/^the list of "([^"]*)" is not empty$/, function (resourceType, callback) {
     defineListForType(resourceType, any.listOf(any.resources[makeSingular(resourceType)], {min: 1}));
 
     callback();
   });
 
-  Given(/^person "([^"]*)" exists$/, (person, callback) => {
+  Given(/^person "([^"]*)" exists$/, function (person, callback) {
     callback();
   });
 
-  Given(/^ride "([^"]*)" exists$/, (ride, callback) => {
+  Given(/^ride "([^"]*)" exists$/, function (ride, callback) {
     callback();
   });
 
-  Given(/^person "([^"]*)" does not exist$/, (person, callback) => {
+  Given(/^person "([^"]*)" does not exist$/, function (person, callback) {
     callback();
   });
 
-  Given(/^ride "([^"]*)" does not exist$/, (ride, callback) => {
+  Given(/^ride "([^"]*)" does not exist$/, function (ride, callback) {
     callback();
   });
 
