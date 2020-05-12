@@ -42,7 +42,6 @@ of api development to node.
 <!--contribution-badges start -->
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![greenkeeper badge](https://badges.greenkeeper.io/travi-org/api.svg)
 [![Renovate][renovate-badge]][renovate-link]
 
 <!--contribution-badges end -->
