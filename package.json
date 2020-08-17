@@ -103,7 +103,7 @@
     "scarecrow": "3.0.4",
     "vision": "4.1.1",
     "visionary": "6.0.2",
-    "snyk": "1.376.0"
+    "snyk": "1.377.0"
   },
   "config": {
     "commitizen": {
