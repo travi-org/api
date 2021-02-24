@@ -97,7 +97,7 @@
     "joi": "14.3.1",
     "lodash": "4.17.21",
     "md5": "2.3.0",
-    "newrelic": "7.1.1",
+    "newrelic": "7.1.2",
     "path": "0.12.7",
     "query-string": "6.14.0",
     "scarecrow": "3.0.4",
