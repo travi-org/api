@@ -35,7 +35,7 @@
     "npm": "6.x.x"
   },
   "devDependencies": {
-    "@travi/any": "2.0.17",
+    "@travi/any": "2.0.18",
     "@travi/eslint-config": "1.0.67",
     "@travi/eslint-config-cucumber": "1.0.5",
     "@travi/eslint-config-hal": "1.0.0",
