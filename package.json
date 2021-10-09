@@ -46,7 +46,7 @@
     "babel-preset-env": "1.7.0",
     "chai": "4.3.4",
     "check-engine": "1.10.1",
-    "commitlint-config-travi": "1.4.0",
+    "commitlint-config-travi": "1.4.1",
     "coveralls": "3.1.1",
     "cucumber": "6.0.5",
     "cz-conventional-changelog": "3.3.0",
