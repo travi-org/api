@@ -9,7 +9,7 @@
     "clean": "rimraf dist/",
     "lint:js": "eslint . --cache",
     "lint:md": "globstar --node -- markdownlint **/*.md",
-    "lint:engines": "check-engine",
+    "lint:engines": "ls-engines",
     "tests:unit": "nyc run-s tests:unit:base",
     "tests:unit:base": "mocha --recursive test/unit",
     "tests:integration:base": "cucumber-js test/integration --require-module babel-register --format-options '{\"snippetInterface\": \"async-await\"}' --exit",
