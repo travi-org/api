@@ -1,5 +1,5 @@
 import {NOT_FOUND, OK} from 'http-status-codes';
-import {defineSupportCode} from 'cucumber';
+import {defineSupportCode} from '@cucumber/cucumber';
 import {assert} from 'chai';
 import {World} from '../support/world';
 

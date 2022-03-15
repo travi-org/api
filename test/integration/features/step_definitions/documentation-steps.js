@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 import {OK} from 'http-status-codes';
-import {defineSupportCode} from 'cucumber';
+import {defineSupportCode} from '@cucumber/cucumber';
 import {World} from '../support/world';
 
 defineSupportCode(({When, Then, setWorldConstructor}) => {
