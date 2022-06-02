@@ -3,7 +3,7 @@ import hoek from 'hoek';
 import _ from 'lodash';
 import path from 'path';
 import {OK} from 'http-status-codes';
-import {defineSupportCode} from 'cucumber';
+import {defineSupportCode} from '@cucumber/cucumber';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import {World} from '../support/world';
