@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.25.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -23,3 +23,8 @@ patch:
         patched: '2020-05-01T00:56:34.690Z'
     - halacious > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
         patched: '2020-05-01T00:56:34.690Z'
+  'npm:hoek:20180212':
+    - halacious > joi > topo > hoek:
+        patched: '2024-03-14T15:28:19.099Z'
+        id: 'npm:hoek:20180212'
+        path: halacious > joi > topo > hoek

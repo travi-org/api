@@ -27,7 +27,7 @@
     "start": "node dist/app.js",
     "heroku:production": "run-s build",
     "dev": "nodemon lib/app.js",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepublish": "npm run snyk-protect"
   },
   "engines": {
@@ -101,9 +101,9 @@
     "path": "0.12.7",
     "query-string": "7.0.1",
     "scarecrow": "3.0.4",
-    "snyk": "1.1064.0",
     "vision": "4.1.1",
-    "visionary": "6.0.2"
+    "visionary": "6.0.2",
+    "@snyk/protect": "latest"
   },
   "config": {
     "commitizen": {
